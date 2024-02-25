@@ -8,8 +8,6 @@ namespace GamGUI
     {
         public InteractionPrompt interactionPrompt;
         public GameObject gameOverScreen;
-        public GameObject wandControl;
-        public GameObject scrollControl;
         public Image basicAttackImage;
         public Image specialImage;
         public Image potionImage;
@@ -26,9 +24,10 @@ namespace GamGUI
         private void Update()
         {
             if (_player.Special != null) specialImage.sprite = _player.Special.GetSprite();
+            specialImage.enabled = _player.Special != null;
+
             if (_player.Scroll != null) scrollImage.sprite = _player.Scroll.GetSprite();
-            // wandControl.SetActive(_player.Special != null);
-            // scrollControl.SetActive(_player.Scroll != null);
+            scrollImage.enabled = _player.Scroll != null;
         }
     }
 }

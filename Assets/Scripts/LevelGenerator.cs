@@ -25,17 +25,6 @@ public class LevelGenerator : MonoBehaviour
         GenerateLevel4();
     }
 
-    public void ResetLevels()
-    {
-        for (var i = 0; i < gameObject.transform.childCount; i++)
-        {
-            var child = gameObject.transform.GetChild(i);
-            Destroy(child.gameObject);
-        }
-
-        Generate();
-    }
-
     private Platform GeneratePlatform(float xVariation, float yVariation, float platformWidth)
     {
         _lastLocation = new Vector2(_lastLocation.x + xVariation,

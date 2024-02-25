@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using Cinemachine;
 using GamGUI;
 using Scrolls;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
     private float _attackCooldown;
     private GameGUI _gameGUI;
     private float _hVelocity;
-    private Vector2 _initialPosition;
     private bool _isAttackHeld;
     private bool _isDead;
     private bool _isJumpHeld;
@@ -67,7 +66,6 @@ public class Player : MonoBehaviour
         _levelManager = FindObjectOfType<LevelManager>();
         _gameGUI = FindObjectOfType<GameGUI>();
         wandObject.SetActive(false);
-        _initialPosition = transform.position;
     }
 
     private void Update()
@@ -269,12 +267,8 @@ public class Player : MonoBehaviour
     {
         if (context.performed && _isDead)
         {
-            ResetPlayerState();
-            _levelManager.Reset();
-            _gameGUI.gameOverScreen.SetActive(false);
-            var cinemachine = FindObjectOfType<CinemachineVirtualCamera>();
-            cinemachine.ForceCameraPosition(cinemachine.m_Follow.position, Quaternion.identity);
             Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -298,29 +292,6 @@ public class Player : MonoBehaviour
         var fireballStartPosition = playerPosition + fireballDirectionVector;
         var rotation = Quaternion.FromToRotation(Vector2.right, fireballDirectionVector);
         Instantiate(fireballPrefab, fireballStartPosition, rotation);
-    }
-
-    private void ResetPlayerState()
-    {
-        lives = 3;
-        maxLives = 3;
-        mana = 1f;
-        maxMana = 1;
-        lastPlatform = null;
-        Special = null;
-        Scroll = null;
-        invincible = false;
-        _attackCooldown = 0f;
-        _spawnTimer = 0f;
-        _isDead = false;
-        _isAttackHeld = false;
-        _isJumpHeld = false;
-        _hVelocity = 0f;
-        _prevXVelocity = 0f;
-        _animator.SetBool(IsWalking, false);
-        _animator.SetBool(IsJumping, false);
-        _animator.SetBool(IsInvincible, false);
-        transform.position = _initialPosition;
     }
 
     private bool IsGrounded()

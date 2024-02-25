@@ -5,15 +5,6 @@ public class LevelManager : MonoBehaviour
     private int _currentLevel = 1;
     private Lava _lava;
 
-    public void Reset()
-    {
-        _lava.isHalted = false;
-        _lava.isPaused = true;
-        _lava.transform.position = _lava.initialPosition;
-        _currentLevel = 1;
-        FindObjectOfType<LevelGenerator>().ResetLevels();
-    }
-
     private void Start()
     {
         _lava = FindObjectOfType<Lava>();

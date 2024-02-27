@@ -6,7 +6,10 @@ public class Chest : MonoBehaviour
     private static readonly int Open = Animator.StringToHash("Open");
     private static readonly int Looted = Animator.StringToHash("Looted");
     public SpriteRenderer rewardSpriteRenderer;
+    public AudioClip openClip;
+    public AudioClip lootClip;
     private Animator _animator;
+    private AudioSource _audioSource;
     private IChestReward _contents;
     private bool _looted;
     private bool _opened;
@@ -18,6 +21,7 @@ public class Chest : MonoBehaviour
         _prompt = FindObjectOfType<InteractionPrompt>(true);
         _player = FindObjectOfType<Player>().gameObject;
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -35,20 +39,26 @@ public class Chest : MonoBehaviour
 
     public void Interact()
     {
-        if (!_opened)
-        {
-            _contents = Utils.InstantiateRandomChestReward();
-            var rewardSprite = _contents.GetSprite();
-            rewardSpriteRenderer.sprite = rewardSprite;
-            _opened = true;
-            _animator.SetTrigger(Open);
-        }
-        else if (!_looted)
-        {
-            _looted = true;
-            _animator.SetTrigger(Looted);
-            _contents.Acquire();
-        }
+        if (!_opened) OpenChest();
+        else if (!_looted) LootChest();
+    }
+
+    private void OpenChest()
+    {
+        _contents = Utils.InstantiateRandomChestReward();
+        var rewardSprite = _contents.GetSprite();
+        rewardSpriteRenderer.sprite = rewardSprite;
+        _opened = true;
+        _animator.SetTrigger(Open);
+        _audioSource.PlayOneShot(openClip);
+    }
+
+    private void LootChest()
+    {
+        _looted = true;
+        _animator.SetTrigger(Looted);
+        _contents.Acquire();
+        _audioSource.PlayOneShot(lootClip);
     }
 
     private void DisplayPrompt()

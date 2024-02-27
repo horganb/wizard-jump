@@ -10,6 +10,7 @@ namespace Enemies
         public float minJumpDistance = 4f;
         public float maxJumpDistance = 6f;
         public float jumpInterval = 1f;
+        public AudioClip[] jumps;
 
         private float _jumpTimer;
 
@@ -29,6 +30,7 @@ namespace Enemies
                         jumpX = Math.Clamp(jumpX, minJumpDistance, maxJumpDistance);
                     var jumpVector = new Vector2(jumpX, jumpHeight);
                     RigidBody.AddForce(jumpVector, ForceMode2D.Impulse);
+                    AudioSource.PlayOneShot(Utils.RandomFromArray(jumps));
                 }
             }
             else

@@ -8,6 +8,7 @@ public class Lava : MonoBehaviour
     public float speedGrowRate = 5f;
     public bool isPaused;
     public bool isHalted;
+    public AudioClip lavaDeathClip;
 
     private Camera _mainCamera;
     private Player _player;

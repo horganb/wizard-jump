@@ -31,6 +31,9 @@ public class Player : MonoBehaviour
     public GameObject wandObject;
     public Light2D wandLight;
     public bool invincible;
+    public AudioClip jumpClip;
+    public AudioClip shootClip;
+    public AudioSource audioSource;
 
     private Animator _animator;
     private float _attackCooldown;
@@ -62,6 +65,7 @@ public class Player : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         _mainCamera = Camera.main;
         _levelManager = FindObjectOfType<LevelManager>();
         _gameGUI = FindObjectOfType<GameGUI>();
@@ -99,6 +103,7 @@ public class Player : MonoBehaviour
                 _jumpHeldDuration = 0f;
                 _isJumpReleased = false;
                 _rigidBody.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+                audioSource.PlayOneShot(jumpClip);
             }
             else if (!_isJumpReleased && _jumpHeldDuration <= jumpAdditionDuration)
             {
@@ -153,15 +158,16 @@ public class Player : MonoBehaviour
         var platform = col.gameObject.GetComponent<Platform>();
         if (platform != null) lastPlatform = platform;
 
-        if (col.gameObject.GetComponent<Lava>() != null) OnLava();
+        var lava = col.gameObject.GetComponent<Lava>();
+        if (lava != null) OnLava(lava);
     }
 
-    private void OnLava()
+    private void OnLava(Lava lava)
     {
+        audioSource.PlayOneShot(lava.lavaDeathClip);
         var isDead = LoseLife();
         if (!isDead)
         {
-            var lava = FindObjectOfType<Lava>().gameObject;
             GameObject lowestPlatform = null;
             foreach (var platform in FindObjectsOfType<Platform>())
                 if (platform.transform.position.y >= lava.transform.position.y + 1f && (lowestPlatform == null ||
@@ -241,6 +247,7 @@ public class Player : MonoBehaviour
 
     public void UseScroll(InputAction.CallbackContext context)
     {
+        audioSource.Play();
         if (_isDead) return;
         if (context.performed && Scroll != null) Scroll.Cast(GetMousePositionInWorld());
     }
@@ -286,6 +293,7 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
+        audioSource.PlayOneShot(shootClip);
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;
         var fireballDirectionVector = (mousePosition - playerPosition).normalized;

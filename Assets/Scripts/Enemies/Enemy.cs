@@ -7,6 +7,8 @@ namespace Enemies
     {
         public float verticalTriggerDistance = 6f;
         public float horizontalTriggerDistance = 10f;
+        public AudioClip deathClip;
+        protected AudioSource AudioSource;
         protected bool IsDead;
         protected GameObject Player;
         protected Rigidbody2D RigidBody;
@@ -18,6 +20,7 @@ namespace Enemies
             Player = FindObjectOfType<Player>().gameObject;
             RigidBody = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
+            AudioSource = GetComponent<AudioSource>();
         }
 
         protected virtual void Update()
@@ -38,7 +41,12 @@ namespace Enemies
                 OnDie(impactVector);
             }
 
-            if (col.gameObject.GetComponent<Lava>() != null) Destroy(gameObject);
+            var lava = col.gameObject.GetComponent<Lava>();
+            if (lava != null && SpriteRenderer.enabled)
+            {
+                AudioSource.PlayClipAtPoint(lava.lavaDeathClip, transform.position);
+                Destroy(gameObject);
+            }
         }
 
         protected virtual void OnHitPlayer(Player player)
@@ -55,6 +63,7 @@ namespace Enemies
 
         protected virtual void OnDie(Vector2 impactVector)
         {
+            AudioSource.PlayOneShot(deathClip);
             var spriteRenderer = GetComponent<SpriteRenderer>();
             var color = spriteRenderer.color;
             color.a = 0.5f;

@@ -16,6 +16,7 @@ namespace Special
             if (Player.mana < ManaCost) return;
             Player.mana -= ManaCost;
             Player.transform.position = worldPosition;
+            Player.audioSource.PlayOneShot(AudioLibrary.teleport);
         }
     }
 }

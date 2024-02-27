@@ -59,6 +59,7 @@ namespace Enemies
             RigidBody.gravityScale = 1f;
             RigidBody.freezeRotation = false;
             RigidBody.AddTorque(-3f, ForceMode2D.Impulse);
+            AudioSource.Stop();
             base.OnDie(impactVector);
         }
 

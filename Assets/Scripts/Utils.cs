@@ -30,7 +30,13 @@ public static class Utils
         var choices = (from t in Assembly.GetExecutingAssembly().GetTypes()
             where !t.IsAbstract && typeof(IChestReward).IsAssignableFrom(t)
             select t).ToArray();
-        var index = (int)Math.Floor((decimal)Random.Range(0, choices.Count()));
-        return Activator.CreateInstance(choices[index]) as IChestReward;
+        var rewardType = RandomFromArray(choices);
+        return Activator.CreateInstance(rewardType) as IChestReward;
+    }
+
+    public static T RandomFromArray<T>(T[] choices)
+    {
+        var index = (int)Math.Floor((decimal)Random.Range(0, choices.Length));
+        return choices[index];
     }
 }

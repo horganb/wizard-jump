@@ -1,4 +1,5 @@
 ﻿using System;
+using Singletons;
 using UnityEngine;
 
 namespace Enemies
@@ -10,14 +11,12 @@ namespace Enemies
         public AudioClip deathClip;
         protected AudioSource AudioSource;
         protected bool IsDead;
-        protected GameObject Player;
         protected Rigidbody2D RigidBody;
         protected SpriteRenderer SpriteRenderer;
 
 
         protected virtual void Start()
         {
-            Player = FindObjectOfType<Player>().gameObject;
             RigidBody = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
             AudioSource = GetComponent<AudioSource>();
@@ -74,7 +73,7 @@ namespace Enemies
 
         protected bool WithinTriggerDistanceOfPlayer()
         {
-            var vectorToPlayer = Player.transform.position - gameObject.transform.position;
+            var vectorToPlayer = Player.Instance.transform.position - gameObject.transform.position;
             return Math.Abs(vectorToPlayer.x) < horizontalTriggerDistance &&
                    Math.Abs(vectorToPlayer.y) < verticalTriggerDistance;
         }

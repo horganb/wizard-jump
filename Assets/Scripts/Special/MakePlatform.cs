@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Singletons;
+using UnityEngine;
 
 namespace Special
 {
@@ -13,13 +14,12 @@ namespace Special
 
         public override void Cast(Vector2 worldPosition)
         {
-            if (Player.mana < ManaCost) return;
-            Player.mana -= ManaCost;
-            var levelGenerator = Object.FindObjectOfType<LevelGenerator>();
-            var lastPlatform = Player.lastPlatform;
+            if (Player.Instance.mana < ManaCost) return;
+            Player.Instance.mana -= ManaCost;
+            var lastPlatform = Player.Instance.lastPlatform;
             var platformLevel = lastPlatform.level;
             if (lastPlatform.isReward) platformLevel += 1;
-            levelGenerator.PlacePlatform(worldPosition, 2f, platformLevel);
+            LevelGenerator.Instance.PlacePlatform(worldPosition, 2f, platformLevel);
         }
     }
 }

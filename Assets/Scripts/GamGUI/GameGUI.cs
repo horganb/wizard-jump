@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Singletons;
+using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
 namespace GamGUI
 {
-    public class GameGUI : MonoBehaviour
+    public class GameGUI : SingletonMonoBehaviour<GameGUI>
     {
         public InteractionPrompt interactionPrompt;
         public GameObject gameOverScreen;
@@ -14,20 +15,13 @@ namespace GamGUI
         public Image scrollImage;
         public SpriteLibrary spriteLibrary;
 
-        private Player _player;
-
-        private void Start()
-        {
-            _player = FindObjectOfType<Player>();
-        }
-
         private void Update()
         {
-            if (_player.Special != null) specialImage.sprite = _player.Special.GetSprite();
-            specialImage.enabled = _player.Special != null;
+            if (Player.Instance.Special != null) specialImage.sprite = Player.Instance.Special.GetSprite();
+            specialImage.enabled = Player.Instance.Special != null;
 
-            if (_player.Scroll != null) scrollImage.sprite = _player.Scroll.GetSprite();
-            scrollImage.enabled = _player.Scroll != null;
+            if (Player.Instance.Scroll != null) scrollImage.sprite = Player.Instance.Scroll.GetSprite();
+            scrollImage.enabled = Player.Instance.Scroll != null;
         }
     }
 }

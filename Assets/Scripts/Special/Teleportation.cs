@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Singletons;
+using UnityEngine;
 
 namespace Special
 {
@@ -13,10 +14,10 @@ namespace Special
 
         public override void Cast(Vector2 worldPosition)
         {
-            if (Player.mana < ManaCost) return;
-            Player.mana -= ManaCost;
-            Player.transform.position = worldPosition;
-            Player.audioSource.PlayOneShot(AudioLibrary.teleport);
+            if (Player.Instance.mana < ManaCost) return;
+            Player.Instance.mana -= ManaCost;
+            Player.Instance.transform.position = worldPosition;
+            Player.Instance.audioSource.PlayOneShot(AudioLibrary.Instance.teleport);
         }
     }
 }

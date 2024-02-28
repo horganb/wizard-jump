@@ -17,7 +17,7 @@ namespace Enemies
         // Update is called once per frame
         protected override void AliveUpdate()
         {
-            var vectorToPlayer = Player.transform.position - gameObject.transform.position;
+            var vectorToPlayer = Player.Instance.transform.position - gameObject.transform.position;
             if (WithinTriggerDistanceOfPlayer()) SpriteRenderer.flipX = vectorToPlayer.x > 0;
             var unitVectorToPlayer = vectorToPlayer.normalized;
 

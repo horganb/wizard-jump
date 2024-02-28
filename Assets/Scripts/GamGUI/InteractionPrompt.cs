@@ -1,9 +1,10 @@
-﻿using TMPro;
+﻿using Singletons;
+using TMPro;
 using UnityEngine;
 
 namespace GamGUI
 {
-    public class InteractionPrompt : MonoBehaviour
+    public class InteractionPrompt : SingletonMonoBehaviour<InteractionPrompt>
     {
         public TMP_Text action;
         public TMP_Text description;

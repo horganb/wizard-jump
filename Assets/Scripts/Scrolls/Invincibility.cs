@@ -11,8 +11,8 @@ namespace Scrolls
 
         public override void Cast(Vector2 worldPosition)
         {
-            Player.Scroll = null;
-            Player.StartCoroutine(Player.SetInvincibleFor(5f));
+            Player.Instance.Scroll = null;
+            Player.Instance.StartCoroutine(Player.Instance.SetInvincibleFor(5f));
         }
     }
 }

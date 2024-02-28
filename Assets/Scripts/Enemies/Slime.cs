@@ -16,7 +16,7 @@ namespace Enemies
 
         protected override void AliveUpdate()
         {
-            var vectorToPlayer = Player.transform.position - gameObject.transform.position;
+            var vectorToPlayer = Player.Instance.transform.position - gameObject.transform.position;
             if (WithinTriggerDistanceOfPlayer())
             {
                 _jumpTimer += Time.deltaTime;

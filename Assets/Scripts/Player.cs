@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using GamGUI;
 using Scrolls;
+using Singletons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class Player : MonoBehaviour
+public class Player : SingletonMonoBehaviour<Player>
 {
     private const float SpeedFractionWhileJumping = 0.5f;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
@@ -37,14 +38,12 @@ public class Player : MonoBehaviour
 
     private Animator _animator;
     private float _attackCooldown;
-    private GameGUI _gameGUI;
     private float _hVelocity;
     private bool _isAttackHeld;
     private bool _isDead;
     private bool _isJumpHeld;
     private bool _isJumpReleased;
     private float _jumpHeldDuration;
-    private LevelManager _levelManager;
     private Vector2 _looking;
     private Camera _mainCamera;
     private bool _prevGrounded;
@@ -55,8 +54,9 @@ public class Player : MonoBehaviour
     public Scroll Scroll;
     public Special.Special Special;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // IMPORTANT: this has to run first
         Random.InitState(DateTime.Now.Millisecond);
     }
@@ -67,8 +67,6 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         _mainCamera = Camera.main;
-        _levelManager = FindObjectOfType<LevelManager>();
-        _gameGUI = FindObjectOfType<GameGUI>();
         wandObject.SetActive(false);
     }
 
@@ -81,7 +79,7 @@ public class Player : MonoBehaviour
         if (justLanded)
         {
             _rigidBody.velocity = new Vector2(_prevXVelocity, _rigidBody.velocity.y);
-            _levelManager.PlayerOnPlatform(lastPlatform);
+            LevelManager.Instance.PlayerOnPlatform(lastPlatform);
         }
 
         if (_hVelocity != 0f)
@@ -193,7 +191,7 @@ public class Player : MonoBehaviour
     public void OnDie()
     {
         Time.timeScale = 0f;
-        _gameGUI.gameOverScreen.SetActive(true);
+        GameGUI.Instance.gameOverScreen.SetActive(true);
     }
 
     public bool HasInvincibility()
@@ -261,13 +259,13 @@ public class Player : MonoBehaviour
     public void Interact(InputAction.CallbackContext context)
     {
         if (_isDead) return;
-        if (context.performed) _gameGUI.interactionPrompt.Interact();
+        if (context.performed) GameGUI.Instance.interactionPrompt.Interact();
     }
 
     public void Cheat(InputAction.CallbackContext context)
     {
         if (_isDead) return;
-        if (context.performed) _levelManager.SkipToNextLevel();
+        if (context.performed) LevelManager.Instance.SkipToNextLevel();
     }
 
     public void Retry(InputAction.CallbackContext context)

@@ -13,27 +13,23 @@ public class Chest : MonoBehaviour
     private IChestReward _contents;
     private bool _looted;
     private bool _opened;
-    private GameObject _player;
-    private InteractionPrompt _prompt;
 
     private void Start()
     {
-        _prompt = FindObjectOfType<InteractionPrompt>(true);
-        _player = FindObjectOfType<Player>().gameObject;
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        if (Vector2.Distance(_player.transform.position, gameObject.transform.position) <= 2f)
+        if (Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 2f)
         {
-            _prompt.activeObject = gameObject;
+            InteractionPrompt.Instance.activeObject = gameObject;
             DisplayPrompt();
         }
-        else if (_prompt.activeObject == gameObject)
+        else if (InteractionPrompt.Instance.activeObject == gameObject)
         {
-            _prompt.Hide();
+            InteractionPrompt.Instance.Hide();
         }
     }
 
@@ -64,10 +60,10 @@ public class Chest : MonoBehaviour
     private void DisplayPrompt()
     {
         if (!_opened)
-            _prompt.Display("Open Chest");
+            InteractionPrompt.Instance.Display("Open Chest");
         else if (!_looted)
-            _prompt.Display("Take", _contents.Name());
+            InteractionPrompt.Instance.Display("Take", _contents.Name());
         else
-            _prompt.Hide();
+            InteractionPrompt.Instance.Hide();
     }
 }

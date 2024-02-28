@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Singletons;
+using UnityEngine;
 
 namespace Scrolls
 {
@@ -11,9 +12,8 @@ namespace Scrolls
 
         public override void Cast(Vector2 worldPosition)
         {
-            Player.Scroll = null;
-            var lava = Object.FindObjectOfType<Lava>();
-            lava.StartCoroutine(lava.HaltLavaFor(5f));
+            Player.Instance.Scroll = null;
+            Lava.Instance.StartCoroutine(Lava.Instance.HaltLavaFor(5f));
         }
     }
 }

@@ -19,6 +19,13 @@ namespace Special
 
         public virtual void Cast(Vector2 worldPosition)
         {
+            if (Player.Instance.orbs < 1) return;
+            Player.Instance.UseOrb();
+            OnCast(worldPosition);
+        }
+
+        public virtual void OnCast(Vector2 worldPosition)
+        {
         }
 
         public virtual void CastStart()

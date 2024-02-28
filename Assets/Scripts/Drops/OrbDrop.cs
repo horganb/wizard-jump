@@ -2,14 +2,14 @@
 
 namespace Drops
 {
-    public class HealthDrop : MonoBehaviour
+    public class OrbDrop : MonoBehaviour
     {
         private void Update()
         {
             if (Vector2.Distance(transform.position, Player.Instance.transform.position) <= 1f &&
-                Player.Instance.health < Player.Instance.maxHealth)
+                Player.Instance.orbs < Player.Instance.maxOrbs)
             {
-                Player.Instance.OnGainHealth(0.5f);
+                Player.Instance.ChangeOrbs(1);
                 Destroy(gameObject);
             }
         }

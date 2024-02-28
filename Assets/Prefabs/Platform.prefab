@@ -314,6 +314,8 @@ MonoBehaviour:
   leftPlatform: {fileID: 256458088085514585}
   middlePlatform: {fileID: 6047768388482908731}
   rightPlatform: {fileID: 5015471973275014210}
+  level: 0
+  isReward: 0
 --- !u!210 &7327491648132774283
 SortingGroup:
   m_ObjectHideFlags: 0

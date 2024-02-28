@@ -22,12 +22,11 @@ public class Player : SingletonMonoBehaviour<Player>
     public float jumpAddition = 5f;
     public float jumpAdditionDuration = 0.5f;
     public GameObject fireballPrefab;
-    public int lives = 3;
-    public int maxLives = 3;
-    public float mana = 1f;
-    public int maxMana = 1;
+    public float health = 3;
+    public float maxHealth = 3;
+    public int orbs;
+    public int maxOrbs = 1;
     public float attackSpeed = 0.5f;
-    public float manaRegen = 0.25f;
     public Platform lastPlatform;
     public GameObject wandObject;
     public Light2D wandLight;
@@ -138,17 +137,8 @@ public class Player : SingletonMonoBehaviour<Player>
         wandObject.SetActive(Special != null);
         if (Special != null) Special.Update();
 
-        // mana
-        if (mana < maxMana)
-        {
-            wandLight.intensity = 0f;
-            mana += Time.deltaTime * manaRegen;
-            mana = Math.Clamp(mana, 0f, maxMana);
-        }
-        else
-        {
-            wandLight.intensity = 1f;
-        }
+        // orbs
+        wandLight.intensity = orbs >= 1 ? 1f : 0f;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -163,7 +153,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private void OnLava(Lava lava)
     {
         audioSource.PlayOneShot(lava.lavaDeathClip);
-        var isDead = LoseLife();
+        var isDead = LoseHealth(1f);
         if (!isDead)
         {
             GameObject lowestPlatform = null;
@@ -177,15 +167,35 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    public bool LoseLife()
+    public void OnGainHealth(float gainedHealth)
+    {
+        ChangeHealth(gainedHealth);
+    }
+
+    public bool LoseHealth(float lostHealth)
     {
         if (HasInvincibility()) return false;
 
-        lives -= 1;
-        _isDead = lives == 0;
+        ChangeHealth(-lostHealth);
+        _isDead = health == 0f;
         if (_isDead) OnDie();
         else _spawnTimer = 1f;
         return _isDead;
+    }
+
+    public void ChangeHealth(float healthChange)
+    {
+        health = Math.Clamp(health + healthChange, 0f, maxHealth);
+    }
+
+    public void UseOrb()
+    {
+        ChangeOrbs(-1);
+    }
+
+    public void ChangeOrbs(int orbsChange)
+    {
+        orbs = Math.Clamp(orbs + orbsChange, 0, maxOrbs);
     }
 
     public void OnDie()

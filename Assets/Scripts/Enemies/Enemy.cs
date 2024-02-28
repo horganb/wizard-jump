@@ -1,6 +1,7 @@
 ﻿using System;
 using Singletons;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -10,6 +11,7 @@ namespace Enemies
         public float horizontalTriggerDistance = 10f;
         public AudioClip deathClip;
         protected AudioSource AudioSource;
+        protected float Damage = 0.5f;
         protected bool IsDead;
         protected Rigidbody2D RigidBody;
         protected SpriteRenderer SpriteRenderer;
@@ -53,7 +55,7 @@ namespace Enemies
             var impactVector = player.gameObject.transform.position - gameObject.transform.position;
             var knockbackVector = new Vector2(impactVector.x * 10f, 5f);
             player.GetComponent<Rigidbody2D>().AddForce(knockbackVector, ForceMode2D.Impulse);
-            player.LoseLife();
+            player.LoseHealth(Damage);
         }
 
         protected virtual void AliveUpdate()
@@ -69,6 +71,10 @@ namespace Enemies
             spriteRenderer.color = color;
             RigidBody.AddForce(impactVector * 6f, ForceMode2D.Impulse);
             GetComponent<Collider2D>().enabled = false;
+            if (Random.value <= 0.1f)
+                Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);
+            else if (Random.value <= 0.2f)
+                Instantiate(PrefabLibrary.Instance.orbDrop, transform.position, Quaternion.identity);
         }
 
         protected bool WithinTriggerDistanceOfPlayer()

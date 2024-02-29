@@ -3045,7 +3045,6 @@ MonoBehaviour:
   orbs: 0
   maxOrbs: 1
   attackSpeed: 0.4
-  manaRegen: 0.25
   lastPlatform: {fileID: 0}
   wandObject: {fileID: 1973074491}
   wandLight: {fileID: 1392690242}
@@ -3053,6 +3052,7 @@ MonoBehaviour:
   jumpClip: {fileID: 8300000, guid: 1fffd3865780b604d8ce0626fa86bc76, type: 3}
   shootClip: {fileID: 8300000, guid: f17f2450a03015c489e6d0ae85835885, type: 3}
   audioSource: {fileID: 0}
+  hitClip: {fileID: 8300000, guid: 584a8f431744e024e8de8701826091e7, type: 3}
 --- !u!95 &989123963
 Animator:
   serializedVersion: 5
@@ -5951,7 +5951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1973074492
 Transform:
   m_ObjectHideFlags: 0

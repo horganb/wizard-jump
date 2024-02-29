@@ -34,6 +34,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public AudioClip jumpClip;
     public AudioClip shootClip;
     public AudioSource audioSource;
+    public AudioClip hitClip;
 
     private Animator _animator;
     private float _attackCooldown;

@@ -56,6 +56,7 @@ namespace Enemies
             var knockbackVector = new Vector2(impactVector.x * 10f, 5f);
             player.GetComponent<Rigidbody2D>().AddForce(knockbackVector, ForceMode2D.Impulse);
             player.LoseHealth(Damage);
+            player.audioSource.PlayOneShot(player.hitClip);
         }
 
         protected virtual void AliveUpdate()

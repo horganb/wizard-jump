@@ -283,10 +283,11 @@ MonoBehaviour:
   verticalTriggerDistance: 6
   horizontalTriggerDistance: 10
   deathClip: {fileID: 8300000, guid: 863a15ee73f881c4fa06b5746f24a33e, type: 3}
-  speed: 400
+  health: 0
+  speed: 200
   slowdownSpeed: 200
   playerDistance: 3
-  timeToAttack: 1
+  timeToAttack: 0.5
 --- !u!82 &4078673704702148051
 AudioSource:
   m_ObjectHideFlags: 0

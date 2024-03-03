@@ -35,7 +35,7 @@ namespace Enemies
                 if (_stateTimer <= 0f)
                 {
                     _state = State.Attacking;
-                    _stateTimer = timeToAttack;
+                    _stateTimer = 1f;
                 }
             }
 

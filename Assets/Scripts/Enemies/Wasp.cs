@@ -7,11 +7,12 @@ namespace Enemies
         public float speed = 200f;
         public float slowdownSpeed = 100f;
         public float playerDistance = 2f;
-        public float timeToAttack = 1f;
+        public float timeToAttack = 0.75f;
 
         private State _state;
 
         private float _stateTimer;
+        public override float MaxHealth => 2f;
 
 
         // Update is called once per frame
@@ -54,13 +55,19 @@ namespace Enemies
             }
         }
 
-        protected override void OnDie(Vector2 impactVector)
+        public override void OnDie(Vector2 impactVector)
         {
             RigidBody.gravityScale = 1f;
             RigidBody.freezeRotation = false;
             RigidBody.AddTorque(-3f, ForceMode2D.Impulse);
             AudioSource.Stop();
             base.OnDie(impactVector);
+        }
+
+        protected override void OnNonLethalHit(Vector2 impactVector)
+        {
+            base.OnNonLethalHit(impactVector);
+            _state = State.Default;
         }
 
         // private bool _preparingAttack;

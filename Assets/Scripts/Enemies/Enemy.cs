@@ -10,11 +10,13 @@ namespace Enemies
         public float verticalTriggerDistance = 6f;
         public float horizontalTriggerDistance = 10f;
         public AudioClip deathClip;
+        public float health;
         protected AudioSource AudioSource;
         protected float Damage = 0.5f;
         protected bool IsDead;
         protected Rigidbody2D RigidBody;
         protected SpriteRenderer SpriteRenderer;
+        public virtual float MaxHealth => 1f;
 
 
         protected virtual void Start()
@@ -22,6 +24,7 @@ namespace Enemies
             RigidBody = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
             AudioSource = GetComponent<AudioSource>();
+            health = MaxHealth;
         }
 
         protected virtual void Update()
@@ -38,8 +41,7 @@ namespace Enemies
             {
                 Destroy(col.gameObject);
                 var impactVector = gameObject.transform.position - col.gameObject.transform.position;
-                IsDead = true;
-                OnDie(impactVector);
+                OnHit(impactVector);
             }
 
             var lava = col.gameObject.GetComponent<Lava>();
@@ -63,14 +65,29 @@ namespace Enemies
         {
         }
 
-        protected virtual void OnDie(Vector2 impactVector)
+        private void OnHit(Vector2 impactVector)
         {
+            health -= 1f;
+            if (health > 0f)
+                OnNonLethalHit(impactVector);
+            else
+                OnDie(impactVector);
             AudioSource.PlayOneShot(deathClip);
+        }
+
+        protected virtual void OnNonLethalHit(Vector2 impactVector)
+        {
+            RigidBody.AddForce(impactVector * 8f, ForceMode2D.Impulse);
+        }
+
+        public virtual void OnDie(Vector2 impactVector)
+        {
+            IsDead = true;
             var spriteRenderer = GetComponent<SpriteRenderer>();
             var color = spriteRenderer.color;
             color.a = 0.5f;
             spriteRenderer.color = color;
-            RigidBody.AddForce(impactVector * 6f, ForceMode2D.Impulse);
+            RigidBody.AddForce(impactVector * 3f, ForceMode2D.Impulse);
             GetComponent<Collider2D>().enabled = false;
             if (Random.value <= 0.1f)
                 Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);

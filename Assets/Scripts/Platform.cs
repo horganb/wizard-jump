@@ -5,7 +5,6 @@ public class Platform : MonoBehaviour
     public GameObject leftPlatform;
     public GameObject middlePlatform;
     public GameObject rightPlatform;
-    public int level;
     public bool isReward;
 
     public void SetWidth(float middlePlatformWidth)

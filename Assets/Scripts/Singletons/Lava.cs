@@ -29,8 +29,8 @@ namespace Singletons
             var position = obj.transform.position;
 
             var bottomOfScreen = _mainCamera.ViewportToWorldPoint(new Vector2(0f, 0f)).y - 1f;
-            var lastPlayerPlatform = Player.Instance.lastPlatform
-                ? Player.Instance.lastPlatform.transform.position.y - 1f
+            var lastPlayerPlatform = Player.Instance.lastStandingPlatform
+                ? Player.Instance.lastStandingPlatform.transform.position.y - 1f
                 : bottomOfScreen;
             var minY = Math.Min(lastPlayerPlatform, bottomOfScreen);
             position.y += Time.deltaTime * (position.y < minY ? speedGrowRate : growRate);

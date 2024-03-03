@@ -28,6 +28,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public int maxOrbs = 1;
     public float attackSpeed = 0.5f;
     public Platform lastPlatform;
+    public Platform lastStandingPlatform;
     public GameObject wandObject;
     public Light2D wandLight;
     public bool invincible;
@@ -80,6 +81,7 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             _rigidBody.velocity = new Vector2(_prevXVelocity, _rigidBody.velocity.y);
             LevelManager.Instance.PlayerOnPlatform(lastPlatform);
+            lastStandingPlatform = lastPlatform;
         }
 
         if (_hVelocity != 0f)
@@ -306,7 +308,7 @@ public class Player : SingletonMonoBehaviour<Player>
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;
         var fireballDirectionVector = (mousePosition - playerPosition).normalized;
-        var fireballStartPosition = playerPosition + fireballDirectionVector;
+        var fireballStartPosition = playerPosition + fireballDirectionVector * 0.5f;
         var rotation = Quaternion.FromToRotation(Vector2.right, fireballDirectionVector);
         Instantiate(fireballPrefab, fireballStartPosition, rotation);
     }

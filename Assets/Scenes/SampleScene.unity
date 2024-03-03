@@ -3046,6 +3046,7 @@ MonoBehaviour:
   maxOrbs: 1
   attackSpeed: 0.4
   lastPlatform: {fileID: 0}
+  lastStandingPlatform: {fileID: 0}
   wandObject: {fileID: 1973074491}
   wandLight: {fileID: 1392690242}
   invincible: 0
@@ -3305,8 +3306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92082eedc0c41f4995d7cd1a5c8015f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthDrop: {fileID: 6383408154702688708, guid: 54eaba8048afa3646ba6171bc0508dfe, type: 3}
-  orbDrop: {fileID: 3200604684026781695, guid: 7607b1420506bec418edf8f627e717a7, type: 3}
+  healthDrop: {fileID: 4470467083543391770, guid: 784914a31fbfc56448bb2141f7ded399, type: 3}
+  orbDrop: {fileID: 4470467083543391770, guid: dc48c71f4fc05844eba8dac3b26269c8, type: 3}
 --- !u!1 &1034325813
 GameObject:
   m_ObjectHideFlags: 0

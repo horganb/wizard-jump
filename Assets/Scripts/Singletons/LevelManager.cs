@@ -1,3 +1,4 @@
+using Enemies;
 using UnityEngine;
 
 namespace Singletons
@@ -5,21 +6,30 @@ namespace Singletons
     public class LevelManager : SingletonMonoBehaviour<LevelManager>
     {
         private int _currentLevel = 1;
+        private bool _rewardPhase;
 
         public void PlayerOnPlatform(Platform platform)
         {
-            if (platform.level > _currentLevel) StartLevel(platform.level);
             Lava.Instance.isPaused = platform.isReward;
-            if (platform.isReward)
+            var lastPlatform = Player.Instance.lastStandingPlatform;
+            var lastPlatformWasReward = lastPlatform && lastPlatform.isReward;
+            if (platform.isReward && !lastPlatformWasReward)
+            {
                 foreach (var pl in FindObjectsOfType<Platform>())
-                    if (pl.transform.position.y < platform.transform.position.y)
+                    if (pl != platform)
                         Destroy(pl.gameObject);
+                foreach (var enemy in FindObjectsOfType<Enemy>())
+                    enemy.OnDie(Vector2.down);
+            }
+
+            if (!platform.isReward && lastPlatformWasReward) Destroy(lastPlatform.gameObject);
         }
 
-        private void StartLevel(int level)
+        public void StartNextLevel()
         {
-            _currentLevel = level;
+            _currentLevel++;
             Lava.Instance.growRate += 0.1f;
+            LevelGenerator.Instance.GenerateLevel(_currentLevel);
         }
 
         public void SkipToNextLevel()

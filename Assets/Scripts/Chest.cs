@@ -1,4 +1,5 @@
 ﻿using GamGUI;
+using Singletons;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
@@ -22,7 +23,8 @@ public class Chest : MonoBehaviour
 
     private void Update()
     {
-        if (Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 2f)
+        if (Player.Instance.lastStandingPlatform && Player.Instance.lastStandingPlatform.isReward &&
+            Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 2f)
         {
             InteractionPrompt.Instance.activeObject = gameObject;
             DisplayPrompt();
@@ -47,6 +49,7 @@ public class Chest : MonoBehaviour
         _opened = true;
         _animator.SetTrigger(Open);
         _audioSource.PlayOneShot(openClip);
+        LevelManager.Instance.StartNextLevel();
     }
 
     private void LootChest()

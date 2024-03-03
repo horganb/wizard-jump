@@ -12,10 +12,7 @@ namespace Special
 
         public override void OnCast(Vector2 worldPosition)
         {
-            var lastPlatform = Player.Instance.lastPlatform;
-            var platformLevel = lastPlatform.level;
-            if (lastPlatform.isReward) platformLevel += 1;
-            LevelGenerator.Instance.PlacePlatform(worldPosition, 2f, platformLevel);
+            LevelGenerator.Instance.PlacePlatform(worldPosition, 2f);
         }
     }
 }

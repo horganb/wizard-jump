@@ -43,8 +43,8 @@ public class Player : SingletonMonoBehaviour<Player>
     private bool _isAttackHeld;
     private bool _isDead;
     private bool _isJumpHeld;
-    private bool _isJumpReleased;
     private float _jumpHeldDuration;
+    private JumpStage _jumpStage = JumpStage.NoJump;
     private Vector2 _looking;
     private Camera _mainCamera;
     private bool _prevGrounded;
@@ -98,22 +98,25 @@ public class Player : SingletonMonoBehaviour<Player>
         // jumping
         if (_isJumpHeld)
         {
-            if (IsGrounded() && _isJumpReleased)
+            if (IsGrounded() && _jumpStage == JumpStage.NoJump)
             {
+                _jumpStage = JumpStage.JumpHeld;
                 _jumpHeldDuration = 0f;
-                _isJumpReleased = false;
                 _rigidBody.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
                 audioSource.PlayOneShot(jumpClip);
             }
-            else if (!_isJumpReleased && _jumpHeldDuration <= jumpAdditionDuration)
+            else if (_jumpStage == JumpStage.JumpHeld && _jumpHeldDuration <= jumpAdditionDuration)
             {
                 _jumpHeldDuration += Time.deltaTime;
                 _rigidBody.AddForce(Vector2.up * (jumpAddition * Time.deltaTime), ForceMode2D.Impulse);
             }
         }
-        else if (IsGrounded())
+        else
         {
-            _isJumpReleased = true;
+            if (IsGrounded())
+                _jumpStage = JumpStage.NoJump;
+            else
+                _jumpStage = JumpStage.JumpReleased;
         }
 
         _prevGrounded = IsGrounded();
@@ -323,5 +326,12 @@ public class Player : SingletonMonoBehaviour<Player>
         invincible = true;
         yield return new WaitForSeconds(seconds);
         invincible = false;
+    }
+
+    private enum JumpStage
+    {
+        NoJump,
+        JumpHeld,
+        JumpReleased
     }
 }

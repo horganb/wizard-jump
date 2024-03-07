@@ -41,7 +41,7 @@ namespace Enemies
             {
                 Destroy(col.gameObject);
                 var impactVector = gameObject.transform.position - col.gameObject.transform.position;
-                OnHit(impactVector);
+                OnHit(impactVector, Player.Instance.damage);
             }
 
             var lava = col.gameObject.GetComponent<Lava>();
@@ -54,20 +54,23 @@ namespace Enemies
 
         protected virtual void OnHitPlayer(Player player)
         {
+            if (Random.value <= player.dodgeChance) return;
+
             var impactVector = player.gameObject.transform.position - gameObject.transform.position;
             var knockbackVector = new Vector2(impactVector.x * 10f, 5f);
             player.GetComponent<Rigidbody2D>().AddForce(knockbackVector, ForceMode2D.Impulse);
             player.LoseHealth(Damage);
             player.audioSource.PlayOneShot(player.hitClip);
+            if (player.thorns > 0f) OnHit(-knockbackVector.normalized, Damage * player.thorns);
         }
 
         protected virtual void AliveUpdate()
         {
         }
 
-        private void OnHit(Vector2 impactVector)
+        private void OnHit(Vector2 impactVector, float damage)
         {
-            health -= 1f;
+            health -= damage;
             if (health > 0f)
                 OnNonLethalHit(impactVector);
             else
@@ -89,9 +92,9 @@ namespace Enemies
             spriteRenderer.color = color;
             RigidBody.AddForce(impactVector * 3f, ForceMode2D.Impulse);
             GetComponent<Collider2D>().enabled = false;
-            if (Random.value <= 0.1f)
+            if (Random.value <= 0.1f + Player.Instance.dropModifier)
                 Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);
-            else if (Random.value <= 0.2f)
+            else if (Random.value <= 0.2f + Player.Instance.dropModifier)
                 Instantiate(PrefabLibrary.Instance.orbDrop, transform.position, Quaternion.identity);
         }
 

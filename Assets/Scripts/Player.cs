@@ -36,6 +36,11 @@ public class Player : SingletonMonoBehaviour<Player>
     public AudioClip shootClip;
     public AudioSource audioSource;
     public AudioClip hitClip;
+    public float lavaDamage = 1f;
+    public float damage = 1f;
+    public float thorns;
+    public float dodgeChance;
+    public float dropModifier;
 
     private Animator _animator;
     private float _attackCooldown;
@@ -159,7 +164,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private void OnLava(Lava lava)
     {
         audioSource.PlayOneShot(lava.lavaDeathClip);
-        var isDead = LoseHealth(1f);
+        var isDead = LoseHealth(lavaDamage);
         if (!isDead)
         {
             GameObject lowestPlatform = null;

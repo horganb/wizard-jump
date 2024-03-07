@@ -10085,12 +10085,16 @@ CompositeCollider2D:
         Y: -2000000
   m_CompositePaths:
     m_Paths:
-    - - {x: -1.75, y: -0.2}
-      - {x: 1.75, y: -0.2}
-      - {x: 1.75, y: 0.2}
-      - {x: -1.75, y: 0.2}
+    - - {x: 1.75, y: -0.18242641}
+      - {x: 1.75, y: 0.18242641}
+      - {x: 1.7324264, y: 0.2}
+      - {x: -1.7324264, y: 0.2}
+      - {x: -1.75, y: 0.18242641}
+      - {x: -1.75, y: -0.18242641}
+      - {x: -1.7324264, y: -0.2}
+      - {x: 1.7324264, y: -0.2}
   m_VertexDistance: 0.0005
-  m_OffsetDistance: 0
+  m_OffsetDistance: 0.03
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 6045469943568222272}
 --- !u!251 &7004977593311319865

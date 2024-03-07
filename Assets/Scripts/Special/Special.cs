@@ -9,6 +9,10 @@ namespace Special
 
         public void Acquire()
         {
+            if (Player.Instance.Special == null)
+                GameGUI.Instance.DisplayMessage("New ability added!");
+            else
+                GameGUI.Instance.DisplayMessage("Ability replaced!", GameGUI.MessageTone.Neutral);
             Player.Instance.Special = this;
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using GamGUI;
 using UnityEngine;
 
 namespace Singletons
@@ -45,8 +46,10 @@ namespace Singletons
 
         public IEnumerator HaltLavaFor(float seconds)
         {
+            GameGUI.Instance.DisplayMessage("Lava frozen!");
             isHalted = true;
             yield return new WaitForSeconds(seconds);
+            GameGUI.Instance.DisplayMessage("Lava unfrozen!", GameGUI.MessageTone.Negative);
             isHalted = false;
         }
     }

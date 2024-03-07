@@ -328,8 +328,10 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public IEnumerator SetInvincibleFor(float seconds)
     {
+        GameGUI.Instance.DisplayMessage("Invincible!");
         invincible = true;
         yield return new WaitForSeconds(seconds);
+        GameGUI.Instance.DisplayMessage("Invincibility ended!", GameGUI.MessageTone.Negative);
         invincible = false;
     }
 

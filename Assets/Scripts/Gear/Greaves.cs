@@ -1,4 +1,6 @@
-﻿namespace Gear
+﻿using GamGUI;
+
+namespace Gear
 {
     public class Greaves : Gear
     {
@@ -11,6 +13,7 @@
         {
             PlayerGear.Instance.greaves.gameObject.SetActive(true);
             Player.Instance.lavaDamage -= 0.25f;
+            GameGUI.Instance.DisplayMessage("Lava damage decreased!");
         }
 
         protected override string SpriteName()

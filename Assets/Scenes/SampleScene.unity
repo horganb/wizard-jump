@@ -4247,6 +4247,7 @@ MonoBehaviour:
   potionImage: {fileID: 2137686354}
   scrollImage: {fileID: 483983441}
   spriteLibrary: {fileID: 1183189409}
+  messagePrefab: {fileID: 3685601115264337266, guid: 0b9d99f1205620b4d987559af9503e6d, type: 3}
 --- !u!114 &1183189409
 MonoBehaviour:
   m_ObjectHideFlags: 0

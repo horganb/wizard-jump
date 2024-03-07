@@ -1,4 +1,6 @@
-﻿namespace Gear
+﻿using GamGUI;
+
+namespace Gear
 {
     public class Boots : Gear
     {
@@ -11,6 +13,7 @@
         {
             PlayerGear.Instance.boots.gameObject.SetActive(true);
             Player.Instance.dodgeChance += 0.2f;
+            GameGUI.Instance.DisplayMessage("Dodge chance increased!");
         }
 
         protected override string SpriteName()

@@ -1,4 +1,6 @@
-﻿namespace Gear
+﻿using GamGUI;
+
+namespace Gear
 {
     public class Armor : Gear
     {
@@ -10,7 +12,8 @@
         public override void Acquire()
         {
             PlayerGear.Instance.armor.gameObject.SetActive(true);
-            Player.Instance.thorns += 1f;
+            Player.Instance.thorns += 2f;
+            GameGUI.Instance.DisplayMessage("Damage to attackers increased!");
         }
 
         protected override string SpriteName()

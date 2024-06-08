@@ -150,6 +150,15 @@ public class Player : SingletonMonoBehaviour<Player>
 
         // orbs
         wandLight.intensity = orbs >= 1 ? 1f : 0f;
+
+        // passing to other side of screen
+        if (Math.Abs(transform.position.x) > CameraUtil.Instance.worldWidth / 2)
+        {
+            var transform1 = transform;
+            var pos = transform1.position;
+            pos.x = -pos.x * 0.95f;
+            transform1.position = pos;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D col)

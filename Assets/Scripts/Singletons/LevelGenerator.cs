@@ -33,7 +33,7 @@ namespace Singletons
 
         private void GeneratePlatformLayer(float slimeChance, float waspChance)
         {
-            var centerX = _lastLocation.x + Utils.RandomRangeAndSign(3f, 8f);
+            var centerX = Utils.RandomRangeAndSign(3f, 6f);
             var centerY = _lastLocation.y + Random.Range(2f, 3f);
             _lastLocation = new Vector2(centerX, centerY);
             GenerateWaspWithChance(waspChance, _lastLocation);
@@ -64,6 +64,7 @@ namespace Singletons
 
         private void GenerateRewardPlatform()
         {
+            _lastLocation.x = 0f;
             var platform = GeneratePlatform(0f, 1.5f, 10f);
             platform.isReward = true;
             var chestPosition = _lastLocation + Vector2.up * 1f;

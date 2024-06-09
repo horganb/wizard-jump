@@ -6,6 +6,7 @@ namespace Enemies
     public class Slime : Enemy
     {
         public float jumpHeight = 2f;
+        public float knockbackHeight = 20f;
         public float jumpDistance = 0.5f;
         public float minJumpDistance = 4f;
         public float maxJumpDistance = 6f;
@@ -37,6 +38,15 @@ namespace Enemies
             {
                 _jumpTimer = 0f;
             }
+        }
+
+        protected override void OnNonLethalHit(Vector2 impactVector)
+        {
+            RigidBody.velocity = Vector2.zero;
+            var knockbackX = impactVector.x >= 0.3f ? 1f : impactVector.x <= -0.3f ? -1f : 0f;
+            var knockbackVector = new Vector2(knockbackX * 3f, knockbackHeight);
+            RigidBody.AddForce(knockbackVector, ForceMode2D.Impulse);
+            _jumpTimer = 0f;
         }
     }
 }

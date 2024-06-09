@@ -7,6 +7,7 @@ namespace Singletons
     {
         public GameObject platformPrefab;
         public GameObject slimePrefab;
+        public GameObject bigSlimePrefab;
         public GameObject waspPrefab;
         public GameObject chestPrefab;
 
@@ -24,32 +25,25 @@ namespace Singletons
             GenerateLevel(1);
         }
 
-        private Platform GeneratePlatform(float xVariation, float yVariation, float platformWidth)
+        private void GeneratePlatformLayer(float slimeChance, float waspChance, float bigSlimeChance)
         {
-            _lastLocation = new Vector2(_lastLocation.x + xVariation,
-                _lastLocation.y + yVariation);
-            return PlacePlatform(_lastLocation, platformWidth);
-        }
-
-        private void GeneratePlatformLayer(float slimeChance, float waspChance)
-        {
-            var centerX = Utils.RandomRangeAndSign(3f, 6f);
+            var centerX = Utils.RandomRangeAndSign(3f, 6f, 1);
             var centerY = _lastLocation.y + Random.Range(2f, 3f);
             _lastLocation = new Vector2(centerX, centerY);
             GenerateWaspWithChance(waspChance, _lastLocation);
             if (Random.value <= 0.3f)
             {
-                var leftPlatformLocation = new Vector2(centerX + Random.Range(-4f, -2f), centerY);
-                var rightPlatformLocation = new Vector2(centerX + Random.Range(2f, 4f), centerY);
-                PlacePlatform(leftPlatformLocation, Random.Range(1f, 3f));
-                PlacePlatform(rightPlatformLocation, Random.Range(1f, 3f));
-                GenerateSlimeWithChance(slimeChance, leftPlatformLocation);
-                GenerateSlimeWithChance(slimeChance, rightPlatformLocation);
+                var leftPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(-6f, -2f, 1), centerY);
+                var rightPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(2f, 6f, 1), centerY);
+                PlacePlatform(leftPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
+                PlacePlatform(rightPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
+                GenerateSlimeWithChance(slimeChance, bigSlimeChance, leftPlatformLocation);
+                GenerateSlimeWithChance(slimeChance, bigSlimeChance, rightPlatformLocation);
             }
             else
             {
-                PlacePlatform(_lastLocation, Random.Range(3f, 5f));
-                GenerateSlimeWithChance(slimeChance, _lastLocation);
+                PlacePlatform(_lastLocation, Utils.RandomRangeWithPrecision(3f, 5f, 1));
+                GenerateSlimeWithChance(slimeChance, bigSlimeChance, _lastLocation);
             }
         }
 
@@ -64,19 +58,23 @@ namespace Singletons
 
         private void GenerateRewardPlatform()
         {
-            _lastLocation.x = 0f;
-            var platform = GeneratePlatform(0f, 1.5f, 10f);
+            _lastLocation = new Vector2(0f, _lastLocation.y + 1.5f);
+            var platform = PlacePlatform(_lastLocation, 10f);
             platform.isReward = true;
             var chestPosition = _lastLocation + Vector2.up * 1f;
             Instantiate(chestPrefab, chestPosition, Quaternion.identity, gameObject.transform);
         }
 
-        private void GenerateSlimeWithChance(float chance, Vector2 platformLocation)
+        private void GenerateSlimeWithChance(float chance, float bigSlimeChance, Vector2 platformLocation)
         {
             if (IsTooNearRewardPlatform(platformLocation)) return;
             var startingPosition = platformLocation + Vector2.up * 1f + Vector2.right * Random.Range(-1f, 1f);
-            if (Random.value < chance)
-                Instantiate(slimePrefab, startingPosition, Quaternion.identity, gameObject.transform);
+            var randomVal = Random.value;
+            if (randomVal < chance)
+            {
+                var prefab = randomVal < bigSlimeChance ? bigSlimePrefab : slimePrefab;
+                Instantiate(prefab, startingPosition, Quaternion.identity, gameObject.transform);
+            }
         }
 
         private void GenerateWaspWithChance(float chance, Vector2 platformLocation)
@@ -98,25 +96,22 @@ namespace Singletons
 
         public void GenerateLevel(int level)
         {
-            switch (level)
-            {
-                case 1:
-                    for (var i = 0; i < 30; i++) GeneratePlatformLayer(0.3f, 0f);
-
-                    break;
-                case 2:
-                    for (var i = 0; i < 30; i++) GeneratePlatformLayer(0.5f, 0f);
-
-                    break;
-                case 3:
-                    for (var i = 0; i < 30; i++) GeneratePlatformLayer(0.4f, 0.3f);
-
-                    break;
-                case 4:
-                    for (var i = 0; i < 40; i++) GeneratePlatformLayer(0.6f, 0.3f);
-
-                    break;
-            }
+            for (var i = 0; i < 30; i++)
+                switch (level)
+                {
+                    case 1:
+                        GeneratePlatformLayer(0.3f, 0f, 0f);
+                        break;
+                    case 2:
+                        GeneratePlatformLayer(0.5f, 0f, 0.1f);
+                        break;
+                    case 3:
+                        GeneratePlatformLayer(0.4f, 0.3f, 0.1f);
+                        break;
+                    case 4:
+                        GeneratePlatformLayer(0.6f, 0.3f, 0.3f);
+                        break;
+                }
 
             GenerateRewardPlatform();
         }

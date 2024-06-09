@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Singletons;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,6 +12,8 @@ namespace Enemies
         public float horizontalTriggerDistance = 10f;
         public AudioClip deathClip;
         public float health;
+        public GameObject onFireEffect;
+        private bool _onFire;
         protected AudioSource AudioSource;
         protected float Damage = 0.5f;
         protected bool IsDead;
@@ -42,6 +45,7 @@ namespace Enemies
                 Destroy(col.gameObject);
                 var impactVector = gameObject.transform.position - col.gameObject.transform.position;
                 OnHit(impactVector, Player.Instance.damage);
+                SetOnFire();
             }
 
             var lava = col.gameObject.GetComponent<Lava>();
@@ -49,6 +53,22 @@ namespace Enemies
             {
                 AudioSource.PlayClipAtPoint(lava.lavaDeathClip, transform.position);
                 Destroy(gameObject);
+            }
+        }
+
+        private void SetOnFire()
+        {
+            _onFire = true;
+            onFireEffect.SetActive(true);
+            StartCoroutine(TakePeriodicFireDamage());
+        }
+
+        private IEnumerator TakePeriodicFireDamage()
+        {
+            while (_onFire)
+            {
+                yield return new WaitForSeconds(3f);
+                OnHit(Vector2.zero, 0.5f);
             }
         }
 

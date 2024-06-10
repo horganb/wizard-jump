@@ -99,7 +99,7 @@ namespace Singletons
         {
             Level[] levels =
             {
-                new(size: 20),
+                new(size: 12),
                 new(0.3f),
                 new(0.5f, 0.0f, 0.1f),
                 new(0.4f, 0.3f, 0.1f),

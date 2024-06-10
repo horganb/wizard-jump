@@ -26,25 +26,25 @@ namespace Singletons
             GenerateLevel(1);
         }
 
-        private void GeneratePlatformLayer(float slimeChance, float waspChance, float bigSlimeChance)
+        private void GeneratePlatformLayer(Level level)
         {
             var centerX = Utils.RandomRangeAndSign(3f, 6f, 1);
             var centerY = _lastLocation.y + Random.Range(2f, 3f);
             _lastLocation = new Vector2(centerX, centerY);
-            GenerateWaspWithChance(waspChance, _lastLocation);
+            GenerateWaspWithChance(level.WaspChance, _lastLocation);
             if (Random.value <= 0.3f)
             {
                 var leftPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(-6f, -2f, 1), centerY);
                 var rightPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(2f, 6f, 1), centerY);
                 PlacePlatform(leftPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
                 PlacePlatform(rightPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
-                GenerateSlimeWithChance(slimeChance, bigSlimeChance, leftPlatformLocation);
-                GenerateSlimeWithChance(slimeChance, bigSlimeChance, rightPlatformLocation);
+                GenerateSlimeWithChance(level.SlimeChance, level.BigSlimeChance, leftPlatformLocation);
+                GenerateSlimeWithChance(level.SlimeChance, level.BigSlimeChance, rightPlatformLocation);
             }
             else
             {
                 PlacePlatform(_lastLocation, Utils.RandomRangeWithPrecision(3f, 5f, 1));
-                GenerateSlimeWithChance(slimeChance, bigSlimeChance, _lastLocation);
+                GenerateSlimeWithChance(level.SlimeChance, level.BigSlimeChance, _lastLocation);
             }
         }
 
@@ -95,32 +95,23 @@ namespace Singletons
             });
         }
 
-        public void GenerateLevel(int level)
+        public void GenerateLevel(int levelNum)
         {
-            for (var i = 0; i < 30; i++)
-                switch (level)
-                {
-                    case 1:
-                        GeneratePlatformLayer(0f, 0f, 0f);
-                        break;
-                    case 2:
-                        GeneratePlatformLayer(0.3f, 0f, 0f);
-                        break;
-                    case 3:
-                        GeneratePlatformLayer(0.5f, 0f, 0.1f);
-                        break;
-                    case 4:
-                        GeneratePlatformLayer(0.4f, 0.3f, 0.1f);
-                        break;
-                    case 5:
-                        GeneratePlatformLayer(0.6f, 0.3f, 0.3f);
-                        break;
-                    case 6:
-                        GeneratePlatformLayer(0.8f, 0.5f, 0.5f);
-                        break;
-                }
+            Level[] levels =
+            {
+                new(size: 20),
+                new(0.3f),
+                new(0.5f, 0.0f, 0.1f),
+                new(0.4f, 0.3f, 0.1f),
+                new(0.6f, 0.3f, 0.3f),
+                new(0.8f, 0.5f, 0.5f)
+            };
+            var level = levels[levelNum - 1];
 
-            GenerateRewardPlatform(level == 1 ? choiceChestPrefab : chestPrefab);
+            for (var i = 0; i < level.Size; i++)
+                GeneratePlatformLayer(level);
+
+            GenerateRewardPlatform(levelNum == 1 ? choiceChestPrefab : chestPrefab);
         }
     }
 }

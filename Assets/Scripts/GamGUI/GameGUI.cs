@@ -18,20 +18,27 @@ namespace GamGUI
         public InteractionPrompt interactionPrompt;
         public ChoiceInteractionPrompt choiceInteractionPrompt;
         public GameObject gameOverScreen;
+        public GameObject basicAttack;
         public Image basicAttackImage;
+        public GameObject special;
         public Image specialImage;
         public Image potionImage;
+        public GameObject scroll;
         public Image scrollImage;
         public SpriteLibrary spriteLibrary;
         public GameObject messagePrefab;
 
         private void Update()
         {
+            if (Player.Instance.activeAttack != null)
+                basicAttackImage.sprite = Player.Instance.activeAttack.GetSprite();
+            basicAttack.SetActive(Player.Instance.activeAttack != null);
+
             if (Player.Instance.Special != null) specialImage.sprite = Player.Instance.Special.GetSprite();
-            specialImage.enabled = Player.Instance.Special != null;
+            special.SetActive(Player.Instance.Special != null);
 
             if (Player.Instance.Scroll != null) scrollImage.sprite = Player.Instance.Scroll.GetSprite();
-            scrollImage.enabled = Player.Instance.Scroll != null;
+            scroll.SetActive(Player.Instance.Scroll != null);
         }
 
         public void DisplayMessage(string message, MessageTone tone = MessageTone.Positive)

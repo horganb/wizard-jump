@@ -134,7 +134,7 @@ namespace Enemies
             GetComponent<Collider2D>().enabled = false;
             if (Random.value <= 0.1f + Player.Instance.dropModifier)
                 Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);
-            else if (Random.value <= 0.2f + Player.Instance.dropModifier)
+            else if (Random.value <= 0.2f + Player.Instance.dropModifier && Player.Instance.Special != null)
                 Instantiate(PrefabLibrary.Instance.orbDrop, transform.position, Quaternion.identity);
         }
 

@@ -22,7 +22,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public float jump = 5f;
     public float jumpAddition = 5f;
     public float jumpAdditionDuration = 0.5f;
-    public GameObject projectilePrefab;
+    public Projectile activeAttack;
     public float health = 3;
     public float maxHealth = 3;
     public int orbs;
@@ -329,14 +329,14 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Shoot()
     {
-        if (!projectilePrefab) return;
-        audioSource.PlayOneShot(projectilePrefab.GetComponent<Projectile>().shootClip);
+        if (!activeAttack) return;
+        audioSource.PlayOneShot(activeAttack.shootClip);
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;
         var fireballDirectionVector = (mousePosition - playerPosition).normalized;
         var fireballStartPosition = playerPosition + fireballDirectionVector * 0.5f;
         var rotation = Quaternion.FromToRotation(Vector2.right, fireballDirectionVector);
-        Instantiate(projectilePrefab, fireballStartPosition, rotation);
+        Instantiate(activeAttack, fireballStartPosition, rotation);
     }
 
     private bool IsGrounded()

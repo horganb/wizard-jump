@@ -30,7 +30,7 @@ namespace Projectiles
 
         public void Acquire()
         {
-            Player.Instance.projectilePrefab = gameObject;
+            Player.Instance.activeAttack = this;
         }
 
         public Sprite GetSprite()

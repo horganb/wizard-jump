@@ -1617,7 +1617,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483983439}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1823,10 +1823,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.04000681
     y: 0
-    width: 1
-    height: 1
+    width: 0.9193054
+    height: 1.0006374
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -3358,7 +3358,7 @@ MonoBehaviour:
   jump: 20
   jumpAddition: 70
   jumpAdditionDuration: 0.3
-  projectilePrefab: {fileID: 0}
+  activeAttack: {fileID: 0}
   health: 3
   maxHealth: 3
   orbs: 0
@@ -4466,9 +4466,12 @@ MonoBehaviour:
   interactionPrompt: {fileID: 1163681364}
   choiceInteractionPrompt: {fileID: 8108701934077040570}
   gameOverScreen: {fileID: 1627115691}
+  basicAttack: {fileID: 1311785836}
   basicAttackImage: {fileID: 501113953}
+  special: {fileID: 649374770}
   specialImage: {fileID: 2111682449}
   potionImage: {fileID: 2137686354}
+  scroll: {fileID: 1491316072}
   scrollImage: {fileID: 483983441}
   spriteLibrary: {fileID: 1183189409}
   messagePrefab: {fileID: 3685601115264337266, guid: 0b9d99f1205620b4d987559af9503e6d, type: 3}
@@ -6896,7 +6899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2066303122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7328,7 +7331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111682447}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

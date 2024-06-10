@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Interactable;
 using Random = UnityEngine.Random;
 
 public static class Utils

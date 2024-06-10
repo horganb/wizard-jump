@@ -1,6 +1,6 @@
-﻿using Singletons;
+﻿using Interactable;
+using Singletons;
 using TMPro;
-using UnityEngine;
 
 namespace GamGUI
 {
@@ -9,7 +9,7 @@ namespace GamGUI
         public TMP_Text action;
         public TMP_Text description;
 
-        public GameObject activeObject;
+        public IInteractable ActiveObject;
 
         private void Start()
         {
@@ -34,12 +34,12 @@ namespace GamGUI
         public void Hide()
         {
             gameObject.SetActive(false);
-            activeObject = null;
+            ActiveObject = null;
         }
 
-        public void Interact()
+        public void Interact(bool alternate)
         {
-            if (activeObject) activeObject.GetComponent<Chest>().Interact();
+            ActiveObject?.Interact(alternate);
         }
     }
 }

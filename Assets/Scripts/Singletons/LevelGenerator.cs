@@ -10,6 +10,7 @@ namespace Singletons
         public GameObject bigSlimePrefab;
         public GameObject waspPrefab;
         public GameObject chestPrefab;
+        public GameObject choiceChestPrefab;
 
         private Vector2 _lastLocation;
 
@@ -56,13 +57,13 @@ namespace Singletons
             return platformComponent;
         }
 
-        private void GenerateRewardPlatform()
+        private void GenerateRewardPlatform(GameObject chest)
         {
             _lastLocation = new Vector2(0f, _lastLocation.y + 1.5f);
             var platform = PlacePlatform(_lastLocation, 10f);
             platform.isReward = true;
             var chestPosition = _lastLocation + Vector2.up * 1f;
-            Instantiate(chestPrefab, chestPosition, Quaternion.identity, gameObject.transform);
+            Instantiate(chest, chestPosition, Quaternion.identity, gameObject.transform);
         }
 
         private void GenerateSlimeWithChance(float chance, float bigSlimeChance, Vector2 platformLocation)
@@ -100,23 +101,26 @@ namespace Singletons
                 switch (level)
                 {
                     case 1:
-                        GeneratePlatformLayer(0.3f, 0f, 0f);
+                        GeneratePlatformLayer(0f, 0f, 0f);
                         break;
                     case 2:
-                        GeneratePlatformLayer(0.5f, 0f, 0.1f);
+                        GeneratePlatformLayer(0.3f, 0f, 0f);
                         break;
                     case 3:
-                        GeneratePlatformLayer(0.4f, 0.3f, 0.1f);
+                        GeneratePlatformLayer(0.5f, 0f, 0.1f);
                         break;
                     case 4:
-                        GeneratePlatformLayer(0.6f, 0.3f, 0.3f);
+                        GeneratePlatformLayer(0.4f, 0.3f, 0.1f);
                         break;
                     case 5:
+                        GeneratePlatformLayer(0.6f, 0.3f, 0.3f);
+                        break;
+                    case 6:
                         GeneratePlatformLayer(0.8f, 0.5f, 0.5f);
                         break;
                 }
 
-            GenerateRewardPlatform();
+            GenerateRewardPlatform(level == 1 ? choiceChestPrefab : chestPrefab);
         }
     }
 }

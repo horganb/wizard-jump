@@ -289,7 +289,11 @@ public class Player : SingletonMonoBehaviour<Player>
     public void Interact(InputAction.CallbackContext context)
     {
         if (_isDead) return;
-        if (context.performed) GameGUI.Instance.interactionPrompt.Interact();
+        if (context.performed)
+        {
+            GameGUI.Instance.interactionPrompt.Interact(false);
+            GameGUI.Instance.choiceInteractionPrompt.Interact(false);
+        }
     }
 
     public void Cheat(InputAction.CallbackContext context)
@@ -309,7 +313,11 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void Quit(InputAction.CallbackContext context)
     {
-        if (context.performed && _isDead) Application.Quit();
+        if (context.performed)
+        {
+            if (_isDead) Application.Quit();
+            else GameGUI.Instance.choiceInteractionPrompt.Interact(true);
+        }
     }
 
     private Vector2 GetMousePositionInWorld()
@@ -321,6 +329,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Shoot()
     {
+        if (!projectilePrefab) return;
         audioSource.PlayOneShot(projectilePrefab.GetComponent<Projectile>().shootClip);
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;

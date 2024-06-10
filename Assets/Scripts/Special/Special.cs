@@ -1,4 +1,5 @@
 ﻿using GamGUI;
+using Interactable;
 using UnityEngine;
 
 namespace Special

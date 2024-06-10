@@ -16,6 +16,7 @@ namespace GamGUI
         }
 
         public InteractionPrompt interactionPrompt;
+        public ChoiceInteractionPrompt choiceInteractionPrompt;
         public GameObject gameOverScreen;
         public Image basicAttackImage;
         public Image specialImage;

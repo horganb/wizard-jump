@@ -363,7 +363,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81413611}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d48805b9867d4a208bc8e38426be516f, type: 3}
   m_Name: 
@@ -695,7 +695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &146050816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,6 +1736,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1895,6 +1896,30 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_AssetsPPU: 20
+  m_RefResolutionX: 360
+  m_RefResolutionY: 180
+  m_CropFrame: 1
+  m_GridSnapping: 0
+  m_FilterMode: 0
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &545008007
 GameObject:
   m_ObjectHideFlags: 0
@@ -3333,7 +3358,7 @@ MonoBehaviour:
   jump: 20
   jumpAddition: 70
   jumpAdditionDuration: 0.3
-  fireballPrefab: {fileID: 641132918368447793, guid: 895854a8144af5d49bb57267b75d5f8c, type: 3}
+  projectilePrefab: {fileID: 7461147333304427656, guid: 66bea03360568054280ffd4a5b331b16, type: 3}
   health: 3
   maxHealth: 3
   orbs: 0
@@ -3345,7 +3370,6 @@ MonoBehaviour:
   wandLight: {fileID: 1392690242}
   invincible: 0
   jumpClip: {fileID: 8300000, guid: 1fffd3865780b604d8ce0626fa86bc76, type: 3}
-  shootClip: {fileID: 8300000, guid: f17f2450a03015c489e6d0ae85835885, type: 3}
   audioSource: {fileID: 0}
   hitClip: {fileID: 8300000, guid: 584a8f431744e024e8de8701826091e7, type: 3}
   lavaDamage: 1
@@ -3586,6 +3610,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthDrop: {fileID: 4470467083543391770, guid: 784914a31fbfc56448bb2141f7ded399, type: 3}
   orbDrop: {fileID: 4470467083543391770, guid: dc48c71f4fc05844eba8dac3b26269c8, type: 3}
+  fireball: {fileID: 641132918368447793, guid: 895854a8144af5d49bb57267b75d5f8c, type: 3}
+  iceSpike: {fileID: 7461147333304427656, guid: 66bea03360568054280ffd4a5b331b16, type: 3}
 --- !u!1 &1034325813
 GameObject:
   m_ObjectHideFlags: 0

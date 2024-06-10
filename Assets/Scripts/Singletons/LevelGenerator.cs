@@ -111,6 +111,9 @@ namespace Singletons
                     case 4:
                         GeneratePlatformLayer(0.6f, 0.3f, 0.3f);
                         break;
+                    case 5:
+                        GeneratePlatformLayer(0.8f, 0.5f, 0.5f);
+                        break;
                 }
 
             GenerateRewardPlatform();

@@ -5,6 +5,7 @@ namespace Enemies
     public class Wasp : Enemy
     {
         public float speed = 200f;
+        public float chargeSpeed = 400f;
         public float slowdownSpeed = 100f;
         public float playerDistance = 2f;
         public float timeToAttack = 0.75f;
@@ -44,7 +45,7 @@ namespace Enemies
             {
                 _stateTimer -= Time.deltaTime;
                 if (_stateTimer <= 0f) _state = State.Default;
-                else RigidBody.AddForce(unitVectorToPlayer * (Time.deltaTime * speed));
+                else RigidBody.AddForce(unitVectorToPlayer * (Time.deltaTime * chargeSpeed));
             }
             else
             {

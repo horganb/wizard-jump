@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Projectiles;
 using Singletons;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,6 +14,8 @@ namespace Enemies
         public AudioClip deathClip;
         public float health;
         public GameObject onFireEffect;
+        public GameObject frozenEffect;
+        private bool _frozen;
         private bool _onFire;
         protected AudioSource AudioSource;
         protected float Damage = 0.5f;
@@ -32,20 +35,21 @@ namespace Enemies
 
         protected virtual void Update()
         {
-            if (!IsDead) AliveUpdate();
+            if (!IsDead && !_frozen) AliveUpdate();
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D col)
         {
             var player = col.gameObject.GetComponent<Player>();
-            if (player != null && !player.HasInvincibility()) OnHitPlayer(player);
+            if (player != null && !player.HasInvincibility() && !_frozen) OnHitPlayer(player);
 
-            if (col.gameObject.GetComponent<Fireball>() != null)
+            if (col.gameObject.GetComponent<Projectile>() != null)
             {
                 Destroy(col.gameObject);
                 var impactVector = gameObject.transform.position - col.gameObject.transform.position;
                 OnHit(impactVector, Player.Instance.damage);
-                SetOnFire();
+                if (col.gameObject.GetComponent<Fireball>() != null) SetOnFire();
+                if (col.gameObject.GetComponent<IceSpike>() != null) Freeze();
             }
 
             var lava = col.gameObject.GetComponent<Lava>();
@@ -60,6 +64,7 @@ namespace Enemies
         {
             _onFire = true;
             onFireEffect.SetActive(true);
+            StopCoroutine(TakePeriodicFireDamage());
             StartCoroutine(TakePeriodicFireDamage());
         }
 
@@ -67,9 +72,24 @@ namespace Enemies
         {
             while (_onFire)
             {
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(2f);
                 OnHit(Vector2.zero, 0.5f);
             }
+        }
+
+        private void Freeze()
+        {
+            _frozen = true;
+            frozenEffect.SetActive(true);
+            StopCoroutine(UnfreezeAfterDelay());
+            StartCoroutine(UnfreezeAfterDelay());
+        }
+
+        private IEnumerator UnfreezeAfterDelay()
+        {
+            yield return new WaitForSeconds(2f);
+            _frozen = false;
+            frozenEffect.SetActive(false);
         }
 
         protected virtual void OnHitPlayer(Player player)
@@ -100,7 +120,7 @@ namespace Enemies
 
         protected virtual void OnNonLethalHit(Vector2 impactVector)
         {
-            RigidBody.AddForce(impactVector * 8f, ForceMode2D.Impulse);
+            RigidBody.AddForce(impactVector * 5f, ForceMode2D.Impulse);
         }
 
         public virtual void OnDie(Vector2 impactVector)

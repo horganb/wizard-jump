@@ -6,5 +6,7 @@ namespace Singletons
     {
         public GameObject healthDrop;
         public GameObject orbDrop;
+        public GameObject fireball;
+        public GameObject iceSpike;
     }
 }

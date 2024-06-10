@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using GamGUI;
+using Projectiles;
 using Scrolls;
 using Singletons;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public float jump = 5f;
     public float jumpAddition = 5f;
     public float jumpAdditionDuration = 0.5f;
-    public GameObject fireballPrefab;
+    public GameObject projectilePrefab;
     public float health = 3;
     public float maxHealth = 3;
     public int orbs;
@@ -33,7 +34,6 @@ public class Player : SingletonMonoBehaviour<Player>
     public Light2D wandLight;
     public bool invincible;
     public AudioClip jumpClip;
-    public AudioClip shootClip;
     public AudioSource audioSource;
     public AudioClip hitClip;
     public float lavaDamage = 1f;
@@ -321,13 +321,13 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Shoot()
     {
-        audioSource.PlayOneShot(shootClip);
+        audioSource.PlayOneShot(projectilePrefab.GetComponent<Projectile>().shootClip);
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;
         var fireballDirectionVector = (mousePosition - playerPosition).normalized;
         var fireballStartPosition = playerPosition + fireballDirectionVector * 0.5f;
         var rotation = Quaternion.FromToRotation(Vector2.right, fireballDirectionVector);
-        Instantiate(fireballPrefab, fireballStartPosition, rotation);
+        Instantiate(projectilePrefab, fireballStartPosition, rotation);
     }
 
     private bool IsGrounded()

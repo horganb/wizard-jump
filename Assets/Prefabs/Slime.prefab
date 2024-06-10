@@ -36,6 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7206670495113747669}
+  - {fileID: 4261485952605330277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2119124285471408937
@@ -190,6 +191,7 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: dd093e2a65aeb1d48a703a5251165d80, type: 3}
   health: 0
   onFireEffect: {fileID: 4686668726720160031}
+  frozenEffect: {fileID: 8020922542356743622}
   jumpHeight: 7
   knockbackHeight: 5
   jumpDistance: 1
@@ -395,4 +397,79 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8046543630541921541, guid: 0071910d0becc40408f5d6881465b308, type: 3}
   m_PrefabInstance: {fileID: 839970178420244944}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8350026577189924398
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 412162916247196755}
+    m_Modifications:
+    - target: {fileID: 2067515481230748648, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_Name
+      value: Frozen Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2067515481230748648, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.034
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+--- !u!4 &4261485952605330277 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5242917891176822091, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+  m_PrefabInstance: {fileID: 8350026577189924398}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8020922542356743622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2067515481230748648, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
+  m_PrefabInstance: {fileID: 8350026577189924398}
   m_PrefabAsset: {fileID: 0}

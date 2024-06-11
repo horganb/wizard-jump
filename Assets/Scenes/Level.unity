@@ -3358,7 +3358,6 @@ MonoBehaviour:
   jump: 20
   jumpAddition: 70
   jumpAdditionDuration: 0.3
-  activeAttack: {fileID: 0}
   health: 3
   maxHealth: 3
   orbs: 0
@@ -3597,6 +3596,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleport: {fileID: 8300000, guid: 67a1ee704e10084439a35674b9957fe2, type: 3}
+  fireball: {fileID: 8300000, guid: 933396377d3675a45968f5dc15ba8c93, type: 3}
+  iceSpike: {fileID: 8300000, guid: 7e1f54003299bf04ca2cd63c2b02b962, type: 3}
 --- !u!114 &1020987535
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
-﻿using GamGUI;
-using Projectiles;
+﻿using Attacks;
+using GamGUI;
 using Singletons;
 using UnityEngine;
 
@@ -49,8 +49,8 @@ namespace Interactable
 
         private void OpenChest()
         {
-            _contents1 = PrefabLibrary.Instance.iceSpike.GetComponent<IceSpike>();
-            _contents2 = PrefabLibrary.Instance.fireball.GetComponent<Fireball>();
+            _contents1 = new FireballAttack();
+            _contents2 = new IceSpikeAttack();
             reward1SpriteRenderer.sprite = _contents1.GetSprite();
             reward2SpriteRenderer.sprite = _contents2.GetSprite();
             _opened = true;

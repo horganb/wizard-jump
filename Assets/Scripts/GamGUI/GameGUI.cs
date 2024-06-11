@@ -30,9 +30,9 @@ namespace GamGUI
 
         private void Update()
         {
-            if (Player.Instance.activeAttack != null)
-                basicAttackImage.sprite = Player.Instance.activeAttack.GetSprite();
-            basicAttack.SetActive(Player.Instance.activeAttack != null);
+            if (Player.Instance.ActiveAttack != null)
+                basicAttackImage.sprite = Player.Instance.ActiveAttack.GetSprite();
+            basicAttack.SetActive(Player.Instance.ActiveAttack != null);
 
             if (Player.Instance.Special != null) specialImage.sprite = Player.Instance.Special.GetSprite();
             special.SetActive(Player.Instance.Special != null);

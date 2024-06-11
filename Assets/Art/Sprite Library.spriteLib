@@ -13,17 +13,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library:
-  - m_Name: Staffs
-    m_Hash: 48322214
+  - m_Name: Attacks
+    m_Hash: 637525918
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Flames
-      m_Hash: 638756335
+    - m_Name: Fireball
+      m_Hash: 380690053
       m_Sprite: {fileID: 21300000, guid: 92cb42d1e6ebdf94baeed20aef733fcc, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 21300000, guid: 92cb42d1e6ebdf94baeed20aef733fcc, type: 3}
+    - m_Name: Ice Spike
+      m_Hash: 1009099341
+      m_Sprite: {fileID: 21300000, guid: fe40c90b1f6490e4ba58f867d55776ee, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fe40c90b1f6490e4ba58f867d55776ee, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 1
+    m_EntryOverrideCount: 2
   - m_Name: Specials
     m_Hash: 456619424
     m_CategoryList: []
@@ -88,5 +93,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 5
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638451873457799720
+  m_ModificationHash: 638536500067294446
   m_Version: 1

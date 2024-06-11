@@ -1,13 +1,11 @@
 ﻿using System;
-using Interactable;
 using UnityEngine;
 
 namespace Projectiles
 {
-    public abstract class Projectile : MonoBehaviour, IChestReward
+    public abstract class Projectile : MonoBehaviour
     {
         public float speed = 2f;
-        public AudioClip shootClip;
 
         private Camera _mainCamera;
 
@@ -24,18 +22,6 @@ namespace Projectiles
             var pos = o.transform.position;
             pos += o.transform.right * (Time.deltaTime * speed);
             o.transform.position = pos;
-        }
-
-        public abstract string Name();
-
-        public void Acquire()
-        {
-            Player.Instance.activeAttack = this;
-        }
-
-        public Sprite GetSprite()
-        {
-            return GetComponent<SpriteRenderer>().sprite;
         }
     }
 }

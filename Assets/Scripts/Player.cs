@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
+using Attacks;
 using GamGUI;
-using Projectiles;
 using Scrolls;
 using Singletons;
 using UnityEngine;
@@ -22,7 +22,6 @@ public class Player : SingletonMonoBehaviour<Player>
     public float jump = 5f;
     public float jumpAddition = 5f;
     public float jumpAdditionDuration = 0.5f;
-    public Projectile activeAttack;
     public float health = 3;
     public float maxHealth = 3;
     public int orbs;
@@ -57,6 +56,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private Rigidbody2D _rigidBody;
     private float _spawnTimer;
+    public Attack ActiveAttack;
     public Scroll Scroll;
     public Special.Special Special;
 
@@ -329,14 +329,14 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Shoot()
     {
-        if (!activeAttack) return;
-        audioSource.PlayOneShot(activeAttack.shootClip);
+        if (ActiveAttack == null) return;
+        audioSource.PlayOneShot(ActiveAttack.GetClip());
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;
         var fireballDirectionVector = (mousePosition - playerPosition).normalized;
         var fireballStartPosition = playerPosition + fireballDirectionVector * 0.5f;
         var rotation = Quaternion.FromToRotation(Vector2.right, fireballDirectionVector);
-        Instantiate(activeAttack, fireballStartPosition, rotation);
+        Instantiate(ActiveAttack.GetPrefab(), fireballStartPosition, rotation);
     }
 
     private bool IsGrounded()

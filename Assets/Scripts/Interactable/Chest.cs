@@ -51,7 +51,6 @@ namespace Interactable
             _opened = true;
             _animator.SetTrigger(Open);
             _audioSource.PlayOneShot(openClip);
-            LevelManager.Instance.StartNextLevel();
         }
 
         private void LootChest()
@@ -60,6 +59,7 @@ namespace Interactable
             _animator.SetTrigger(Looted);
             _contents.Acquire();
             _audioSource.PlayOneShot(lootClip);
+            LevelManager.Instance.StartNextLevel();
         }
 
         private void DisplayPrompt()

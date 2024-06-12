@@ -1,5 +1,4 @@
-﻿using Attacks;
-using GamGUI;
+﻿using GamGUI;
 using Singletons;
 using UnityEngine;
 
@@ -15,10 +14,10 @@ namespace Interactable
         public AudioClip lootClip;
         private Animator _animator;
         private AudioSource _audioSource;
-        private IChestReward _contents1;
-        private IChestReward _contents2;
         private bool _looted;
         private bool _opened;
+        public IChestReward Contents1;
+        public IChestReward Contents2;
 
         private void Start()
         {
@@ -49,10 +48,8 @@ namespace Interactable
 
         private void OpenChest()
         {
-            _contents1 = new FireballAttack();
-            _contents2 = new IceSpikeAttack();
-            reward1SpriteRenderer.sprite = _contents1.GetSprite();
-            reward2SpriteRenderer.sprite = _contents2.GetSprite();
+            reward1SpriteRenderer.sprite = Contents1.GetSprite();
+            reward2SpriteRenderer.sprite = Contents2.GetSprite();
             _opened = true;
             _animator.SetTrigger(Open);
             _audioSource.PlayOneShot(openClip);
@@ -63,9 +60,9 @@ namespace Interactable
             _looted = true;
             _animator.SetTrigger(Looted);
             if (alternate)
-                _contents1.Acquire();
+                Contents1.Acquire();
             else
-                _contents2.Acquire();
+                Contents2.Acquire();
             _audioSource.PlayOneShot(lootClip);
             LevelManager.Instance.StartNextLevel();
         }
@@ -81,7 +78,7 @@ namespace Interactable
             {
                 InteractionPrompt.Instance.Hide();
                 ChoiceInteractionPrompt.Instance.ActiveObject = this;
-                ChoiceInteractionPrompt.Instance.Display("Take", _contents1.Name(), "Take", _contents2.Name());
+                ChoiceInteractionPrompt.Instance.Display("Take", Contents1.Name(), "Take", Contents2.Name());
             }
             else
             {

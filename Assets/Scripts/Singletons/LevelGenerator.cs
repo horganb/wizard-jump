@@ -1,4 +1,6 @@
 using System.Linq;
+using Attacks;
+using Interactable;
 using UnityEngine;
 
 namespace Singletons
@@ -57,13 +59,24 @@ namespace Singletons
             return platformComponent;
         }
 
-        private void GenerateRewardPlatform(GameObject chest)
+        private void GenerateRewardPlatform(int levelNum)
         {
             _lastLocation = new Vector2(0f, _lastLocation.y + 1.5f);
             var platform = PlacePlatform(_lastLocation, 10f);
             platform.isReward = true;
             var chestPosition = _lastLocation + Vector2.up * 1f;
-            Instantiate(chest, chestPosition, Quaternion.identity, gameObject.transform);
+            var chestObject = Instantiate(choiceChestPrefab, chestPosition, Quaternion.identity, gameObject.transform);
+            var chest = chestObject.GetComponent<ChoiceChest>();
+            if (levelNum == 1)
+            {
+                chest.Contents1 = new FireballAttack();
+                chest.Contents2 = new IceSpikeAttack();
+            }
+            else
+            {
+                chest.Contents1 = Utils.InstantiateRandomChestReward();
+                chest.Contents2 = Utils.InstantiateRandomChestReward();
+            }
         }
 
         private void GenerateSlimeWithChance(float chance, float bigSlimeChance, Vector2 platformLocation)
@@ -111,7 +124,7 @@ namespace Singletons
             for (var i = 0; i < level.Size; i++)
                 GeneratePlatformLayer(level);
 
-            GenerateRewardPlatform(levelNum == 1 ? choiceChestPrefab : chestPrefab);
+            GenerateRewardPlatform(levelNum);
         }
     }
 }

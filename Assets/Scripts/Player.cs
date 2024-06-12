@@ -4,6 +4,7 @@ using Attacks;
 using GamGUI;
 using Scrolls;
 using Singletons;
+using Special;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -65,6 +66,7 @@ public class Player : SingletonMonoBehaviour<Player>
         base.Awake();
         // IMPORTANT: this has to run first
         Random.InitState(DateTime.Now.Millisecond);
+        Special = new Bomb();
     }
 
     private void Start()

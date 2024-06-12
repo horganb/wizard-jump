@@ -1826,12 +1826,12 @@ Camera:
     x: 0.04000681
     y: 0
     width: 0.9193054
-    height: 1.0003191
+    height: 0.999678
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.175
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3614,6 +3614,7 @@ MonoBehaviour:
   orbDrop: {fileID: 4470467083543391770, guid: dc48c71f4fc05844eba8dac3b26269c8, type: 3}
   fireball: {fileID: 641132918368447793, guid: 895854a8144af5d49bb57267b75d5f8c, type: 3}
   iceSpike: {fileID: 7461147333304427656, guid: 66bea03360568054280ffd4a5b331b16, type: 3}
+  bomb: {fileID: 3928628955021055582, guid: 6dbe2efa2e1c92c48b6f4cb2d0d3e2e0, type: 3}
 --- !u!1 &1034325813
 GameObject:
   m_ObjectHideFlags: 0
@@ -4488,7 +4489,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Library: []
+  m_Library:
+  - m_Name: Specials
+    m_Hash: 0
+    m_CategoryList:
+    - m_Name: Bomb
+      m_Hash: 0
+      m_Sprite: {fileID: 21300000, guid: 1190259aa21d6b74a90699a094bb3521, type: 3}
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 8367114234a50ff4b8c1ba998837944f, type: 3}
 --- !u!1 &1200087270
 GameObject:

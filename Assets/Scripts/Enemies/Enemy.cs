@@ -108,7 +108,7 @@ namespace Enemies
         {
         }
 
-        private void OnHit(Vector2 impactVector, float damage)
+        public void OnHit(Vector2 impactVector, float damage)
         {
             health -= damage;
             if (health > 0f)

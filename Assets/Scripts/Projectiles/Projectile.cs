@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Enemies;
 using UnityEngine;
 
 namespace Projectiles
@@ -6,22 +6,30 @@ namespace Projectiles
     public abstract class Projectile : MonoBehaviour
     {
         public float speed = 2f;
+        private Vector3 _direction;
 
-        private Camera _mainCamera;
-
-        private void Start()
+        protected virtual void Start()
         {
-            _mainCamera = Camera.main;
+            _direction = transform.right;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            var fireballViewportPoint = _mainCamera.WorldToViewportPoint(gameObject.transform.position);
-            if (fireballViewportPoint.x > 1.2 || Math.Abs(fireballViewportPoint.y) > 1.2) Destroy(gameObject);
-            var o = gameObject;
-            var pos = o.transform.position;
-            pos += o.transform.right * (Time.deltaTime * speed);
-            o.transform.position = pos;
+            Utils.DestroyIfOffscreen(gameObject);
+            transform.Translate(_direction * (Time.deltaTime * speed), Space.World);
+        }
+
+        protected virtual void OnCollisionEnter2D(Collision2D col)
+        {
+            var enemy = col.gameObject.GetComponent<Enemy>();
+            if (enemy != null) OnHitEnemy(enemy);
+        }
+
+        protected virtual void OnHitEnemy(Enemy enemy)
+        {
+            var impactVector = enemy.transform.position - transform.position;
+            enemy.OnHit(impactVector, Player.Instance.damage);
+            Destroy(gameObject);
         }
     }
 }

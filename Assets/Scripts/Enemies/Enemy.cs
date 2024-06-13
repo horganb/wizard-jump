@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Projectiles;
 using Singletons;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -35,22 +34,15 @@ namespace Enemies
 
         protected virtual void Update()
         {
-            if (!IsDead && !_frozen) AliveUpdate();
+            if (IsDead)
+                Utils.DestroyIfOffscreen(gameObject);
+            else if (!_frozen) AliveUpdate();
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D col)
         {
             var player = col.gameObject.GetComponent<Player>();
             if (player != null && !player.HasInvincibility() && !_frozen) OnHitPlayer(player);
-
-            if (col.gameObject.GetComponent<Projectile>() != null)
-            {
-                Destroy(col.gameObject);
-                var impactVector = gameObject.transform.position - col.gameObject.transform.position;
-                OnHit(impactVector, Player.Instance.damage);
-                if (col.gameObject.GetComponent<Fireball>() != null) SetOnFire();
-                if (col.gameObject.GetComponent<IceSpike>() != null) Freeze();
-            }
 
             var lava = col.gameObject.GetComponent<Lava>();
             if (lava != null && SpriteRenderer.enabled)
@@ -60,7 +52,7 @@ namespace Enemies
             }
         }
 
-        private void SetOnFire()
+        public void SetOnFire()
         {
             _onFire = true;
             onFireEffect.SetActive(true);
@@ -77,7 +69,7 @@ namespace Enemies
             }
         }
 
-        private void Freeze()
+        public void Freeze()
         {
             _frozen = true;
             frozenEffect.SetActive(true);

@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using Interactable;
+using Singletons;
+using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 public static class Utils
@@ -51,5 +54,11 @@ public static class Utils
     {
         var index = (int)Math.Floor((decimal)Random.Range(0, choices.Length));
         return choices[index];
+    }
+
+    public static void DestroyIfOffscreen(GameObject gameObject)
+    {
+        var viewportPoint = CameraUtil.Instance.mainCamera.WorldToViewportPoint(gameObject.transform.position);
+        if (Math.Abs(viewportPoint.x) > 1.2 || Math.Abs(viewportPoint.y) > 1.2) Object.Destroy(gameObject);
     }
 }

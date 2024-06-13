@@ -9,7 +9,14 @@ namespace Singletons
         public float worldWidth = 20f;
         public float maxWidthHeightRatio = 2f;
         public RectTransform cameraCanvas;
+        public Camera mainCamera;
         private CinemachineVirtualCamera _camera;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            mainCamera = Camera.main;
+        }
 
         private void Start()
         {

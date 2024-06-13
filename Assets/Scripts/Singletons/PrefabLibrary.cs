@@ -9,5 +9,6 @@ namespace Singletons
         public GameObject fireball;
         public GameObject iceSpike;
         public GameObject bomb;
+        public GameObject saw;
     }
 }

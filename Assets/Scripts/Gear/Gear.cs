@@ -6,7 +6,11 @@ namespace Gear
 {
     public abstract class Gear : IChestReward
     {
-        public abstract string Name();
+        public string Name()
+        {
+            // TODO: append "Upgraded" to the name if the player already has it
+            return DisplayName();
+        }
 
         public abstract void Acquire();
 
@@ -14,6 +18,8 @@ namespace Gear
         {
             return GameGUI.Instance.spriteLibrary.GetSprite("Gear", SpriteName());
         }
+
+        public abstract string DisplayName();
 
         protected abstract string SpriteName();
     }

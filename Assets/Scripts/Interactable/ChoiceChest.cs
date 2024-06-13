@@ -46,6 +46,13 @@ namespace Interactable
             else if (!_looted) LootChest(alternate);
         }
 
+        public void FillWithRandom<T>() where T : class
+        {
+            var results = Utils.InstantiateRandomSubclassXTimes<T>(2);
+            Contents1 = (IChestReward)results[0];
+            Contents2 = (IChestReward)results[1];
+        }
+
         private void OpenChest()
         {
             reward1SpriteRenderer.sprite = Contents1.GetSprite();

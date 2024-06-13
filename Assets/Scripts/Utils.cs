@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Interactable;
@@ -32,13 +33,27 @@ public static class Utils
         return RandomRangeAndSign(0f, max);
     }
 
-    public static T InstantiateRandomSubclass<T>() where T : class
+    public static T InstantiateRandomSubclass<T>(List<Type> exclude = null) where T : class
     {
         var choices = (from t in Assembly.GetExecutingAssembly().GetTypes()
-            where t.IsSubclassOf(typeof(T))
+            where t.IsSubclassOf(typeof(T)) && (exclude == null || !exclude.Contains(t))
             select t).ToArray();
-        var index = (int)Math.Floor((decimal)Random.Range(0, choices.Count()));
+        var index = (int)Math.Floor((decimal)Random.Range(0, choices.Length));
         return Activator.CreateInstance(choices[index]) as T;
+    }
+
+    public static List<T> InstantiateRandomSubclassXTimes<T>(int times) where T : class
+    {
+        List<T> instances = new();
+        List<Type> usedTypes = new();
+        for (var i = 0; i < times; i++)
+        {
+            var newEntity = InstantiateRandomSubclass<T>(usedTypes);
+            instances.Add(newEntity);
+            usedTypes.Add(newEntity.GetType());
+        }
+
+        return instances;
     }
 
     public static IChestReward InstantiateRandomChestReward()

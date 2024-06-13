@@ -15,6 +15,7 @@ namespace Special
             else
                 GameGUI.Instance.DisplayMessage("Ability replaced!", GameGUI.MessageTone.Neutral);
             Player.Instance.Special = this;
+            Player.Instance.orbs = Player.Instance.maxOrbs;
         }
 
         public Sprite GetSprite()

@@ -4,7 +4,7 @@ namespace Gear
 {
     public class Goggles : Gear
     {
-        public override string Name()
+        public override string DisplayName()
         {
             return "Scavenging Goggles";
         }

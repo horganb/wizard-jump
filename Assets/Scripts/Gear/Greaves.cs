@@ -4,7 +4,7 @@ namespace Gear
 {
     public class Greaves : Gear
     {
-        public override string Name()
+        public override string DisplayName()
         {
             return "Greaves of Lava Resist";
         }

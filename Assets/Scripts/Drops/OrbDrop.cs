@@ -4,7 +4,7 @@
     {
         protected override bool CanPickUp()
         {
-            return Player.Instance.orbs < Player.Instance.maxOrbs;
+            return Player.Instance.Special != null && Player.Instance.orbs < Player.Instance.maxOrbs;
         }
 
         protected override void OnPickUp()

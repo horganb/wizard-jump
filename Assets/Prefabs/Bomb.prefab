@@ -162,9 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d368fe96ab2a4ee7b652e0675ad839b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
   explosionPrefab: {fileID: 6471714899062009630, guid: b627fe99403b5ea4fb560078d43d581f, type: 3}
-  explosionRange: 2
-  damage: 2
+  explosionRange: 3
+  damage: 3
 --- !u!82 &-98637757097145975
 AudioSource:
   m_ObjectHideFlags: 0

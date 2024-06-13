@@ -68,15 +68,11 @@ namespace Singletons
             var chestObject = Instantiate(choiceChestPrefab, chestPosition, Quaternion.identity, gameObject.transform);
             var chest = chestObject.GetComponent<ChoiceChest>();
             if (levelNum == 1)
-            {
-                chest.Contents1 = new FireballAttack();
-                chest.Contents2 = new IceSpikeAttack();
-            }
+                chest.FillWithRandom<Attack>();
+            else if (levelNum == 4)
+                chest.FillWithRandom<Special.Special>();
             else
-            {
-                chest.Contents1 = Utils.InstantiateRandomChestReward();
-                chest.Contents2 = Utils.InstantiateRandomChestReward();
-            }
+                chest.FillWithRandom<Gear.Gear>();
         }
 
         private void GenerateSlimeWithChance(float chance, float bigSlimeChance, Vector2 platformLocation)

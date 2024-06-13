@@ -23,7 +23,7 @@ namespace Projectiles
         protected void OnTriggerEnter2D(Collider2D col)
         {
             var platform = col.gameObject.GetComponent<Platform>();
-            if (platform != null)
+            if (platform != null && !platform.isReward)
             {
                 Instantiate(destroyedEffect, platform.transform.position, Quaternion.identity);
                 Destroy(platform.gameObject);

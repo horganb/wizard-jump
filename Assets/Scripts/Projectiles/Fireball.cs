@@ -4,10 +4,10 @@ namespace Projectiles
 {
     public class Fireball : Projectile
     {
-        protected override void OnHitEnemy(Enemy enemy)
+        protected override void OnHitTarget(Hittable target)
         {
-            base.OnHitEnemy(enemy);
-            enemy.SetOnFire();
+            base.OnHitTarget(target);
+            target.SetOnFire();
         }
     }
 }

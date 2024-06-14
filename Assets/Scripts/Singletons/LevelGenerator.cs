@@ -13,6 +13,7 @@ namespace Singletons
         public GameObject waspPrefab;
         public GameObject chestPrefab;
         public GameObject choiceChestPrefab;
+        public GameObject urnPrefab;
 
         private Vector2 _lastLocation;
 
@@ -51,19 +52,23 @@ namespace Singletons
         }
 
 
-        public Platform PlacePlatform(Vector2 location, float platformWidth)
+        public void PlacePlatform(Vector2 location, float platformWidth, bool isReward = false)
         {
             var platform = Instantiate(platformPrefab, location, Quaternion.identity, transform);
             var platformComponent = platform.GetComponent<Platform>();
             platformComponent.SetWidth(platformWidth);
-            return platformComponent;
+            platformComponent.isReward = isReward;
+            if (!isReward && Random.value < 0.1)
+            {
+                var urnPosition = location + Vector2.up * 1f;
+                Instantiate(urnPrefab, urnPosition, Quaternion.identity, transform);
+            }
         }
 
         private void GenerateRewardPlatform(int levelNum)
         {
             _lastLocation = new Vector2(0f, _lastLocation.y + 1.5f);
-            var platform = PlacePlatform(_lastLocation, 10f);
-            platform.isReward = true;
+            PlacePlatform(_lastLocation, 10f, true);
             var chestPosition = _lastLocation + Vector2.up * 1f;
             var chestObject = Instantiate(choiceChestPrefab, chestPosition, Quaternion.identity, gameObject.transform);
             var chest = chestObject.GetComponent<ChoiceChest>();

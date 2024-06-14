@@ -9,18 +9,18 @@ namespace Projectiles
         public float explosionRange = 3f;
         public float damage = 2f;
 
-        private void Update()
+        protected override void Update()
         {
             Utils.DestroyIfOffscreen(gameObject);
         }
 
-        protected override void OnHitEnemy(Enemy enemy)
+        protected override void OnHitTarget(Hittable target)
         {
-            // apply damage to all enemies in range
-            foreach (var otherEnemy in FindObjectsOfType<Enemy>())
+            // apply damage to all targets in range
+            foreach (var otherTarget in FindObjectsOfType<Hittable>())
             {
-                var impactVector = otherEnemy.transform.position - transform.position;
-                if (impactVector.magnitude <= explosionRange) otherEnemy.OnHit(impactVector.normalized, damage);
+                var impactVector = otherTarget.transform.position - transform.position;
+                if (impactVector.magnitude <= explosionRange) otherTarget.OnHit(impactVector.normalized, damage);
             }
 
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);

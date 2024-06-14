@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Enemies
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : Hittable
     {
         public float verticalTriggerDistance = 6f;
         public float horizontalTriggerDistance = 10f;
@@ -52,7 +52,17 @@ namespace Enemies
             }
         }
 
-        public void SetOnFire()
+        public override void OnHit(Vector2 impactVector, float damage)
+        {
+            health -= damage;
+            if (health > 0f)
+                OnNonLethalHit(impactVector);
+            else
+                OnDie(impactVector);
+            AudioSource.PlayOneShot(deathClip);
+        }
+
+        public override void SetOnFire()
         {
             _onFire = true;
             onFireEffect.SetActive(true);
@@ -69,7 +79,7 @@ namespace Enemies
             }
         }
 
-        public void Freeze()
+        public override void Freeze()
         {
             _frozen = true;
             frozenEffect.SetActive(true);
@@ -98,16 +108,6 @@ namespace Enemies
 
         protected virtual void AliveUpdate()
         {
-        }
-
-        public void OnHit(Vector2 impactVector, float damage)
-        {
-            health -= damage;
-            if (health > 0f)
-                OnNonLethalHit(impactVector);
-            else
-                OnDie(impactVector);
-            AudioSource.PlayOneShot(deathClip);
         }
 
         protected virtual void OnNonLethalHit(Vector2 impactVector)

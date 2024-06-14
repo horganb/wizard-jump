@@ -4,10 +4,10 @@ namespace Projectiles
 {
     public class IceSpike : Projectile
     {
-        protected override void OnHitEnemy(Enemy enemy)
+        protected override void OnHitTarget(Hittable target)
         {
-            base.OnHitEnemy(enemy);
-            enemy.Freeze();
+            base.OnHitTarget(target);
+            target.Freeze();
         }
     }
 }

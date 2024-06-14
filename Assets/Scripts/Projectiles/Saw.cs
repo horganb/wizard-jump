@@ -15,12 +15,7 @@ namespace Projectiles
             _rigidBody.angularVelocity = spinSpeed;
         }
 
-        protected override void OnCollisionEnter2D(Collision2D col)
-        {
-            // do nothing
-        }
-
-        protected void OnTriggerEnter2D(Collider2D col)
+        protected override void OnTriggerEnter2D(Collider2D col)
         {
             var platform = col.gameObject.GetComponent<Platform>();
             if (platform != null && !platform.isReward)

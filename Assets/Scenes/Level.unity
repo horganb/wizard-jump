@@ -371,6 +371,7 @@ MonoBehaviour:
   worldWidth: 20
   maxWidthHeightRatio: 2
   cameraCanvas: {fileID: 146050819}
+  mainCamera: {fileID: 0}
 --- !u!1 &99841152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,10 +1824,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.04000681
+    x: 0
     y: 0
-    width: 0.9193054
-    height: 0.999678
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -3556,6 +3557,7 @@ MonoBehaviour:
   waspPrefab: {fileID: 3506131019999302718, guid: 5cc8b1e858220ec45a31e9ec958a1787, type: 3}
   chestPrefab: {fileID: 1040017653055953421, guid: 368c888b50deb764882473b9be868392, type: 3}
   choiceChestPrefab: {fileID: 1040017653055953421, guid: 2a45bcc560203c84a9d258b2f3934649, type: 3}
+  urnPrefab: {fileID: 2453861737996730057, guid: ed31756bf8f784f4ab429a19be433249, type: 3}
 --- !u!4 &1020987531
 Transform:
   m_ObjectHideFlags: 0

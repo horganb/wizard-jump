@@ -19,16 +19,16 @@ namespace Projectiles
             transform.Translate(_direction * (Time.deltaTime * speed), Space.World);
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D col)
+        protected virtual void OnTriggerEnter2D(Collider2D col)
         {
-            var enemy = col.gameObject.GetComponent<Enemy>();
-            if (enemy != null) OnHitEnemy(enemy);
+            var target = col.gameObject.GetComponent<Hittable>();
+            if (target != null) OnHitTarget(target);
         }
 
-        protected virtual void OnHitEnemy(Enemy enemy)
+        protected virtual void OnHitTarget(Hittable target)
         {
-            var impactVector = enemy.transform.position - transform.position;
-            enemy.OnHit(impactVector, Player.Instance.damage);
+            var impactVector = target.transform.position - transform.position;
+            target.OnHit(impactVector, Player.Instance.damage);
             Destroy(gameObject);
         }
     }

@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2085485177
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d94914e32f834bf4b8466330aecee515, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,3 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shatterPrefab: {fileID: 8595181700439676521, guid: 155d0be4a2f78cd488e958c0743d09b9, type: 3}
+  sapphirePrefab: {fileID: 5781277677215076103, guid: 8cc4d9643c49b2948a2c33513e5f36c2, type: 3}

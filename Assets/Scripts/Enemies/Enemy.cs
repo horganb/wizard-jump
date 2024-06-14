@@ -17,6 +17,7 @@ namespace Enemies
         private bool _frozen;
         private bool _onFire;
         protected AudioSource AudioSource;
+        protected Collider2D Collider;
         protected float Damage = 0.5f;
         protected bool IsDead;
         protected Rigidbody2D RigidBody;
@@ -29,6 +30,7 @@ namespace Enemies
             RigidBody = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
             AudioSource = GetComponent<AudioSource>();
+            Collider = GetComponent<Collider2D>();
             health = MaxHealth;
         }
 
@@ -52,8 +54,10 @@ namespace Enemies
             }
         }
 
-        public override void OnHit(Vector2 impactVector, float damage)
+        public override void OnHit(Vector2 impactVector, float damage, GameObject projectile = null)
         {
+            if (projectile != null)
+                Destroy(projectile);
             health -= damage;
             if (health > 0f)
                 OnNonLethalHit(impactVector);
@@ -118,12 +122,11 @@ namespace Enemies
         public virtual void OnDie(Vector2 impactVector)
         {
             IsDead = true;
-            var spriteRenderer = GetComponent<SpriteRenderer>();
-            var color = spriteRenderer.color;
+            var color = SpriteRenderer.color;
             color.a = 0.5f;
-            spriteRenderer.color = color;
+            SpriteRenderer.color = color;
             RigidBody.AddForce(impactVector * 3f, ForceMode2D.Impulse);
-            GetComponent<Collider2D>().enabled = false;
+            Collider.enabled = false;
             if (Random.value <= 0.1f + Player.Instance.dropModifier)
                 Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);
             else if (Random.value <= 0.3f + Player.Instance.dropModifier)

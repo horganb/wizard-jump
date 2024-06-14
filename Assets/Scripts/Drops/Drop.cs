@@ -6,6 +6,8 @@ namespace Drops
     public abstract class Drop : MonoBehaviour
     {
         public AudioClip pickUpClip;
+        public bool shouldMoveTowardsPlayer = true;
+        public float distanceThreshold = 0.5f;
 
         private void Update()
         {
@@ -18,10 +20,14 @@ namespace Drops
             var position = transform.position;
             var playerPosition = Player.Instance.transform.position;
             var distanceFromPlayer = Vector2.Distance(position, playerPosition);
-            var realSpeed = Math.Clamp(10f / distanceFromPlayer, 0.5f, 4f);
-            transform.position += (playerPosition - position).normalized * (realSpeed * Time.deltaTime);
+            if (shouldMoveTowardsPlayer)
+            {
+                var realSpeed = Math.Clamp(10f / distanceFromPlayer, 0.5f, 4f);
+                position += (playerPosition - position).normalized * (realSpeed * Time.deltaTime);
+                transform.position = position;
+            }
 
-            if (distanceFromPlayer <= 0.5f)
+            if (distanceFromPlayer <= distanceThreshold)
             {
                 OnPickUp();
                 Player.Instance.audioSource.PlayOneShot(pickUpClip);

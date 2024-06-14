@@ -6,10 +6,13 @@ namespace Level
     public class Urn : Hittable
     {
         public GameObject shatterPrefab;
+        public GameObject sapphirePrefab;
 
-        public override void OnHit(Vector2 impactVector, float damage)
+        public override void OnHit(Vector2 impactVector, float damage, GameObject projectile = null)
         {
-            Instantiate(shatterPrefab, transform.position, Quaternion.identity);
+            var position = transform.position;
+            Instantiate(shatterPrefab, position, Quaternion.identity);
+            Instantiate(sapphirePrefab, position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

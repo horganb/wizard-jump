@@ -58,10 +58,21 @@ namespace Singletons
             var platformComponent = platform.GetComponent<Platform>();
             platformComponent.SetWidth(platformWidth);
             platformComponent.isReward = isReward;
-            if (!isReward && Random.value < 0.1)
+            var urnChance = Random.value;
+            if (!isReward && urnChance < 0.1)
             {
-                var urnPosition = location + Vector2.up * 1f;
-                Instantiate(urnPrefab, urnPosition, Quaternion.identity, transform);
+                if (urnChance < 0.05)
+                {
+                    var urn1Position = location + Vector2.up * 1f + Vector2.left * 0.5f;
+                    var urn2Position = location + Vector2.up * 1f + Vector2.right * 0.5f;
+                    Instantiate(urnPrefab, urn1Position, Quaternion.identity, transform);
+                    Instantiate(urnPrefab, urn2Position, Quaternion.identity, transform);
+                }
+                else
+                {
+                    var urnPosition = location + Vector2.up * 1f;
+                    Instantiate(urnPrefab, urnPosition, Quaternion.identity, transform);
+                }
             }
         }
 

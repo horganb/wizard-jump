@@ -28,8 +28,7 @@ namespace Projectiles
         protected virtual void OnHitTarget(Hittable target)
         {
             var impactVector = target.transform.position - transform.position;
-            target.OnHit(impactVector, Player.Instance.damage);
-            Destroy(gameObject);
+            target.OnHit(impactVector, Player.Instance.damage, gameObject);
         }
     }
 }

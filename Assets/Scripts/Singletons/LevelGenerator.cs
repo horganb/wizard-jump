@@ -14,6 +14,7 @@ namespace Singletons
         public GameObject chestPrefab;
         public GameObject choiceChestPrefab;
         public GameObject urnPrefab;
+        public GameObject slimeKingLevelPrefab;
 
         private Vector2 _lastLocation;
 
@@ -131,12 +132,21 @@ namespace Singletons
                 new(0.6f, 0.3f, 0.3f),
                 new(0.8f, 0.5f, 0.5f)
             };
-            var level = levels[levelNum - 1];
+            if (levelNum - 1 == levels.Length)
+            {
+                Lava.Instance.SetTarget(_lastLocation.y);
+                Instantiate(slimeKingLevelPrefab, _lastLocation + Vector2.up * 6f, Quaternion.identity, transform);
+            }
+            else
+            {
+                Lava.Instance.ClearTarget();
+                var level = levels[levelNum - 1];
 
-            for (var i = 0; i < level.Size; i++)
-                GeneratePlatformLayer(level);
+                for (var i = 0; i < level.Size; i++)
+                    GeneratePlatformLayer(level);
 
-            GenerateRewardPlatform(levelNum);
+                GenerateRewardPlatform(levelNum);
+            }
         }
     }
 }

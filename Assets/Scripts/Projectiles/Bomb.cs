@@ -11,7 +11,7 @@ namespace Projectiles
 
         protected override void Update()
         {
-            Utils.DestroyIfOffscreen(gameObject);
+            Utils.DestroyIfBelowScreen(gameObject);
         }
 
         protected override void OnHitTarget(Hittable target)

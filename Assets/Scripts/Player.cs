@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Attacks;
+using Enemies;
 using GamGUI;
 using Scrolls;
 using Singletons;
@@ -40,7 +41,6 @@ public class Player : SingletonMonoBehaviour<Player>
     public float thorns;
     public float dodgeChance;
     public float dropModifier;
-
     private Animator _animator;
     private float _attackCooldown;
     private float _hVelocity;
@@ -56,6 +56,9 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private Rigidbody2D _rigidBody;
     private float _spawnTimer;
+
+    private SpriteRenderer _spriteRenderer;
+    private bool _stuck;
     public Attack ActiveAttack;
     public Scroll Scroll;
     public Special.Special Special;
@@ -71,6 +74,7 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         _mainCamera = Camera.main;
         wandObject.SetActive(false);
@@ -78,7 +82,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Update()
     {
-        if (_isDead) return;
+        if (ControlsDisabled()) return;
 
         // moving
         var justLanded = IsGrounded() && !_prevGrounded && lastPlatform != null;
@@ -89,8 +93,12 @@ public class Player : SingletonMonoBehaviour<Player>
             lastStandingPlatform = lastPlatform;
         }
 
+        _animator.SetBool(IsWalking, _hVelocity != 0);
         if (_hVelocity != 0f)
         {
+            var scale = transform.localScale;
+            scale.x = _hVelocity < 0 ? -1f : 1f;
+            transform.localScale = scale;
             var horizontalForce = Time.deltaTime * (_hVelocity * speed);
             if (!IsGrounded()) horizontalForce *= SpeedFractionWhileJumping;
             _rigidBody.AddForce(Vector2.right * horizontalForce);
@@ -237,15 +245,6 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             var value = context.ReadValue<Vector2>();
             _hVelocity = value.x;
-
-            _animator.SetBool(IsWalking, _hVelocity != 0);
-            if (_hVelocity != 0)
-            {
-                var scale = transform.localScale;
-                scale.x = _hVelocity < 0 ? -1f : 1f;
-                transform.localScale = scale;
-            }
-
             _isJumpHeld = value.y > 0;
         }
     }
@@ -258,7 +257,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void CastSpell(InputAction.CallbackContext context)
     {
-        if (_isDead) return;
+        if (ControlsDisabled()) return;
         if (Special != null)
         {
             if (context.performed)
@@ -275,8 +274,8 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void UseScroll(InputAction.CallbackContext context)
     {
+        if (ControlsDisabled()) return;
         audioSource.Play();
-        if (_isDead) return;
         if (context.performed && Scroll != null) Scroll.Cast(GetMousePositionInWorld());
     }
 
@@ -298,7 +297,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void Cheat(InputAction.CallbackContext context)
     {
-        if (_isDead) return;
+        if (ControlsDisabled()) return;
         if (context.performed) LevelManager.Instance.SkipToNextLevel();
     }
 
@@ -329,7 +328,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Shoot()
     {
-        if (ActiveAttack == null) return;
+        if (ActiveAttack == null || ControlsDisabled()) return;
         audioSource.PlayOneShot(ActiveAttack.GetClip());
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;
@@ -351,6 +350,40 @@ public class Player : SingletonMonoBehaviour<Player>
         yield return new WaitForSeconds(seconds);
         GameGUI.Instance.DisplayMessage("Invincibility ended!", GameGUI.MessageTone.Negative);
         invincible = false;
+    }
+
+    public void OnHit(float hitDamage, GameObject hitBy)
+    {
+        if (HasInvincibility() || Random.value <= dodgeChance) return;
+        var impactVector = transform.position - hitBy.transform.position;
+        var knockbackVector = new Vector2(impactVector.x * 10f, 5f);
+        _rigidBody.AddForce(knockbackVector, ForceMode2D.Impulse);
+        LoseHealth(hitDamage);
+        audioSource.PlayOneShot(hitClip);
+        if (thorns > 0f)
+        {
+            var hittable = hitBy.GetComponent<Hittable>();
+            if (hittable != null) hittable.OnHit(-knockbackVector.normalized, hitDamage * thorns);
+        }
+    }
+
+    private bool ControlsDisabled()
+    {
+        return _isDead || _stuck;
+    }
+
+    public void OnStuck()
+    {
+        GameGUI.Instance.DisplayMessage("Stuck!", GameGUI.MessageTone.Negative);
+        _stuck = true;
+        _animator.SetBool(IsWalking, false);
+        StartCoroutine(UnStuck());
+    }
+
+    private IEnumerator UnStuck()
+    {
+        yield return new WaitForSeconds(1f);
+        _stuck = false;
     }
 
     private enum JumpStage

@@ -12,11 +12,10 @@ namespace Special
 
         public override void OnCast(Vector2 worldPosition)
         {
+            var bombRigidBody =
+                Utils.SpawnProjectile(PrefabLibrary.Instance.bomb, Player.Instance.gameObject, worldPosition);
             Vector2 playerPosition = Player.Instance.transform.position;
             var directionVector = (worldPosition - playerPosition).normalized;
-            var startPosition = playerPosition + directionVector * 0.5f;
-            var bomb = Object.Instantiate(PrefabLibrary.Instance.bomb, startPosition, Quaternion.identity);
-            var bombRigidBody = bomb.GetComponent<Rigidbody2D>();
             bombRigidBody.AddForce(directionVector * 15f, ForceMode2D.Impulse);
             bombRigidBody.AddTorque(4f, ForceMode2D.Impulse);
         }

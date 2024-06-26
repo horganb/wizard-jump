@@ -13,7 +13,7 @@ namespace Singletons
             Lava.Instance.isPaused = platform.isReward;
             var lastPlatform = Player.Instance.lastStandingPlatform;
             var lastPlatformWasReward = lastPlatform && lastPlatform.isReward;
-            if (platform.isReward && !lastPlatformWasReward)
+            if (platform.isReward && platform != lastPlatform)
             {
                 foreach (var pl in FindObjectsOfType<Platform>())
                     if (pl != platform)

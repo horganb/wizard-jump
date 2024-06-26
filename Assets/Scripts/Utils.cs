@@ -76,4 +76,38 @@ public static class Utils
         var viewportPoint = CameraUtil.Instance.mainCamera.WorldToViewportPoint(gameObject.transform.position);
         if (Math.Abs(viewportPoint.x) > 1.2 || Math.Abs(viewportPoint.y) > 1.2) Object.Destroy(gameObject);
     }
+
+    public static void DestroyIfBelowScreen(GameObject gameObject)
+    {
+        var viewportPoint = CameraUtil.Instance.mainCamera.WorldToViewportPoint(gameObject.transform.position);
+        if (viewportPoint.y < -1.2f) Object.Destroy(gameObject);
+    }
+
+    public static Rigidbody2D SpawnProjectile(GameObject projectilePrefab, GameObject startEntity, Vector2 target)
+    {
+        Vector2 startEntityPosition = startEntity.transform.position;
+        var directionVector = (target - startEntityPosition).normalized;
+        var startPosition = startEntityPosition + directionVector * 0.5f;
+        var projectile = Object.Instantiate(projectilePrefab, startPosition, Quaternion.identity);
+        return projectile.GetComponent<Rigidbody2D>();
+    }
+
+    public static void ShootAt(Rigidbody2D obj, Transform target, float hSpeed)
+    {
+        var gravity = Physics2D.gravity.y;
+        var startPosition = obj.transform.position;
+        var targetPosition = target.position;
+        var hVelocity = targetPosition.x < startPosition.x ? -hSpeed : hSpeed;
+        var xDiff = targetPosition.x - startPosition.x;
+        if (Math.Abs(xDiff) < 3f) hVelocity *= Math.Abs(xDiff) / 3f; // dampen horizontal velocity if target is close
+        var vVelocity = 0f;
+        if (hVelocity != 0f)
+        {
+            var exp1 = xDiff / hVelocity;
+            var yDiff = targetPosition.y - startPosition.y;
+            vVelocity = (yDiff - 0.5f * gravity * (float)Math.Pow(exp1, 2)) / exp1;
+        }
+
+        obj.AddForce(new Vector2(hVelocity, vVelocity) * obj.mass, ForceMode2D.Impulse);
+    }
 }

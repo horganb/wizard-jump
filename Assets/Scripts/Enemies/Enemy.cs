@@ -41,17 +41,12 @@ namespace Enemies
             else if (!_frozen) AliveUpdate();
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D col)
+        protected override void OnCollisionEnter2D(Collision2D col)
         {
             var player = col.gameObject.GetComponent<Player>();
-            if (player != null && !player.HasInvincibility() && !_frozen) OnHitPlayer(player);
+            if (player != null && !_frozen) player.OnHit(Damage, gameObject);
 
-            var lava = col.gameObject.GetComponent<Lava>();
-            if (lava != null && SpriteRenderer.enabled)
-            {
-                AudioSource.PlayClipAtPoint(lava.lavaDeathClip, transform.position);
-                Destroy(gameObject);
-            }
+            base.OnCollisionEnter2D(col);
         }
 
         public override void OnHit(Vector2 impactVector, float damage, GameObject projectile = null)
@@ -59,6 +54,8 @@ namespace Enemies
             if (projectile != null)
                 Destroy(projectile);
             health -= damage;
+            StopCoroutine(HitColorEffect());
+            StartCoroutine(HitColorEffect());
             if (health > 0f)
                 OnNonLethalHit(impactVector);
             else
@@ -72,6 +69,13 @@ namespace Enemies
             onFireEffect.SetActive(true);
             StopCoroutine(TakePeriodicFireDamage());
             StartCoroutine(TakePeriodicFireDamage());
+        }
+
+        private IEnumerator HitColorEffect()
+        {
+            SpriteRenderer.color = new Color(1f, 0.4f, 0.4f);
+            yield return new WaitForSeconds(0.1f);
+            SpriteRenderer.color = Color.white;
         }
 
         private IEnumerator TakePeriodicFireDamage()
@@ -96,18 +100,6 @@ namespace Enemies
             yield return new WaitForSeconds(2f);
             _frozen = false;
             frozenEffect.SetActive(false);
-        }
-
-        protected virtual void OnHitPlayer(Player player)
-        {
-            if (Random.value <= player.dodgeChance) return;
-
-            var impactVector = player.gameObject.transform.position - gameObject.transform.position;
-            var knockbackVector = new Vector2(impactVector.x * 10f, 5f);
-            player.GetComponent<Rigidbody2D>().AddForce(knockbackVector, ForceMode2D.Impulse);
-            player.LoseHealth(Damage);
-            player.audioSource.PlayOneShot(player.hitClip);
-            if (player.thorns > 0f) OnHit(-knockbackVector.normalized, Damage * player.thorns);
         }
 
         protected virtual void AliveUpdate()

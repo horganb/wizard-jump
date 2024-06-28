@@ -1326,9 +1326,12 @@ MonoBehaviour:
   health: 0
   onFireEffect: {fileID: 3701318584866489007}
   frozenEffect: {fileID: 3849171006930951285}
+  isDead: 0
+  burstInterval: 2
   shootInterval: 0.5
+  burstSize: 3
   shootSpeed: 8
-  jumpInterval: 4
+  jumpInterval: 6
   shedInterval: 4
   jumpHeight: 10
   dampeningDistance: 2
@@ -1402,7 +1405,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.3
       inSlope: 0
       outSlope: 0
       tangentMode: 0

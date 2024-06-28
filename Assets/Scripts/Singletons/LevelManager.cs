@@ -1,10 +1,12 @@
 using Enemies;
+using Level;
 using UnityEngine;
 
 namespace Singletons
 {
     public class LevelManager : SingletonMonoBehaviour<LevelManager>
     {
+        public Enemy currentBoss;
         private int _currentLevel = 1;
         private bool _rewardPhase;
 

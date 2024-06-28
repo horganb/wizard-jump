@@ -6,6 +6,7 @@ namespace Level
     public class SlimeResidue : Hittable
     {
         public float lifespan = 2f;
+        public GameObject destroyedPrefab;
         private float _aliveTimer;
 
         private void Update()
@@ -28,6 +29,7 @@ namespace Level
         public override void OnHit(Vector2 impactVector, float damage, GameObject projectile = null)
         {
             Destroy(gameObject);
+            Instantiate(destroyedPrefab, transform.position, Quaternion.identity);
         }
     }
 }

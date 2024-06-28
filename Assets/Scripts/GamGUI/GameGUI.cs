@@ -1,4 +1,5 @@
-﻿using Singletons;
+﻿using System.Collections;
+using Singletons;
 using TMPro;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
@@ -27,6 +28,12 @@ namespace GamGUI
         public Image scrollImage;
         public SpriteLibrary spriteLibrary;
         public GameObject messagePrefab;
+        public GameObject worldMessagePrefab;
+
+        private void Start()
+        {
+            StartCoroutine(RepeatMessage());
+        }
 
         private void Update()
         {
@@ -41,14 +48,22 @@ namespace GamGUI
             scroll.SetActive(Player.Instance.Scroll != null);
         }
 
-        public void DisplayMessage(string message, MessageTone tone = MessageTone.Positive)
+        private IEnumerator RepeatMessage()
         {
-            var messageObject = Instantiate(messagePrefab, transform);
+            while (true) yield return new WaitForSeconds(1f);
+        }
+
+        public void DisplayMessage(string message, MessageTone tone = MessageTone.Positive, bool playerMessage = false)
+        {
+            GameObject messageObject;
+            messageObject = playerMessage
+                ? Instantiate(worldMessagePrefab, Player.Instance.transform)
+                : Instantiate(messagePrefab, transform);
             var textComponent = messageObject.GetComponent<TMP_Text>();
             textComponent.text = message;
             if (tone == MessageTone.Positive) textComponent.color = Color.green;
             else if (tone == MessageTone.Negative) textComponent.color = Color.red;
-            // TODO: destroy message object after it is displayed
+            Destroy(messageObject, 10f);
         }
     }
 }

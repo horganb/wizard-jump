@@ -1,6 +1,7 @@
 using System.Linq;
 using Attacks;
 using Interactable;
+using Level;
 using UnityEngine;
 
 namespace Singletons

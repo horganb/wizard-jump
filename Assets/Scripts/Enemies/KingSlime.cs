@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
+using Level;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -9,7 +9,9 @@ namespace Enemies
     {
         private static readonly int PreJump = Animator.StringToHash("Pre Jump");
         private static readonly int PostJump = Animator.StringToHash("Post Jump");
+        public float burstInterval = 2f;
         public float shootInterval = 0.5f;
+        public float burstSize = 3f;
         public float shootSpeed = 5f;
         public float jumpInterval = 2f;
         public float shedInterval = 4f;
@@ -21,11 +23,16 @@ namespace Enemies
         public GameObject slimePrefab;
         public GameObject bigSlimePrefab;
         private Animator _animator;
+        private float _burstTimer;
+        private bool _evolved;
         private float _shedTimer;
+        private bool _shooting;
         private float _shootTimer;
+        private float _shotsFiredInBurst;
         private State _state;
         private float _stateTimer;
         private Platform _target;
+
         public override float MaxHealth => 50f;
 
         protected override void Start()
@@ -37,13 +44,19 @@ namespace Enemies
 
         protected override void AliveUpdate()
         {
+            if (!_evolved && health <= MaxHealth / 2f)
+            {
+                _evolved = true;
+                shedInterval /= 2;
+                jumpInterval /= 2;
+            }
+
             var position = transform.position;
             _shedTimer += Time.deltaTime;
             if (_shedTimer >= shedInterval)
             {
                 _shedTimer = 0f;
-                var slimeToSpawn = Random.value <= 0.8f ? slimePrefab : bigSlimePrefab;
-                var slimeObject = Instantiate(slimeToSpawn, position, Quaternion.identity);
+                var slimeObject = Instantiate(slimePrefab, position, Quaternion.identity);
                 var direction = Player.Instance.transform.position.x < position.x
                     ? Vector2.left
                     : Vector2.right;
@@ -58,16 +71,36 @@ namespace Enemies
                 {
                     _stateTimer = 0f;
                     _shootTimer = 0f;
+                    _burstTimer = 0f;
+                    _shooting = false;
                     _state = State.PreparingJump;
                     _animator.SetTrigger(PreJump);
                 }
                 else
                 {
-                    _shootTimer += Time.deltaTime;
-                    if (_shootTimer >= shootInterval)
+                    if (_shooting || _evolved)
                     {
-                        _shootTimer = 0f;
-                        Shoot();
+                        _shootTimer += Time.deltaTime;
+                        if (_shootTimer >= shootInterval)
+                        {
+                            _shootTimer = 0f;
+                            Shoot();
+                            if (!_evolved)
+                            {
+                                _shotsFiredInBurst++;
+                                if (_shotsFiredInBurst > burstSize) _shooting = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _burstTimer += Time.deltaTime;
+                        if (_burstTimer >= burstInterval)
+                        {
+                            _burstTimer = 0f;
+                            _shotsFiredInBurst = 0f;
+                            _shooting = true;
+                        }
                     }
                 }
             }

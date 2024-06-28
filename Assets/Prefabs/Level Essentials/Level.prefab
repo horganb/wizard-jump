@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6678292515742007630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5398208237561090890}
+  - component: {fileID: 3104421879079785181}
+  - component: {fileID: 6898643807544266624}
+  - component: {fileID: 1149330829447562197}
+  - component: {fileID: 8222181384535030884}
+  m_Layer: 0
+  m_Name: Level
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5398208237561090890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678292515742007630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3104421879079785181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678292515742007630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592eb79b90cd6714c81b0d719e2bd95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformPrefab: {fileID: 6045469943568222272, guid: 85bc58526b90cb24f81f71e8a327aea9, type: 3}
+  slimePrefab: {fileID: 4807991862043732585, guid: af0d28cde2467404aaccf76b7e76a9d8, type: 3}
+  bigSlimePrefab: {fileID: 4807991862043732585, guid: f417dade8d616a043af202067546af44, type: 3}
+  waspPrefab: {fileID: 3506131019999302718, guid: 5cc8b1e858220ec45a31e9ec958a1787, type: 3}
+  chestPrefab: {fileID: 1040017653055953421, guid: 368c888b50deb764882473b9be868392, type: 3}
+  choiceChestPrefab: {fileID: 1040017653055953421, guid: 2a45bcc560203c84a9d258b2f3934649, type: 3}
+  urnPrefab: {fileID: 2453861737996730057, guid: ed31756bf8f784f4ab429a19be433249, type: 3}
+  slimeKingLevelPrefab: {fileID: 7324301179104382929, guid: cdac628d826dcee42a0a49623bb33e9f, type: 3}
+--- !u!114 &6898643807544266624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678292515742007630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50358a9519934847bb197d823da563f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBoss: {fileID: 0}
+--- !u!114 &1149330829447562197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678292515742007630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ab4f9938ca4f94b30b184827f0fd30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleport: {fileID: 8300000, guid: 67a1ee704e10084439a35674b9957fe2, type: 3}
+  fireball: {fileID: 8300000, guid: 933396377d3675a45968f5dc15ba8c93, type: 3}
+  iceSpike: {fileID: 8300000, guid: 7e1f54003299bf04ca2cd63c2b02b962, type: 3}
+--- !u!114 &8222181384535030884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678292515742007630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92082eedc0c41f4995d7cd1a5c8015f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthDrop: {fileID: 4470467083543391770, guid: 784914a31fbfc56448bb2141f7ded399, type: 3}
+  orbDrop: {fileID: 4470467083543391770, guid: dc48c71f4fc05844eba8dac3b26269c8, type: 3}
+  fireball: {fileID: 641132918368447793, guid: 895854a8144af5d49bb57267b75d5f8c, type: 3}
+  iceSpike: {fileID: 7461147333304427656, guid: 66bea03360568054280ffd4a5b331b16, type: 3}
+  bomb: {fileID: 3928628955021055582, guid: 6dbe2efa2e1c92c48b6f4cb2d0d3e2e0, type: 3}
+  saw: {fileID: 7793999273235096247, guid: 1fc086d98df228f45bda551f80e175fc, type: 3}

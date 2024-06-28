@@ -3,6 +3,7 @@ using System.Collections;
 using Attacks;
 using Enemies;
 using GamGUI;
+using Level;
 using Scrolls;
 using Singletons;
 using UnityEngine;
@@ -82,6 +83,8 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Update()
     {
+        ActiveAttack = new IceSpikeAttack();
+
         if (ControlsDisabled()) return;
 
         // moving
@@ -345,16 +348,22 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public IEnumerator SetInvincibleFor(float seconds)
     {
-        GameGUI.Instance.DisplayMessage("Invincible!");
+        GameGUI.Instance.DisplayMessage("Invincible!", playerMessage: true);
         invincible = true;
         yield return new WaitForSeconds(seconds);
-        GameGUI.Instance.DisplayMessage("Invincibility ended!", GameGUI.MessageTone.Negative);
+        GameGUI.Instance.DisplayMessage("Invincibility ended!", GameGUI.MessageTone.Negative, true);
         invincible = false;
     }
 
     public void OnHit(float hitDamage, GameObject hitBy)
     {
-        if (HasInvincibility() || Random.value <= dodgeChance) return;
+        if (HasInvincibility()) return;
+        if (Random.value <= dodgeChance)
+        {
+            GameGUI.Instance.DisplayMessage("Dodged!", playerMessage: true);
+            return;
+        }
+
         var impactVector = transform.position - hitBy.transform.position;
         var knockbackVector = new Vector2(impactVector.x * 10f, 5f);
         _rigidBody.AddForce(knockbackVector, ForceMode2D.Impulse);
@@ -374,7 +383,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void OnStuck()
     {
-        GameGUI.Instance.DisplayMessage("Stuck!", GameGUI.MessageTone.Negative);
+        GameGUI.Instance.DisplayMessage("Stuck!", GameGUI.MessageTone.Negative, true);
         _stuck = true;
         _animator.SetBool(IsWalking, false);
         StartCoroutine(UnStuck());

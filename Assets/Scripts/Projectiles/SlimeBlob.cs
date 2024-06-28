@@ -1,4 +1,5 @@
 ﻿using Enemies;
+using Level;
 using UnityEngine;
 
 namespace Projectiles
@@ -7,6 +8,7 @@ namespace Projectiles
     {
         public float damage = 0.5f;
         public GameObject residuePrefab;
+        public GameObject destroyedPrefab;
         private Rigidbody2D _rigidbody;
 
         protected void Start()
@@ -47,6 +49,7 @@ namespace Projectiles
         public override void OnHit(Vector2 impactVector, float damage, GameObject projectile = null)
         {
             Destroy(gameObject);
+            Instantiate(destroyedPrefab, transform.position, Quaternion.identity);
         }
     }
 }

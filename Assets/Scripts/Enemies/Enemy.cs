@@ -14,12 +14,12 @@ namespace Enemies
         public float health;
         public GameObject onFireEffect;
         public GameObject frozenEffect;
+        public bool isDead;
         private bool _frozen;
         private bool _onFire;
         protected AudioSource AudioSource;
         protected Collider2D Collider;
         protected float Damage = 0.5f;
-        protected bool IsDead;
         protected Rigidbody2D RigidBody;
         protected SpriteRenderer SpriteRenderer;
         public virtual float MaxHealth => 1f;
@@ -36,7 +36,7 @@ namespace Enemies
 
         protected virtual void Update()
         {
-            if (IsDead)
+            if (isDead)
                 Utils.DestroyIfOffscreen(gameObject);
             else if (!_frozen) AliveUpdate();
         }
@@ -113,7 +113,7 @@ namespace Enemies
 
         public virtual void OnDie(Vector2 impactVector)
         {
-            IsDead = true;
+            isDead = true;
             var color = SpriteRenderer.color;
             color.a = 0.5f;
             SpriteRenderer.color = color;

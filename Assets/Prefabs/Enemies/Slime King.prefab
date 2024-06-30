@@ -1340,6 +1340,7 @@ MonoBehaviour:
   slimeBlobPrefab: {fileID: 2784234514248312550, guid: e713fe9c123834b438d0a5a8c54c7e1c, type: 3}
   slimePrefab: {fileID: 4807991862043732585, guid: af0d28cde2467404aaccf76b7e76a9d8, type: 3}
   bigSlimePrefab: {fileID: 4807991862043732585, guid: f417dade8d616a043af202067546af44, type: 3}
+  throwSlimeClip: {fileID: 8300000, guid: 3d41e1f9693ed4142a47151e0c013f78, type: 3}
 --- !u!82 &2888419675662404243
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1349,7 +1350,7 @@ AudioSource:
   m_GameObject: {fileID: 7867916709373097574}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3737692940252203508, guid: 7b34d0d116bd3ca4ca74b88b4b598423, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

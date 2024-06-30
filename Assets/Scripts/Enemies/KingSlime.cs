@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Level;
+using Levels;
 using UnityEngine;
 
 namespace Enemies
@@ -22,6 +23,7 @@ namespace Enemies
         public GameObject slimeBlobPrefab;
         public GameObject slimePrefab;
         public GameObject bigSlimePrefab;
+        public AudioClip throwSlimeClip;
         private Animator _animator;
         private float _burstTimer;
         private bool _evolved;
@@ -39,7 +41,7 @@ namespace Enemies
         {
             base.Start();
             _animator = GetComponent<Animator>();
-            // TODO: initialize target?
+            _target = FindObjectOfType<SlimeKingLevel>().kingStartPlatform;
         }
 
         protected override void AliveUpdate()
@@ -122,6 +124,7 @@ namespace Enemies
 
         private void Shoot()
         {
+            AudioSource.PlayOneShot(throwSlimeClip);
             var blobRigidBody = Utils.SpawnProjectile(slimeBlobPrefab, shootSource.gameObject,
                 Player.Instance.transform.position);
             Utils.ShootAt(blobRigidBody, Player.Instance.transform, shootSpeed);

@@ -137,6 +137,7 @@ namespace Singletons
             {
                 Lava.Instance.SetTarget(_lastLocation.y);
                 Instantiate(slimeKingLevelPrefab, _lastLocation + Vector2.up * 6f, Quaternion.identity, transform);
+                LevelManager.Instance.StopMusic();
             }
             else
             {

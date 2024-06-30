@@ -13,6 +13,7 @@ namespace Levels
 
         public AudioSource introSource;
         public AudioSource loopSource;
+        public Platform kingStartPlatform;
 
         private Platform[] _allPlatforms;
         private Animator _animator;

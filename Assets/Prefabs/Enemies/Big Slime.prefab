@@ -587,7 +587,7 @@ AudioSource:
   m_GameObject: {fileID: 4807991862043732585}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3737692940252203508, guid: 7b34d0d116bd3ca4ca74b88b4b598423, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -643,7 +643,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.3
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -701,6 +701,7 @@ MonoBehaviour:
   health: 0
   onFireEffect: {fileID: 6343106211126124986}
   frozenEffect: {fileID: 2262746297315366213}
+  isDead: 0
   jumpHeight: 7
   knockbackHeight: 5
   jumpDistance: 1

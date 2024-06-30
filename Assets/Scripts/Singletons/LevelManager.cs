@@ -6,9 +6,18 @@ namespace Singletons
 {
     public class LevelManager : SingletonMonoBehaviour<LevelManager>
     {
+        private static readonly int MusicOn = Animator.StringToHash("Music On");
         public Enemy currentBoss;
+        private Animator _animator;
+        private AudioSource _audioSource;
         private int _currentLevel = 1;
         private bool _rewardPhase;
+
+        private void Start()
+        {
+            _audioSource = GetComponent<AudioSource>();
+            _animator = GetComponent<Animator>();
+        }
 
         public void PlayerOnPlatform(Platform platform)
         {
@@ -46,6 +55,16 @@ namespace Singletons
 
             if (lowestPlatform != null)
                 player.transform.position = (Vector2)lowestPlatform.transform.position + Vector2.up;
+        }
+
+        public void StartMusic()
+        {
+            _animator.SetBool(MusicOn, true);
+        }
+
+        public void StopMusic()
+        {
+            _animator.SetBool(MusicOn, false);
         }
     }
 }

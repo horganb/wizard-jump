@@ -288,7 +288,9 @@ MonoBehaviour:
   health: 0
   onFireEffect: {fileID: 3777868769231868290}
   frozenEffect: {fileID: 8331572267166616072}
+  isDead: 0
   speed: 200
+  chargeSpeed: 400
   slowdownSpeed: 200
   playerDistance: 3
   timeToAttack: 0.5
@@ -301,7 +303,7 @@ AudioSource:
   m_GameObject: {fileID: 3506131019999302718}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3737692940252203508, guid: 7b34d0d116bd3ca4ca74b88b4b598423, type: 2}
   m_audioClip: {fileID: 8300000, guid: 80259fb9b400abd4ca9fefea05ccb799, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1

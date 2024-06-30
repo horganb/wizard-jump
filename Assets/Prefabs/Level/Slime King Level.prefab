@@ -56,6 +56,7 @@ MonoBehaviour:
   slimeKing: {fileID: 3866109811019642104}
   introSource: {fileID: 6611255053892929652}
   loopSource: {fileID: 7209859113771873863}
+  kingStartPlatform: {fileID: 5169916491912317556}
 --- !u!82 &7209859113771873863
 AudioSource:
   m_ObjectHideFlags: 0
@@ -65,7 +66,7 @@ AudioSource:
   m_GameObject: {fileID: 7324301179104382929}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3468650114495879361, guid: 7b34d0d116bd3ca4ca74b88b4b598423, type: 2}
   m_audioClip: {fileID: 8300000, guid: b87316d5153c0f446ac44725d523ab97, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.8
@@ -161,7 +162,7 @@ AudioSource:
   m_GameObject: {fileID: 7324301179104382929}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3468650114495879361, guid: 7b34d0d116bd3ca4ca74b88b4b598423, type: 2}
   m_audioClip: {fileID: 8300000, guid: c520ee6ffd5e0ef44a3aac53ab0599b5, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.8
@@ -2223,6 +2224,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85bc58526b90cb24f81f71e8a327aea9, type: 3}
+--- !u!114 &5169916491912317556 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4043513029266037590, guid: 85bc58526b90cb24f81f71e8a327aea9, type: 3}
+  m_PrefabInstance: {fileID: 9196994775600779554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87470c2a153343aab31888c5ad40a398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8639854169675307392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 595785297005004962, guid: 85bc58526b90cb24f81f71e8a327aea9, type: 3}

@@ -83,8 +83,6 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Update()
     {
-        ActiveAttack = new IceSpikeAttack();
-
         if (ControlsDisabled()) return;
 
         // moving

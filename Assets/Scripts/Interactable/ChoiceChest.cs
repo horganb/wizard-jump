@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Interactable
 {
-    public class ChoiceChest : MonoBehaviour, IInteractable
+    public class ChoiceChest : Interactable
     {
         private static readonly int Open = Animator.StringToHash("Open");
         private static readonly int Looted = Animator.StringToHash("Looted");
@@ -30,27 +30,31 @@ namespace Interactable
             _audioSource = GetComponent<AudioSource>();
         }
 
-        private void Update()
+        protected override void Update()
         {
-            if (Player.Instance.lastStandingPlatform && Player.Instance.lastStandingPlatform.isReward &&
-                Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 1f)
-            {
-                DisplayPrompt();
-            }
-            else
-            {
-                if (ReferenceEquals(ChoiceInteractionPrompt.Instance.ActiveObject, this))
-                    ChoiceInteractionPrompt.Instance.Hide();
-            }
-
-            cost.text = rewardType.GetCost().ToString();
+            base.Update();
+            var costNum = rewardType.GetCost();
+            cost.text = costNum == 0 ? "Free" : costNum.ToString();
             cost.color = CanBuy() ? new Color(113f, 135f, 255f) : Color.red;
         }
 
-        public void Interact(bool alternate)
+        public override void Interact(bool alternate)
         {
             if (!_opened) OpenChest();
             else if (!_looted) AttemptLootChest(alternate);
+        }
+
+        protected override string PromptText()
+        {
+            return rewardType.PurchasePrompt();
+        }
+
+        protected override ChoiceInteractionPrompt.Choice[] PromptChoices()
+        {
+            if (_opened && !_looted)
+                return Contents.Select(content => new ChoiceInteractionPrompt.Choice
+                    { ActionText = "Take", DescriptionText = content.Name() }).ToArray();
+            return null;
         }
 
         public void OnReachLevel()
@@ -61,6 +65,14 @@ namespace Interactable
         private bool CanBuy()
         {
             return Player.Instance.gold >= rewardType.GetCost();
+        }
+
+        protected override bool CanInteract()
+        {
+            if (!Player.Instance.lastStandingPlatform || !Player.Instance.lastStandingPlatform.isReward) return false;
+            if (!_opened && !CanBuy()) return false;
+            if (_opened && _looted) return false;
+            return true;
         }
 
         private void OpenChest()
@@ -99,26 +111,6 @@ namespace Interactable
             _animator.SetTrigger(Looted);
             reward.Acquire();
             _audioSource.PlayOneShot(lootClip);
-        }
-
-        private void DisplayPrompt()
-        {
-            ChoiceInteractionPrompt.Instance.ActiveObject = this;
-            if (!_opened)
-            {
-                if (CanBuy()) ChoiceInteractionPrompt.Instance.Display(rewardType.PurchasePrompt());
-                else ChoiceInteractionPrompt.Instance.Hide();
-            }
-            else if (!_looted)
-            {
-                var choices = Contents.Select(content => new ChoiceInteractionPrompt.Choice
-                    { ActionText = "Take", DescriptionText = content.Name() }).ToArray();
-                ChoiceInteractionPrompt.Instance.Display(choices);
-            }
-            else
-            {
-                ChoiceInteractionPrompt.Instance.Hide();
-            }
         }
     }
 }

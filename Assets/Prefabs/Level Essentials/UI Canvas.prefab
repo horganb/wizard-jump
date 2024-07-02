@@ -624,6 +624,7 @@ MonoBehaviour:
   interactionPromptPrefab: {fileID: 8155835857128242866, guid: f8dc31fd3b891484ebf15f9bfc8fbd9f, type: 3}
   separatorPrefab: {fileID: 4662927192835655296, guid: b1a3a4ac8ffb54843b8562fe3cb8a417, type: 3}
   prompts: []
+  activeObject: {fileID: 0}
 --- !u!114 &684970196617904443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2926,8 +2927,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 75.005, y: -20.11}
-  m_SizeDelta: {x: 150.01, y: 40.22}
+  m_AnchoredPosition: {x: 120.005, y: -20.11}
+  m_SizeDelta: {x: 240.01, y: 40.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1211873986206551731
 CanvasRenderer:
@@ -2957,7 +2958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: To Camp
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 730942a98ebf33f489a8aa2cebc03b58, type: 2}
   m_sharedMaterial: {fileID: 8036158815020527283, guid: 730942a98ebf33f489a8aa2cebc03b58, type: 2}
@@ -4446,7 +4447,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -100.000015}
-  m_SizeDelta: {x: 150.01, y: 40.22}
+  m_SizeDelta: {x: 240.01, y: 40.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7404796192022580685
 CanvasRenderer:
@@ -4637,7 +4638,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.01, y: 0.85}
   m_AnchorMax: {x: 0.1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 25.51831}
+  m_AnchoredPosition: {x: 0, y: 25.518341}
   m_SizeDelta: {x: 0, y: -51.03677}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2141714625191844090

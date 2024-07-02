@@ -319,6 +319,22 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         if (context.performed)
         {
+            if (_isDead)
+            {
+                SceneManager.LoadScene("Cave");
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                ChoiceInteractionPrompt.Instance.Interact(true);
+            }
+        }
+    }
+
+    public void QuitApplication(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
             if (_isDead) Application.Quit();
             else ChoiceInteractionPrompt.Instance.Interact(true);
         }
@@ -344,7 +360,7 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             var startPosition = playerPosition + fireballDirectionVector * 0.5f;
             Vector2 perpVector = Vector3.Cross(fireballDirectionVector, Vector3.forward);
-            startPosition += perpVector * ((i - (projectiles - 1) / 2) * projectileGap);
+            startPosition += perpVector * ((i - (projectiles - 1) / 2f) * projectileGap);
             Instantiate(ActiveAttack.GetPrefab(), startPosition, rotation);
         }
     }

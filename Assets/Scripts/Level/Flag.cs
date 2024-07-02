@@ -1,11 +1,9 @@
-﻿using GamGUI;
-using Interactable;
-using Singletons;
+﻿using Singletons;
 using UnityEngine;
 
 namespace Level
 {
-    public class Flag : MonoBehaviour, IInteractable
+    public class Flag : Interactable.Interactable
     {
         private static readonly int RaiseFlag = Animator.StringToHash("RaiseFlag");
         public AudioClip flappingClip;
@@ -19,27 +17,22 @@ namespace Level
             _audioSource = GetComponent<AudioSource>();
         }
 
-        private void Update()
-        {
-            if (Player.Instance.lastStandingPlatform && Player.Instance.lastStandingPlatform.isReward &&
-                Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 1f && !_raised)
-            {
-                ChoiceInteractionPrompt.Instance.ActiveObject = this;
-                ChoiceInteractionPrompt.Instance.Display("Continue");
-            }
-            else
-            {
-                if (ReferenceEquals(ChoiceInteractionPrompt.Instance.ActiveObject, this))
-                    ChoiceInteractionPrompt.Instance.Hide();
-            }
-        }
-
-        public void Interact(bool alternate)
+        public override void Interact(bool alternate)
         {
             _raised = true;
             _animator.SetTrigger(RaiseFlag);
             _audioSource.PlayOneShot(flappingClip);
             LevelManager.Instance.StartNextLevel();
+        }
+
+        protected override string PromptText()
+        {
+            return "Continue";
+        }
+
+        protected override bool CanInteract()
+        {
+            return !_raised && Player.Instance.lastStandingPlatform && Player.Instance.lastStandingPlatform.isReward;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Interactable;
 using Singletons;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +11,7 @@ namespace GamGUI
         public GameObject separatorPrefab;
         public List<InteractionPrompt> prompts = new();
 
-        public IInteractable ActiveObject;
+        public Interactable.Interactable activeObject;
 
         private void Start()
         {
@@ -57,12 +56,12 @@ namespace GamGUI
             prompts = new List<InteractionPrompt>();
             foreach (Transform child in transform)
                 Destroy(child.gameObject);
-            ActiveObject = null;
+            activeObject = null;
         }
 
         public void Interact(bool alternate)
         {
-            ActiveObject?.Interact(alternate);
+            activeObject?.Interact(alternate);
         }
 
         public class Choice

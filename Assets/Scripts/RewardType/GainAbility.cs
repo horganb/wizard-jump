@@ -18,5 +18,10 @@ namespace RewardType
         {
             return 30;
         }
+
+        public override string PurchasePrompt()
+        {
+            return "Buy special ability";
+        }
     }
 }

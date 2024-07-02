@@ -19,5 +19,10 @@ namespace RewardType
         {
             return 0;
         }
+
+        public override string PurchasePrompt()
+        {
+            return "Learn spell";
+        }
     }
 }

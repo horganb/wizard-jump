@@ -19,5 +19,10 @@ namespace RewardType
         {
             return 5;
         }
+
+        public override string PurchasePrompt()
+        {
+            return "Buy scroll";
+        }
     }
 }

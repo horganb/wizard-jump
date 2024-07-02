@@ -8,5 +8,6 @@ namespace RewardType
         public abstract IChestReward[] GenerateRewards();
         public abstract bool CanSpawn();
         public abstract int GetCost();
+        public abstract string PurchasePrompt();
     }
 }

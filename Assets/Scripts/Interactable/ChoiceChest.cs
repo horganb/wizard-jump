@@ -106,7 +106,7 @@ namespace Interactable
             ChoiceInteractionPrompt.Instance.ActiveObject = this;
             if (!_opened)
             {
-                if (CanBuy()) ChoiceInteractionPrompt.Instance.Display("Purchase");
+                if (CanBuy()) ChoiceInteractionPrompt.Instance.Display(rewardType.PurchasePrompt());
                 else ChoiceInteractionPrompt.Instance.Hide();
             }
             else if (!_looted)

@@ -36,5 +36,10 @@ namespace RewardType
         {
             return 5;
         }
+
+        public override string PurchasePrompt()
+        {
+            return "Buy 1 health";
+        }
     }
 }

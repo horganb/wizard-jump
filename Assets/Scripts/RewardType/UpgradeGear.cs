@@ -18,5 +18,10 @@ namespace RewardType
         {
             return 15;
         }
+
+        public override string PurchasePrompt()
+        {
+            return "Buy gear";
+        }
     }
 }

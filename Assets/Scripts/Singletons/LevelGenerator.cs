@@ -64,9 +64,9 @@ namespace Singletons
             platformComponent.SetWidth(platformWidth);
             platformComponent.isReward = isReward;
             var urnChance = Random.value;
-            if (!isReward && urnChance < 0.1)
+            if (!isReward && urnChance < 0.2)
             {
-                if (urnChance < 0.05)
+                if (urnChance < 0.1)
                 {
                     var urn1Position = location + Vector2.up * 1f + Vector2.left * 0.5f;
                     var urn2Position = location + Vector2.up * 1f + Vector2.right * 0.5f;

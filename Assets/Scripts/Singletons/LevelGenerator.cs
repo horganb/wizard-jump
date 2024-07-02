@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Attacks;
 using Interactable;
 using Level;
+using RewardType;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Singletons
 {
@@ -12,7 +15,7 @@ namespace Singletons
         public GameObject slimePrefab;
         public GameObject bigSlimePrefab;
         public GameObject waspPrefab;
-        public GameObject chestPrefab;
+        public GameObject flagPrefab;
         public GameObject choiceChestPrefab;
         public GameObject urnPrefab;
         public GameObject slimeKingLevelPrefab;
@@ -82,15 +85,51 @@ namespace Singletons
         {
             _lastLocation = new Vector2(0f, _lastLocation.y + 1.5f);
             PlacePlatform(_lastLocation, 10f, true);
-            var chestPosition = _lastLocation + Vector2.up * 1f;
-            var chestObject = Instantiate(choiceChestPrefab, chestPosition, Quaternion.identity, gameObject.transform);
-            var chest = chestObject.GetComponent<ChoiceChest>();
-            if (levelNum == 1)
-                chest.FillWithRandom<Attack>();
-            else if (levelNum == 4)
-                chest.FillWithRandom<Special.Special>();
-            else
-                chest.FillWithRandom<Gear.Gear>();
+            var chests = GenerateRewardChests(levelNum);
+            AssignRewardsToChests(levelNum, chests);
+            Instantiate(flagPrefab, _lastLocation + Vector2.left * 5f, Quaternion.identity, transform);
+        }
+
+        private List<ChoiceChest> GenerateRewardChests(int levelNum)
+        {
+            List<ChoiceChest> chests = new();
+            var gap = 2.5f;
+            var numChests = levelNum == 1 ? 1 : Random.Range(2, 4);
+            var totalOffset = gap * (numChests - 1) / 2;
+            for (var chestNum = 0; chestNum < numChests; chestNum++)
+            {
+                var chestPosition = _lastLocation;
+                chestPosition += Vector2.up * 1f;
+                chestPosition += Vector2.right * gap * chestNum;
+                chestPosition += Vector2.left * totalOffset;
+                var chestObject = Instantiate(choiceChestPrefab, chestPosition, Quaternion.identity, transform);
+                chests.Add(chestObject.GetComponent<ChoiceChest>());
+            }
+
+            return chests;
+        }
+
+        private void AssignRewardsToChests(int levelNum, List<ChoiceChest> chests)
+        {
+            List<Type> rewardTypesUsed = new();
+            foreach (var chest in chests)
+            {
+                RewardType.RewardType rewardType;
+                if (levelNum == 1)
+                {
+                    rewardType = chest.GetComponentInChildren<LearnSpell>(true);
+                }
+                else
+                {
+                    var possibleRewardTypes = chest.GetComponentsInChildren<RewardType.RewardType>(true)
+                        .Where(r => r.CanSpawn() && !rewardTypesUsed.Contains(r.GetType()));
+                    rewardType = Utils.RandomFromArray(possibleRewardTypes.ToArray());
+                }
+
+                rewardTypesUsed.Add(rewardType.GetType());
+                rewardType.gameObject.SetActive(true);
+                chest.rewardType = rewardType;
+            }
         }
 
         private void GenerateSlimeWithChance(float chance, float bigSlimeChance, Vector2 platformLocation)

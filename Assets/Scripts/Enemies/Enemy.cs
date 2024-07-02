@@ -119,9 +119,9 @@ namespace Enemies
             SpriteRenderer.color = color;
             RigidBody.AddForce(impactVector * 3f, ForceMode2D.Impulse);
             Collider.enabled = false;
-            if (Random.value <= 0.1f + Player.Instance.dropModifier)
-                Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);
-            else if (Random.value <= 0.3f + Player.Instance.dropModifier)
+            // if (Random.value <= 0.1f + Player.Instance.dropModifier)
+            //     Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);
+            if (Random.value <= 0.2f + Player.Instance.dropModifier)
                 Instantiate(PrefabLibrary.Instance.orbDrop, transform.position, Quaternion.identity);
         }
 

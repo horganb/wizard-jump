@@ -1,24 +1,16 @@
-﻿using Interactable;
-using Singletons;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
 namespace GamGUI
 {
-    public class InteractionPrompt : SingletonMonoBehaviour<InteractionPrompt>
+    public class InteractionPrompt : MonoBehaviour
     {
         public TMP_Text action;
         public TMP_Text description;
-
-        public IInteractable ActiveObject;
-
-        private void Start()
-        {
-            Hide();
-        }
+        public TMP_Text key;
 
         public void Display(string actionText, string descriptionText = null)
         {
-            gameObject.SetActive(true);
             action.text = actionText;
             if (descriptionText == null)
             {
@@ -29,17 +21,6 @@ namespace GamGUI
                 description.gameObject.SetActive(true);
                 description.text = descriptionText;
             }
-        }
-
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-            ActiveObject = null;
-        }
-
-        public void Interact(bool alternate)
-        {
-            ActiveObject?.Interact(alternate);
         }
     }
 }

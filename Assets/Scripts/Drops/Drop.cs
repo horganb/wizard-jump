@@ -11,7 +11,7 @@ namespace Drops
 
         private void Update()
         {
-            if (!CanPickUp())
+            if (ShouldDestroy())
             {
                 Destroy(gameObject);
                 return;
@@ -27,12 +27,17 @@ namespace Drops
                 transform.position = position;
             }
 
-            if (distanceFromPlayer <= distanceThreshold)
+            if (distanceFromPlayer <= distanceThreshold && CanPickUp())
             {
                 OnPickUp();
                 Player.Instance.audioSource.PlayOneShot(pickUpClip);
                 Destroy(gameObject);
             }
+        }
+
+        protected virtual bool ShouldDestroy()
+        {
+            return false;
         }
 
         protected abstract bool CanPickUp();

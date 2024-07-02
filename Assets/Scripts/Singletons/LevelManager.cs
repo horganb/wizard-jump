@@ -1,4 +1,6 @@
 using Enemies;
+using GamGUI;
+using Interactable;
 using Level;
 using UnityEngine;
 
@@ -31,9 +33,15 @@ namespace Singletons
                         Destroy(pl.gameObject);
                 foreach (var enemy in FindObjectsOfType<Enemy>())
                     enemy.OnDie(Vector2.down);
+                foreach (var chest in FindObjectsOfType<ChoiceChest>()) chest.OnReachLevel();
+                GameGUI.Instance.DisplayMessage("Lava Halted!");
             }
 
-            if (!platform.isReward && lastPlatformWasReward) Destroy(lastPlatform.gameObject);
+            if (!platform.isReward && lastPlatformWasReward)
+            {
+                Destroy(lastPlatform.gameObject);
+                GameGUI.Instance.DisplayMessage("Lava Rages On!", GameGUI.MessageTone.Negative);
+            }
         }
 
         public void StartNextLevel()

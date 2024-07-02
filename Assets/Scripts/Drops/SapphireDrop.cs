@@ -9,7 +9,7 @@
 
         protected override void OnPickUp()
         {
-            // TODO: implement sapphire
+            Player.Instance.sapphire++;
         }
     }
 }

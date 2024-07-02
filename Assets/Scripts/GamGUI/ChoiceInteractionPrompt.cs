@@ -1,15 +1,16 @@
-﻿using Interactable;
+﻿using System.Collections.Generic;
+using Interactable;
 using Singletons;
-using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace GamGUI
 {
     public class ChoiceInteractionPrompt : SingletonMonoBehaviour<ChoiceInteractionPrompt>
     {
-        public TMP_Text action1;
-        public TMP_Text description1;
-        public TMP_Text action2;
-        public TMP_Text description2;
+        public InteractionPrompt interactionPromptPrefab;
+        public GameObject separatorPrefab;
+        public List<InteractionPrompt> prompts = new();
 
         public IInteractable ActiveObject;
 
@@ -18,43 +19,56 @@ namespace GamGUI
             Hide();
         }
 
-        public void Display(string actionText1, string descriptionText1, string actionText2, string descriptionText2)
+        public void Display(Choice[] choices)
         {
+            gameObject.SetActive(false);
+            var needRerender = choices.Length != prompts.Count;
+
+            if (needRerender)
+            {
+                prompts = new List<InteractionPrompt>();
+                foreach (Transform child in transform)
+                    Destroy(child.gameObject);
+                for (var i = 0; i < choices.Length; i++)
+                {
+                    if (i > 0) Instantiate(separatorPrefab, transform);
+                    var prompt = Instantiate(interactionPromptPrefab.gameObject, transform)
+                        .GetComponent<InteractionPrompt>();
+                    prompt.key.text = choices.Length > 1 && i == 0 ? "Q" : "E";
+                    prompts.Add(prompt);
+                }
+            }
+
+            for (var i = 0; i < choices.Length; i++)
+                prompts[i].Display(choices[i].ActionText, choices[i].DescriptionText);
+
             gameObject.SetActive(true);
+            if (needRerender) LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+        }
 
-            action1.text = actionText1;
-            if (descriptionText1 == null)
-            {
-                description1.gameObject.SetActive(false);
-            }
-            else
-            {
-                description1.gameObject.SetActive(true);
-                description1.text = descriptionText1;
-            }
-
-
-            action2.text = actionText2;
-            if (descriptionText2 == null)
-            {
-                description2.gameObject.SetActive(false);
-            }
-            else
-            {
-                description2.gameObject.SetActive(true);
-                description2.text = descriptionText2;
-            }
+        public void Display(string text)
+        {
+            Display(new[] { new Choice { ActionText = text } });
         }
 
         public void Hide()
         {
             gameObject.SetActive(false);
+            prompts = new List<InteractionPrompt>();
+            foreach (Transform child in transform)
+                Destroy(child.gameObject);
             ActiveObject = null;
         }
 
         public void Interact(bool alternate)
         {
             ActiveObject?.Interact(alternate);
+        }
+
+        public class Choice
+        {
+            public string ActionText;
+            public string DescriptionText;
         }
     }
 }

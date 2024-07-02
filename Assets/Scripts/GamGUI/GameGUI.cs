@@ -16,8 +16,6 @@ namespace GamGUI
             Negative
         }
 
-        public InteractionPrompt interactionPrompt;
-        public ChoiceInteractionPrompt choiceInteractionPrompt;
         public GameObject gameOverScreen;
         public GameObject basicAttack;
         public Image basicAttackImage;
@@ -29,6 +27,7 @@ namespace GamGUI
         public SpriteLibrary spriteLibrary;
         public GameObject messagePrefab;
         public GameObject worldMessagePrefab;
+        public TMP_Text goldCounter;
 
         private void Start()
         {
@@ -46,6 +45,8 @@ namespace GamGUI
 
             if (Player.Instance.Scroll != null) scrollImage.sprite = Player.Instance.Scroll.GetSprite();
             scroll.SetActive(Player.Instance.Scroll != null);
+
+            goldCounter.text = Player.Instance.gold.ToString();
         }
 
         private IEnumerator RepeatMessage()

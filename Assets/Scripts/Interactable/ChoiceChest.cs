@@ -1,6 +1,8 @@
-﻿using GamGUI;
-using Singletons;
+﻿using System.Linq;
+using GamGUI;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Interactable
 {
@@ -8,16 +10,19 @@ namespace Interactable
     {
         private static readonly int Open = Animator.StringToHash("Open");
         private static readonly int Looted = Animator.StringToHash("Looted");
-        public SpriteRenderer reward1SpriteRenderer;
-        public SpriteRenderer reward2SpriteRenderer;
+        private static readonly int RaiseSign = Animator.StringToHash("RaiseSign");
+        public GameObject sign;
+        public TMP_Text cost;
+        public Transform rewardParent;
+        public Image rewardPrefab;
         public AudioClip openClip;
         public AudioClip lootClip;
+        public RewardType.RewardType rewardType;
         private Animator _animator;
         private AudioSource _audioSource;
         private bool _looted;
         private bool _opened;
-        public IChestReward Contents1;
-        public IChestReward Contents2;
+        public IChestReward[] Contents;
 
         private void Start()
         {
@@ -28,64 +33,87 @@ namespace Interactable
         private void Update()
         {
             if (Player.Instance.lastStandingPlatform && Player.Instance.lastStandingPlatform.isReward &&
-                Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 2f)
+                Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 1f)
             {
                 DisplayPrompt();
             }
             else
             {
-                if (ReferenceEquals(InteractionPrompt.Instance.ActiveObject, this)) InteractionPrompt.Instance.Hide();
                 if (ReferenceEquals(ChoiceInteractionPrompt.Instance.ActiveObject, this))
                     ChoiceInteractionPrompt.Instance.Hide();
             }
+
+            cost.text = rewardType.GetCost().ToString();
+            cost.color = CanBuy() ? new Color(113f, 135f, 255f) : Color.red;
         }
 
         public void Interact(bool alternate)
         {
             if (!_opened) OpenChest();
-            else if (!_looted) LootChest(alternate);
+            else if (!_looted) AttemptLootChest(alternate);
         }
 
-        public void FillWithRandom<T>() where T : class
+        public void OnReachLevel()
         {
-            var results = Utils.InstantiateRandomSubclassXTimes<T>(2);
-            Contents1 = (IChestReward)results[0];
-            Contents2 = (IChestReward)results[1];
+            _animator.SetTrigger(RaiseSign);
+        }
+
+        private bool CanBuy()
+        {
+            return Player.Instance.gold >= rewardType.GetCost();
         }
 
         private void OpenChest()
         {
-            reward1SpriteRenderer.sprite = Contents1.GetSprite();
-            reward2SpriteRenderer.sprite = Contents2.GetSprite();
+            Player.Instance.gold -= rewardType.GetCost();
+            Contents = rewardType.GenerateRewards();
+            foreach (var content in Contents)
+            {
+                var rewardObject = Instantiate(rewardPrefab.transform, rewardParent);
+                var image = rewardObject.GetComponent<Image>();
+                image.sprite = content.GetSprite();
+            }
+
             _opened = true;
             _animator.SetTrigger(Open);
             _audioSource.PlayOneShot(openClip);
+            Destroy(sign);
         }
 
-        private void LootChest(bool alternate)
+        private void AttemptLootChest(bool alternate)
+        {
+            if (alternate)
+            {
+                if (Contents.Length > 1)
+                    LootChest(Contents.First());
+            }
+            else
+            {
+                LootChest(Contents.Last());
+            }
+        }
+
+        private void LootChest(IChestReward reward)
         {
             _looted = true;
             _animator.SetTrigger(Looted);
-            if (alternate)
-                Contents1.Acquire();
-            else
-                Contents2.Acquire();
+            reward.Acquire();
             _audioSource.PlayOneShot(lootClip);
-            LevelManager.Instance.StartNextLevel();
         }
 
         private void DisplayPrompt()
         {
+            ChoiceInteractionPrompt.Instance.ActiveObject = this;
             if (!_opened)
             {
-                InteractionPrompt.Instance.ActiveObject = this;
-                InteractionPrompt.Instance.Display("Open Chest");
+                if (CanBuy()) ChoiceInteractionPrompt.Instance.Display("Purchase");
+                else ChoiceInteractionPrompt.Instance.Hide();
             }
             else if (!_looted)
             {
-                InteractionPrompt.Instance.Hide();
-                ChoiceInteractionPrompt.Instance.ActiveObject = this;
-                ChoiceInteractionPrompt.Instance.Display("Take", Contents1.Name(), "Take", Contents2.Name());
+                var choices = Contents.Select(content => new ChoiceInteractionPrompt.Choice
+                    { ActionText = "Take", DescriptionText = content.Name() }).ToArray();
+                ChoiceInteractionPrompt.Instance.Display(choices);
             }
             else
             {

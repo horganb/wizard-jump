@@ -42,6 +42,8 @@ public class Player : SingletonMonoBehaviour<Player>
     public float thorns;
     public float dodgeChance;
     public float dropModifier;
+    public int gold;
+    public int sapphire;
     private Animator _animator;
     private float _attackCooldown;
     private float _hVelocity;
@@ -289,11 +291,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public void Interact(InputAction.CallbackContext context)
     {
         if (_isDead) return;
-        if (context.performed)
-        {
-            GameGUI.Instance.interactionPrompt.Interact(false);
-            GameGUI.Instance.choiceInteractionPrompt.Interact(false);
-        }
+        if (context.performed) ChoiceInteractionPrompt.Instance.Interact(false);
     }
 
     public void Cheat(InputAction.CallbackContext context)
@@ -316,7 +314,7 @@ public class Player : SingletonMonoBehaviour<Player>
         if (context.performed)
         {
             if (_isDead) Application.Quit();
-            else GameGUI.Instance.choiceInteractionPrompt.Interact(true);
+            else ChoiceInteractionPrompt.Instance.Interact(true);
         }
     }
 

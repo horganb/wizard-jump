@@ -44,6 +44,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public float dropModifier;
     public int gold;
     public int sapphire;
+    public int projectiles = 1;
     private Animator _animator;
     private float _attackCooldown;
     private float _hVelocity;

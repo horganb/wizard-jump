@@ -92,6 +92,27 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: 5915d53e0f656b64aaa05cb39afdf292, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
+  - m_Name: Attack Upgrades
+    m_Hash: 115722622
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Increase Attack Damage
+      m_Hash: 985754556
+      m_Sprite: {fileID: 21300000, guid: 016848d06fa460c4184c93833aa2bd92, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 016848d06fa460c4184c93833aa2bd92, type: 3}
+    - m_Name: Add Projectile
+      m_Hash: 1050881763
+      m_Sprite: {fileID: 21300000, guid: 5c9ade4a0fab2b54bbc4a4624c536f8f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5c9ade4a0fab2b54bbc4a4624c536f8f, type: 3}
+    - m_Name: Increase Attack Speed
+      m_Hash: 137302323
+      m_Sprite: {fileID: 21300000, guid: cdccb8ce5f18175428f4761bfd10e64f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: cdccb8ce5f18175428f4761bfd10e64f, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638536500067294446
+  m_ModificationHash: 638555167731562457
   m_Version: 1

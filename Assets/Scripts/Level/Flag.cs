@@ -11,6 +11,7 @@ namespace Level
         public AudioClip flappingClip;
         private Animator _animator;
         private AudioSource _audioSource;
+        private bool _raised;
 
         private void Start()
         {
@@ -21,7 +22,7 @@ namespace Level
         private void Update()
         {
             if (Player.Instance.lastStandingPlatform && Player.Instance.lastStandingPlatform.isReward &&
-                Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 1f)
+                Vector2.Distance(Player.Instance.transform.position, gameObject.transform.position) <= 1f && !_raised)
             {
                 ChoiceInteractionPrompt.Instance.ActiveObject = this;
                 ChoiceInteractionPrompt.Instance.Display("Continue");
@@ -35,6 +36,7 @@ namespace Level
 
         public void Interact(bool alternate)
         {
+            _raised = true;
             _animator.SetTrigger(RaiseFlag);
             _audioSource.PlayOneShot(flappingClip);
             LevelManager.Instance.StartNextLevel();

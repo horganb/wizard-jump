@@ -337,9 +337,15 @@ public class Player : SingletonMonoBehaviour<Player>
         var mousePosition = GetMousePositionInWorld();
         Vector2 playerPosition = gameObject.transform.position;
         var fireballDirectionVector = (mousePosition - playerPosition).normalized;
-        var fireballStartPosition = playerPosition + fireballDirectionVector * 0.5f;
         var rotation = Quaternion.FromToRotation(Vector2.right, fireballDirectionVector);
-        Instantiate(ActiveAttack.GetPrefab(), fireballStartPosition, rotation);
+        var projectileGap = 0.75f;
+        for (var i = 0; i < projectiles; i++)
+        {
+            var startPosition = playerPosition + fireballDirectionVector * 0.5f;
+            Vector2 perpVector = Vector3.Cross(fireballDirectionVector, Vector3.forward);
+            startPosition += perpVector * ((i - (projectiles - 1) / 2) * projectileGap);
+            Instantiate(ActiveAttack.GetPrefab(), startPosition, rotation);
+        }
     }
 
     private bool IsGrounded()

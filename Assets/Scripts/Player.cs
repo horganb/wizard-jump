@@ -49,6 +49,7 @@ public class Player : SingletonMonoBehaviour<Player>
     private float _hVelocity;
     private bool _isAttackHeld;
     private bool _isDead;
+    private bool _isDownHeld;
     private bool _isJumpHeld;
     private float _jumpHeldDuration;
     private JumpStage _jumpStage = JumpStage.NoJump;
@@ -249,6 +250,9 @@ public class Player : SingletonMonoBehaviour<Player>
             var value = context.ReadValue<Vector2>();
             _hVelocity = value.x;
             _isJumpHeld = value.y > 0;
+            var newIsDownHeld = value.y < 0;
+            if (!_isDownHeld && newIsDownHeld && lastStandingPlatform) lastStandingPlatform.PlayerPassThrough();
+            _isDownHeld = newIsDownHeld;
         }
     }
 

@@ -223,15 +223,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.028775726
+    x: 0.032837886
     y: 0
-    width: 0.941751
-    height: 1
+    width: 0.93328726
+    height: 1.0002964
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -960,6 +960,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5398208237561090890, guid: aecaeab4f3f329f4e9c7abc679a6dbab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577036027842022034, guid: aecaeab4f3f329f4e9c7abc679a6dbab, type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6678292515742007630, guid: aecaeab4f3f329f4e9c7abc679a6dbab, type: 3}

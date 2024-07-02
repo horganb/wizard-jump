@@ -412,6 +412,8 @@ MonoBehaviour:
   thorns: 0
   dodgeChance: 0
   dropModifier: 0
+  gold: 0
+  sapphire: 0
 --- !u!114 &5232558226251914461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +715,7 @@ AudioSource:
   m_GameObject: {fileID: 5289917113919894503}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2822400009534161263, guid: 7b34d0d116bd3ca4ca74b88b4b598423, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

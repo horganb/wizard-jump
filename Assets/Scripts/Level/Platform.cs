@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Level
 {
@@ -8,6 +9,12 @@ namespace Level
         public GameObject middlePlatform;
         public GameObject rightPlatform;
         public bool isReward;
+        private Collider2D _collider;
+
+        private void Start()
+        {
+            _collider = GetComponent<Collider2D>();
+        }
 
         public void SetWidth(float middlePlatformWidth)
         {
@@ -26,6 +33,18 @@ namespace Level
             var rightPlatformPosition = rightPlatform.transform.position;
             rightPlatformPosition.x = middlePlatformPosition.x + sidePlatformOffset;
             rightPlatform.transform.position = rightPlatformPosition;
+        }
+
+        public void PlayerPassThrough()
+        {
+            _collider.excludeLayers = LayerMask.GetMask("Player");
+            StartCoroutine(EndPassThroughAfterDelay());
+        }
+
+        private IEnumerator EndPassThroughAfterDelay()
+        {
+            yield return new WaitForSeconds(0.5f);
+            _collider.excludeLayers = new LayerMask();
         }
     }
 }

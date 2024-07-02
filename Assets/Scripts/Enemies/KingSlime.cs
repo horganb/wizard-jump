@@ -114,7 +114,9 @@ namespace Enemies
             {
                 var yDiff = _target.transform.position.y - transform.position.y;
                 var justAboveTarget = RigidBody.velocity.y < 0f && yDiff <= -1f;
-                gameObject.layer = justAboveTarget ? 1 : 10;
+                gameObject.layer = justAboveTarget
+                    ? LayerMask.NameToLayer("TransparentFX")
+                    : LayerMask.NameToLayer("Platform Objects");
                 if (_stateTimer >= 0.2f && IsGrounded())
                     EndJump();
                 else

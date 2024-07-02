@@ -252,7 +252,8 @@ public class Player : SingletonMonoBehaviour<Player>
             _hVelocity = value.x;
             _isJumpHeld = value.y > 0;
             var newIsDownHeld = value.y < 0;
-            if (!_isDownHeld && newIsDownHeld && lastStandingPlatform) lastStandingPlatform.PlayerPassThrough();
+            if (!ControlsDisabled() && !_isDownHeld && newIsDownHeld && lastStandingPlatform)
+                lastStandingPlatform.PlayerPassThrough();
             _isDownHeld = newIsDownHeld;
         }
     }

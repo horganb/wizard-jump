@@ -34,25 +34,21 @@ namespace Singletons
             GenerateLevel(1);
         }
 
-        private void GeneratePlatformLayer(Level level)
+        private void GeneratePlatformLayer()
         {
             var centerX = Utils.RandomRangeAndSign(3f, 6f, 1);
             var centerY = _lastLocation.y + Random.Range(2f, 3f);
             _lastLocation = new Vector2(centerX, centerY);
-            GenerateWaspWithChance(level.WaspChance, _lastLocation);
             if (Random.value <= 0.3f)
             {
                 var leftPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(-6f, -2f, 1), centerY);
                 var rightPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(2f, 6f, 1), centerY);
                 PlacePlatform(leftPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
                 PlacePlatform(rightPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
-                GenerateSlimeWithChance(level.SlimeChance, level.BigSlimeChance, leftPlatformLocation);
-                GenerateSlimeWithChance(level.SlimeChance, level.BigSlimeChance, rightPlatformLocation);
             }
             else
             {
                 PlacePlatform(_lastLocation, Utils.RandomRangeWithPrecision(3f, 5f, 1));
-                GenerateSlimeWithChance(level.SlimeChance, level.BigSlimeChance, _lastLocation);
             }
         }
 
@@ -63,22 +59,6 @@ namespace Singletons
             var platformComponent = platform.GetComponent<Platform>();
             platformComponent.SetWidth(platformWidth);
             platformComponent.isReward = isReward;
-            var urnChance = Random.value;
-            if (!isReward && urnChance < 0.2)
-            {
-                if (urnChance < 0.1)
-                {
-                    var urn1Position = location + Vector2.up * 1f + Vector2.left * 0.5f;
-                    var urn2Position = location + Vector2.up * 1f + Vector2.right * 0.5f;
-                    Instantiate(urnPrefab, urn1Position, Quaternion.identity, transform);
-                    Instantiate(urnPrefab, urn2Position, Quaternion.identity, transform);
-                }
-                else
-                {
-                    var urnPosition = location + Vector2.up * 1f;
-                    Instantiate(urnPrefab, urnPosition, Quaternion.identity, transform);
-                }
-            }
         }
 
         private void GenerateRewardPlatform(int levelNum)
@@ -93,15 +73,10 @@ namespace Singletons
         private List<ChoiceChest> GenerateRewardChests(int levelNum)
         {
             List<ChoiceChest> chests = new();
-            var gap = 2.5f;
             var numChests = levelNum == 1 ? 1 : Random.Range(2, 4);
-            var totalOffset = gap * (numChests - 1) / 2;
-            for (var chestNum = 0; chestNum < numChests; chestNum++)
+            foreach (var offset in Utils.GetIntervalsAroundZero(numChests, 2.5f))
             {
-                var chestPosition = _lastLocation;
-                chestPosition += Vector2.up * 1f;
-                chestPosition += Vector2.right * gap * chestNum;
-                chestPosition += Vector2.left * totalOffset;
+                var chestPosition = _lastLocation + Vector2.up + Vector2.right * offset;
                 var chestObject = Instantiate(choiceChestPrefab, chestPosition, Quaternion.identity, transform);
                 chests.Add(chestObject.GetComponent<ChoiceChest>());
             }
@@ -132,45 +107,84 @@ namespace Singletons
             }
         }
 
-        private void GenerateSlimeWithChance(float chance, float bigSlimeChance, Vector2 platformLocation)
-        {
-            if (IsTooNearRewardPlatform(platformLocation)) return;
-            var startingPosition = platformLocation + Vector2.up * 1f + Vector2.right * Random.Range(-1f, 1f);
-            var randomVal = Random.value;
-            if (randomVal < chance)
-            {
-                var prefab = randomVal < bigSlimeChance ? bigSlimePrefab : slimePrefab;
-                Instantiate(prefab, startingPosition, Quaternion.identity, gameObject.transform);
-            }
-        }
-
-        private void GenerateWaspWithChance(float chance, Vector2 platformLocation)
-        {
-            if (IsTooNearRewardPlatform(platformLocation)) return;
-            var startingPosition = platformLocation + Random.insideUnitCircle * 8f;
-            if (Random.value < chance)
-                Instantiate(waspPrefab, startingPosition, Quaternion.identity, gameObject.transform);
-        }
-
         private bool IsTooNearRewardPlatform(Vector2 platformLocation)
         {
             return FindObjectsOfType<Platform>().Any(platform =>
             {
                 var rewardY = platform.transform.position.y;
-                return platform.isReward && platformLocation.y >= rewardY && platformLocation.y <= rewardY + 8f;
+                return platform.isReward && platformLocation.y >= rewardY - 5f && platformLocation.y <= rewardY + 5f;
             });
+        }
+
+
+        private void SpawnEnemies(float totalPower)
+        {
+            EnemyType[] types =
+            {
+                new() { Prefab = slimePrefab, Power = 1f, MaxPerPlatform = 2 },
+                new() { Prefab = waspPrefab, Power = 2f, MaxPerPlatform = 2 },
+                new() { Prefab = bigSlimePrefab, Power = 3f }
+            };
+            var chosenEnemyTypes = Utils.RandomFromArray(types, Random.Range(1, 4));
+            var platforms = FindObjectsOfType<Platform>().Where(
+                p => !IsTooNearRewardPlatform(p.transform.position)
+            ).ToList();
+            Dictionary<Platform, float> capacity = new();
+            foreach (var platform in platforms) capacity[platform] = 1f;
+            foreach (var enemyType in chosenEnemyTypes)
+            {
+                var capacityToConsume = 1f / enemyType.MaxPerPlatform;
+                var enemiesPerPlatform = totalPower / chosenEnemyTypes.Length / enemyType.Power;
+                var enemiesToSpawn = (int)Math.Floor(platforms.Count * enemiesPerPlatform);
+                for (var i = 0; i < enemiesToSpawn; i++)
+                {
+                    var availablePlatforms =
+                        platforms.Where(p => capacity[p] >= capacityToConsume);
+                    var platform = Utils.RandomFromArray(availablePlatforms.ToArray());
+                    capacity[platform] -= capacityToConsume;
+                    var startingPosition = (Vector2)platform.transform.position + Vector2.up * 1f +
+                                           Vector2.right * Random.Range(-1f, 1f);
+                    Instantiate(enemyType.Prefab, startingPosition, Quaternion.identity, transform);
+                }
+            }
+        }
+
+        private void SpawnUrns()
+        {
+            var platforms = FindObjectsOfType<Platform>().Where(p => !p.isReward).ToArray();
+            var maxPerPlatform = 2;
+            var totalUrns = platforms.Length / 2;
+            Dictionary<Platform, int> platformToNumUrns = new();
+            foreach (var platform in platforms) platformToNumUrns[platform] = 0;
+            for (var i = 0; i < totalUrns; i++)
+            {
+                var platform = Utils.RandomFromArray(platforms
+                    .Where(p => platformToNumUrns[p] < maxPerPlatform).ToArray());
+                platformToNumUrns[platform]++;
+            }
+
+            foreach (var platform in platforms)
+            {
+                var numUrns = platformToNumUrns[platform];
+                foreach (var offset in Utils.GetIntervalsAroundZero(numUrns, 1f))
+                {
+                    var startingPosition = (Vector2)platform.transform.position + Vector2.up +
+                                           Vector2.right * offset;
+                    Instantiate(urnPrefab, startingPosition, Quaternion.identity, transform);
+                }
+            }
         }
 
         public void GenerateLevel(int levelNum)
         {
             Level[] levels =
             {
-                new(size: 12),
-                new(0.3f),
-                new(0.5f, 0.0f, 0.1f),
-                new(0.4f, 0.3f, 0.1f),
-                new(0.6f, 0.3f, 0.3f),
-                new(0.8f, 0.5f, 0.5f)
+                new(0f, 12),
+                new(0.5f),
+                new(0.6f),
+                new(0.7f),
+                new(0.8f),
+                new(1f)
             };
             if (levelNum - 1 == levels.Length)
             {
@@ -182,12 +196,19 @@ namespace Singletons
             {
                 Lava.Instance.ClearTarget();
                 var level = levels[levelNum - 1];
-
                 for (var i = 0; i < level.Size; i++)
-                    GeneratePlatformLayer(level);
-
+                    GeneratePlatformLayer();
                 GenerateRewardPlatform(levelNum);
+                SpawnUrns();
+                SpawnEnemies(level.EnemyPower);
             }
+        }
+
+        private class EnemyType
+        {
+            public int MaxPerPlatform = 1;
+            public float Power;
+            public GameObject Prefab;
         }
     }
 }

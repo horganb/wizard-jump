@@ -35,7 +35,7 @@ namespace Enemies
         private float _stateTimer;
         private Platform _target;
 
-        public override float MaxHealth => 50f;
+        public override float MaxHealth => 100f;
 
         protected override void Start()
         {

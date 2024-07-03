@@ -130,7 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickUpClip: {fileID: 8300000, guid: 397dad518946ad44baaba99583631d45, type: 3}
   shouldMoveTowardsPlayer: 0
-  distanceThreshold: 0.75
+  distanceThreshold: 1
+  goldValue: 3
 --- !u!1 &8085671975444169237
 GameObject:
   m_ObjectHideFlags: 0

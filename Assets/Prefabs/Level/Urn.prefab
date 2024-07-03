@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shatterPrefab: {fileID: 8595181700439676521, guid: 155d0be4a2f78cd488e958c0743d09b9, type: 3}
+  silverPrefab: {fileID: 785993858254672699, guid: 347da0dec1aefd946bb1bd9cc87d6179, type: 3}
   goldPrefab: {fileID: 3304977350013650717, guid: de9a2a4676d78494080b6fb451a9ea2b, type: 3}
+  diamondPrefab: {fileID: 7900796645078475445, guid: 1ddb0ce4eedfa19478d35ebfe8444b0d, type: 3}
   sapphirePrefab: {fileID: 5781277677215076103, guid: 8cc4d9643c49b2948a2c33513e5f36c2, type: 3}
   healthPrefab: {fileID: 4470467083543391770, guid: 784914a31fbfc56448bb2141f7ded399, type: 3}

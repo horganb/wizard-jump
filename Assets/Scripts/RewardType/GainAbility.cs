@@ -16,7 +16,7 @@ namespace RewardType
 
         public override int GetCost()
         {
-            return 30;
+            return 20;
         }
 
         public override string PurchasePrompt()

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Interactable;
 using Singletons;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -33,42 +32,40 @@ public static class Utils
         return RandomRangeAndSign(0f, max);
     }
 
-    public static T InstantiateRandomSubclass<T>(List<Type> exclude = null) where T : class
+    public static Type[] GetSubclasses<T>() where T : class
     {
-        var choices = (from t in Assembly.GetExecutingAssembly().GetTypes()
-            where t.IsSubclassOf(typeof(T)) && (exclude == null || !exclude.Contains(t))
+        return (from t in Assembly.GetExecutingAssembly().GetTypes()
+            where t.IsSubclassOf(typeof(T))
             select t).ToArray();
-        var index = (int)Math.Floor((decimal)Random.Range(0, choices.Length));
-        return Activator.CreateInstance(choices[index]) as T;
+    }
+
+    public static T InstantiateRandomSubclass<T>() where T : class
+    {
+        return InstantiateRandomSubclassXTimes<T>(1)[0];
     }
 
     public static List<T> InstantiateRandomSubclassXTimes<T>(int times) where T : class
     {
-        List<T> instances = new();
-        List<Type> usedTypes = new();
-        for (var i = 0; i < times; i++)
-        {
-            var newEntity = InstantiateRandomSubclass<T>(usedTypes);
-            instances.Add(newEntity);
-            usedTypes.Add(newEntity.GetType());
-        }
-
-        return instances;
-    }
-
-    public static IChestReward InstantiateRandomChestReward()
-    {
-        var choices = (from t in Assembly.GetExecutingAssembly().GetTypes()
-            where !t.IsAbstract && typeof(IChestReward).IsAssignableFrom(t)
-            select t).ToArray();
-        var rewardType = RandomFromArray(choices);
-        return Activator.CreateInstance(rewardType) as IChestReward;
+        var chosenClasses = RandomFromArray(GetSubclasses<T>(), times);
+        return chosenClasses.Select(cls => Activator.CreateInstance(cls) as T).ToList();
     }
 
     public static T RandomFromArray<T>(T[] choices)
     {
-        var index = (int)Math.Floor((decimal)Random.Range(0, choices.Length));
-        return choices[index];
+        return RandomFromArray(choices, 1)[0];
+    }
+
+    public static T[] RandomFromArray<T>(T[] choices, int number)
+    {
+        var choicesLeft = new List<T>(choices);
+        var numToRemove = choices.Length - number;
+        for (var i = 0; i < numToRemove; i++) choicesLeft.RemoveAt(RandomIndex(choicesLeft));
+        return choicesLeft.ToArray();
+    }
+
+    public static int RandomIndex<T>(IEnumerable<T> list)
+    {
+        return (int)Math.Floor((decimal)Random.Range(0, list.Count()));
     }
 
     public static void DestroyIfOffscreen(GameObject gameObject)
@@ -109,5 +106,12 @@ public static class Utils
         }
 
         obj.AddForce(new Vector2(hVelocity, vVelocity) * obj.mass, ForceMode2D.Impulse);
+    }
+
+    public static List<float> GetIntervalsAroundZero(int numItems, float gap)
+    {
+        List<float> offsets = new();
+        for (var i = 0; i < numItems; i++) offsets.Add((i - (numItems - 1) / 2f) * gap);
+        return offsets;
     }
 }

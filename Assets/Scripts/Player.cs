@@ -355,12 +355,10 @@ public class Player : SingletonMonoBehaviour<Player>
         Vector2 playerPosition = gameObject.transform.position;
         var fireballDirectionVector = (mousePosition - playerPosition).normalized;
         var rotation = Quaternion.FromToRotation(Vector2.right, fireballDirectionVector);
-        var projectileGap = 0.75f;
-        for (var i = 0; i < projectiles; i++)
+        foreach (var offset in Utils.GetIntervalsAroundZero(projectiles, 0.75f))
         {
-            var startPosition = playerPosition + fireballDirectionVector * 0.5f;
             Vector2 perpVector = Vector3.Cross(fireballDirectionVector, Vector3.forward);
-            startPosition += perpVector * ((i - (projectiles - 1) / 2f) * projectileGap);
+            var startPosition = playerPosition + fireballDirectionVector * 0.5f + perpVector * offset;
             Instantiate(ActiveAttack.GetPrefab(), startPosition, rotation);
         }
     }

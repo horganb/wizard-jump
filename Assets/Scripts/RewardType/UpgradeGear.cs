@@ -6,6 +6,7 @@ namespace RewardType
     {
         public override IChestReward[] GenerateRewards()
         {
+            Player.Instance.timesGearBought++;
             return Utils.InstantiateRandomSubclassXTimes<Gear.Gear>(2).ToArray();
         }
 
@@ -16,7 +17,7 @@ namespace RewardType
 
         public override int GetCost()
         {
-            return 10;
+            return 15 + Player.Instance.timesGearBought * 10;
         }
 
         public override string PurchasePrompt()

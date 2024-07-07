@@ -21,9 +21,8 @@ namespace Level
             Instantiate(shatterPrefab, position, Quaternion.identity);
             var randomValue = Random.value / (1 + Player.Instance.lootChanceIncrease);
             var prefabToInstantiate =
-                randomValue <= 0.1f ? healthPrefab :
-                randomValue <= 0.2f ? sapphirePrefab :
-                randomValue <= 0.4f ? goldPrefab : silverPrefab;
+                randomValue <= 0.1f ? sapphirePrefab :
+                randomValue <= 0.3f ? goldPrefab : silverPrefab;
             Instantiate(prefabToInstantiate, position, Quaternion.identity);
             Destroy(gameObject);
         }

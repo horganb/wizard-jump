@@ -395,7 +395,7 @@ MonoBehaviour:
   jumpAddition: 70
   jumpAdditionDuration: 0.3
   health: 3
-  maxHealth: 3
+  baseMaxHealth: 3
   orbs: 0
   maxOrbs: 1
   attackSpeed: 0.4
@@ -414,6 +414,11 @@ MonoBehaviour:
   dropModifier: 0
   gold: 0
   sapphire: 0
+  projectiles: 1
+  timesAttackUpgraded: 0
+  timesGearBought: 0
+  timesExtraLifeBought: 0
+  timesBetterLootBought: 0
 --- !u!114 &5232558226251914461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,6 +632,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e993cadf-1a9e-4c40-9d0c-7f91d087e0f7
     m_ActionName: Player/UsePotion[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4559912664008394767}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 98a5af50-37a5-41ca-bdf7-acec9012b316
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

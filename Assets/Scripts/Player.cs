@@ -259,6 +259,11 @@ public class Player : SingletonMonoBehaviour<Player>
         return _spawnTimer > 0f || invincible;
     }
 
+    public void Pause(InputAction.CallbackContext context)
+    {
+        if (!_isDead && context.performed) PauseMenu.Instance.Toggle();
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         if (_isDead) return;

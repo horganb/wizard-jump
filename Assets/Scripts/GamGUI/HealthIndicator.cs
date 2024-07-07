@@ -19,18 +19,18 @@ namespace GamGUI
         // Update is called once per frame
         private void Update()
         {
-            if (transform.childCount != (int)Math.Ceiling(Player.Instance.maxHealth))
+            if (transform.childCount != (int)Math.Ceiling(Player.Instance.MaxHealth()))
             {
                 foreach (var heartImage in _heartImages) Destroy(heartImage.gameObject);
                 _heartImages.Clear();
-                for (var i = 0; i < Player.Instance.maxHealth; i++)
+                for (var i = 0; i < Player.Instance.MaxHealth(); i++)
                 {
                     var heart = Instantiate(heartPrefab, Vector2.zero, Quaternion.identity, transform);
                     _heartImages.Add(heart.GetComponent<HeartIndicator>());
                 }
             }
 
-            for (var i = 0; i < Player.Instance.maxHealth; i++)
+            for (var i = 0; i < Player.Instance.MaxHealth(); i++)
             {
                 var heartFullness = Math.Clamp(Player.Instance.health - i, 0f, 1f);
                 var fullnessRect = _heartImages[i].fullnessRect;

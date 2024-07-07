@@ -9,14 +9,13 @@
 
         public override int Price()
         {
-            return 20 + 20 * Player.Instance.timesExtraLifeBought;
+            return 100 + 50 * Player.Instance.timesExtraLifeBought;
         }
 
         public override void OnPurchase()
         {
-            Player.Instance.maxHealth++;
-            Player.Instance.health = Player.Instance.maxHealth;
             Player.Instance.timesExtraLifeBought++;
+            Player.Instance.health = Player.Instance.MaxHealth();
         }
     }
 }

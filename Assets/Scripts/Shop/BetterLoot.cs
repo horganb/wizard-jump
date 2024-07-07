@@ -9,12 +9,11 @@
 
         public override int Price()
         {
-            return 15 + 15 * Player.Instance.timesBetterLootBought;
+            return 60 + 30 * Player.Instance.timesBetterLootBought;
         }
 
         public override void OnPurchase()
         {
-            Player.Instance.lootChanceIncrease += 0.1f;
             Player.Instance.timesBetterLootBought++;
         }
     }

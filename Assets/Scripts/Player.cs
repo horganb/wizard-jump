@@ -4,6 +4,7 @@ using Attacks;
 using Enemies;
 using GamGUI;
 using Level;
+using Save;
 using Scrolls;
 using Singletons;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public float jumpAddition = 5f;
     public float jumpAdditionDuration = 0.5f;
     public float health = 3;
-    public float maxHealth = 3;
+    public float baseMaxHealth = 3;
     public int orbs;
     public int maxOrbs = 1;
     public float attackSpeed = 0.5f;
@@ -42,7 +43,6 @@ public class Player : SingletonMonoBehaviour<Player>
     public float thorns;
     public float dodgeChance;
     public float dropModifier;
-    public float lootChanceIncrease;
     public int gold;
     public int sapphire;
     public int projectiles = 1;
@@ -82,12 +82,14 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Start()
     {
+        SaveManager.Load();
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         _mainCamera = Camera.main;
         wandObject.SetActive(false);
+        health = MaxHealth();
     }
 
     private void Update()
@@ -205,6 +207,16 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
+    public float MaxHealth()
+    {
+        return baseMaxHealth + timesExtraLifeBought;
+    }
+
+    public float LootChanceIncrease()
+    {
+        return timesBetterLootBought * 0.1f;
+    }
+
     public void OnGainHealth(float gainedHealth)
     {
         ChangeHealth(gainedHealth);
@@ -223,7 +235,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void ChangeHealth(float healthChange)
     {
-        health = Math.Clamp(health + healthChange, 0f, maxHealth);
+        health = Math.Clamp(health + healthChange, 0f, MaxHealth());
     }
 
     public void UseOrb()
@@ -315,8 +327,8 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         if (context.performed && _isDead)
         {
+            SceneManager.LoadScene("Cave");
             Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -325,23 +337,9 @@ public class Player : SingletonMonoBehaviour<Player>
         if (context.performed)
         {
             if (_isDead)
-            {
-                SceneManager.LoadScene("Cave");
-                Time.timeScale = 1f;
-            }
+                Application.Quit();
             else
-            {
                 ChoiceInteractionPrompt.Instance.Interact(true);
-            }
-        }
-    }
-
-    public void QuitApplication(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (_isDead) Application.Quit();
-            else ChoiceInteractionPrompt.Instance.Interact(true);
         }
     }
 

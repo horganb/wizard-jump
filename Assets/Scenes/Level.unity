@@ -223,10 +223,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.056650247
+    x: 0.062398702
     y: 0
-    width: 0.8866995
-    height: 0.99971306
+    width: 0.8752026
+    height: 1.0005529
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -969,6 +969,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4550826242331043148, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550826242331043148, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550826242331043148, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -117.73
+      objectReference: {fileID: 0}
     - target: {fileID: 4975649271828638393, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -984,6 +996,10 @@ PrefabInstance:
     - target: {fileID: 4975649271828638393, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021694428234441291, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6225922213539005788, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
       propertyPath: m_AnchorMax.y

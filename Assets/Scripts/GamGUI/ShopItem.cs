@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Save;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,7 @@ namespace GamGUI
             if (!CanAfford()) return;
             Player.Instance.sapphire -= ItemData.Price();
             ItemData.OnPurchase();
+            SaveManager.Save();
         }
 
         private bool CanAfford()

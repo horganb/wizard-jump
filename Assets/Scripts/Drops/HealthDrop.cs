@@ -4,7 +4,7 @@
     {
         protected override bool CanPickUp()
         {
-            return Player.Instance.health < Player.Instance.maxHealth;
+            return Player.Instance.health < Player.Instance.MaxHealth();
         }
 
         protected override void OnPickUp()

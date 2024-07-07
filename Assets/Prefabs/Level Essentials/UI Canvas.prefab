@@ -2807,7 +2807,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Retry
+  m_text: Continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 730942a98ebf33f489a8aa2cebc03b58, type: 2}
   m_sharedMaterial: {fileID: 8036158815020527283, guid: 730942a98ebf33f489a8aa2cebc03b58, type: 2}
@@ -3760,7 +3760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To Camp
+  m_text: Quit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 730942a98ebf33f489a8aa2cebc03b58, type: 2}
   m_sharedMaterial: {fileID: 8036158815020527283, guid: 730942a98ebf33f489a8aa2cebc03b58, type: 2}

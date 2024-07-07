@@ -42,11 +42,14 @@ public class Player : SingletonMonoBehaviour<Player>
     public float thorns;
     public float dodgeChance;
     public float dropModifier;
+    public float lootChanceIncrease;
     public int gold;
     public int sapphire;
     public int projectiles = 1;
     public int timesAttackUpgraded;
     public int timesGearBought;
+    public int timesExtraLifeBought;
+    public int timesBetterLootBought;
     private Animator _animator;
     private float _attackCooldown;
     private float _hVelocity;

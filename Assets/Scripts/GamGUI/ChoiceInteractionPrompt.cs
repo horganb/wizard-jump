@@ -10,6 +10,7 @@ namespace GamGUI
         public InteractionPrompt interactionPromptPrefab;
         public GameObject separatorPrefab;
         public List<InteractionPrompt> prompts = new();
+        public bool disabled;
 
         public Interactable.Interactable activeObject;
 
@@ -20,6 +21,7 @@ namespace GamGUI
 
         public void Display(Choice[] choices)
         {
+            if (disabled) return;
             gameObject.SetActive(false);
             var needRerender = choices.Length != prompts.Count;
 
@@ -62,6 +64,12 @@ namespace GamGUI
         public void Interact(bool alternate)
         {
             activeObject?.Interact(alternate);
+        }
+
+        public void SetDisabled(bool isDisabled)
+        {
+            disabled = isDisabled;
+            if (disabled) gameObject.SetActive(false);
         }
 
         public class Choice

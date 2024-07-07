@@ -39,6 +39,11 @@ public static class Utils
             select t).ToArray();
     }
 
+    public static List<T> InstantiateAllSubclasses<T>() where T : class
+    {
+        return GetSubclasses<T>().Select(cls => Activator.CreateInstance(cls) as T).ToList();
+    }
+
     public static T InstantiateRandomSubclass<T>() where T : class
     {
         return InstantiateRandomSubclassXTimes<T>(1)[0];

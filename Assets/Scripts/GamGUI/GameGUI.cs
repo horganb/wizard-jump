@@ -28,6 +28,7 @@ namespace GamGUI
         public GameObject messagePrefab;
         public GameObject worldMessagePrefab;
         public TMP_Text goldCounter;
+        public TMP_Text sapphireCounter;
 
         private void Start()
         {
@@ -47,6 +48,7 @@ namespace GamGUI
             scroll.SetActive(Player.Instance.Scroll != null);
 
             goldCounter.text = Player.Instance.gold.ToString();
+            sapphireCounter.text = Player.Instance.sapphire.ToString();
         }
 
         private IEnumerator RepeatMessage()

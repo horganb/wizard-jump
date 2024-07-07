@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GamGUI
 {
@@ -7,7 +6,7 @@ namespace GamGUI
     {
         public void Play()
         {
-            SceneManager.LoadScene("Level");
+            PersistentUI.Instance.LoadScene(PersistentUI.Level);
         }
 
         public void Quit()

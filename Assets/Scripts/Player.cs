@@ -10,7 +10,6 @@ using Singletons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class Player : SingletonMonoBehaviour<Player>
@@ -332,7 +331,7 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         if (context.performed && _isDead)
         {
-            SceneManager.LoadScene("Cave");
+            PersistentUI.Instance.LoadScene(PersistentUI.Camp);
             Time.timeScale = 1f;
         }
     }

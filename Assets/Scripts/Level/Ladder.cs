@@ -1,4 +1,4 @@
-﻿using UnityEngine.SceneManagement;
+﻿using GamGUI;
 
 namespace Level
 {
@@ -6,7 +6,7 @@ namespace Level
     {
         public override void Interact(bool alternate)
         {
-            SceneManager.LoadScene("Level");
+            PersistentUI.Instance.LoadScene(PersistentUI.Level);
         }
 
         protected override string PromptText()

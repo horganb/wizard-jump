@@ -329,11 +329,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void Retry(InputAction.CallbackContext context)
     {
-        if (context.performed && _isDead)
-        {
-            PersistentUI.Instance.LoadScene(PersistentUI.Camp);
-            Time.timeScale = 1f;
-        }
+        if (context.performed && _isDead) PersistentUI.Instance.LoadScene(PersistentUI.Camp);
     }
 
     public void Quit(InputAction.CallbackContext context)

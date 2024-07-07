@@ -11,6 +11,7 @@ namespace GamGUI
         public static string Level = "Level";
         public static string Camp = "Cave";
         public Animator transitionAnimator;
+        private string _loadingScene;
 
         protected override void Awake()
         {
@@ -25,22 +26,19 @@ namespace GamGUI
             }
         }
 
-        public void SetLoading(bool loading)
-        {
-            transitionAnimator.SetBool(Loading, loading);
-        }
-
         public void LoadScene(string sceneName)
         {
-            SetLoading(true);
-            StartCoroutine(LoadSceneAfterDelay(sceneName));
+            _loadingScene = sceneName;
+            transitionAnimator.SetBool(Loading, true);
         }
 
-        private IEnumerator LoadSceneAfterDelay(string sceneName)
+        public IEnumerator FinishLoadingScene()
         {
-            yield return new WaitForSeconds(0.5f);
-            SceneManager.LoadScene(sceneName);
-            SetLoading(false);
+            Time.timeScale = 1f;
+            var asyncLoad = SceneManager.LoadSceneAsync(_loadingScene);
+            while (!asyncLoad.isDone) yield return null;
+            yield return new WaitForSeconds(0.01f);
+            transitionAnimator.SetBool(Loading, false);
         }
     }
 }

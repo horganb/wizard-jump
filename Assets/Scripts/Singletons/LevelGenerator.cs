@@ -199,8 +199,11 @@ namespace Singletons
                 for (var i = 0; i < level.Size; i++)
                     GeneratePlatformLayer();
                 GenerateRewardPlatform(levelNum);
-                SpawnUrns();
-                SpawnEnemies(level.EnemyPower);
+                if (levelNum > 1)
+                {
+                    SpawnUrns();
+                    SpawnEnemies(level.EnemyPower);
+                }
             }
         }
 

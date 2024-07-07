@@ -319,7 +319,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public void Cheat(InputAction.CallbackContext context)
     {
-        if (ControlsDisabled()) return;
+        if (ControlsDisabled() || !Application.isEditor) return;
         if (context.performed) LevelManager.Instance.SkipToNextLevel();
     }
 

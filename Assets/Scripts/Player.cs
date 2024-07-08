@@ -90,7 +90,6 @@ public class Player : SingletonMonoBehaviour<Player>
         _mainCamera = Camera.main;
         wandObject.SetActive(false);
         health = MaxHealth();
-        Special = new Saw();
     }
 
     private void Update()

@@ -13,7 +13,7 @@ namespace Gear
         {
             PlayerGear.Instance.goggles.gameObject.SetActive(true);
             Player.Instance.dropModifier += 0.1f;
-            GameGUI.Instance.DisplayMessage("Loot from enemies increased!");
+            GameGUI.Instance.DisplayMessage("Loot increased!");
         }
 
         protected override string SpriteName()

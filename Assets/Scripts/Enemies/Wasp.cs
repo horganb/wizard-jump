@@ -56,13 +56,13 @@ namespace Enemies
             }
         }
 
-        public override void OnDie(Vector2 impactVector)
+        public override void OnDie(Vector2 impactVector, bool endOfLevel = false)
         {
             RigidBody.gravityScale = 1f;
             RigidBody.freezeRotation = false;
             RigidBody.AddTorque(-3f, ForceMode2D.Impulse);
             AudioSource.Stop();
-            base.OnDie(impactVector);
+            base.OnDie(impactVector, endOfLevel);
         }
 
         protected override void OnNonLethalHit(Vector2 impactVector)

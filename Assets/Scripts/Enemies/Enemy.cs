@@ -111,7 +111,7 @@ namespace Enemies
             RigidBody.AddForce(impactVector * 5f, ForceMode2D.Impulse);
         }
 
-        public virtual void OnDie(Vector2 impactVector)
+        public virtual void OnDie(Vector2 impactVector, bool endOfLevel = false)
         {
             isDead = true;
             var color = SpriteRenderer.color;
@@ -119,9 +119,7 @@ namespace Enemies
             SpriteRenderer.color = color;
             RigidBody.AddForce(impactVector * 3f, ForceMode2D.Impulse);
             Collider.enabled = false;
-            // if (Random.value <= 0.1f + Player.Instance.dropModifier)
-            //     Instantiate(PrefabLibrary.Instance.healthDrop, transform.position, Quaternion.identity);
-            if (Random.value <= 0.2f + Player.Instance.dropModifier)
+            if (Random.value <= 0.2f)
                 Instantiate(PrefabLibrary.Instance.orbDrop, transform.position, Quaternion.identity);
         }
 

@@ -10,13 +10,10 @@ namespace Singletons
         private static readonly int MusicOn = Animator.StringToHash("Music On");
         public Enemy currentBoss;
         private Animator _animator;
-        private AudioSource _audioSource;
         private int _currentLevel = 1;
-        private bool _rewardPhase;
 
         private void Start()
         {
-            _audioSource = GetComponent<AudioSource>();
             _animator = GetComponent<Animator>();
         }
 
@@ -31,7 +28,7 @@ namespace Singletons
                     if (pl != platform)
                         Destroy(pl.gameObject);
                 foreach (var enemy in FindObjectsOfType<Enemy>())
-                    enemy.OnDie(Vector2.down);
+                    enemy.OnDie(Vector2.down, true);
                 foreach (var chest in FindObjectsOfType<ChoiceChest>()) chest.OnReachLevel();
             }
 

@@ -7,9 +7,10 @@ namespace Enemies
         public GameObject slimePrefab;
         public override float MaxHealth => 3f;
 
-        public override void OnDie(Vector2 impactVector)
+        public override void OnDie(Vector2 impactVector, bool endOfLevel = false)
         {
-            base.OnDie(impactVector);
+            base.OnDie(impactVector, endOfLevel);
+            if (endOfLevel) return;
             var position = transform.position;
             var child1 = Instantiate(slimePrefab, position, Quaternion.identity);
             var child2 = Instantiate(slimePrefab, position, Quaternion.identity);

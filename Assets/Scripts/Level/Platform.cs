@@ -9,11 +9,13 @@ namespace Level
         public GameObject middlePlatform;
         public GameObject rightPlatform;
         public bool isReward;
+        public bool isEnabled = true;
         private Collider2D _collider;
 
         private void Start()
         {
             _collider = GetComponent<Collider2D>();
+            isEnabled = true;
         }
 
         public void SetWidth(float middlePlatformWidth)
@@ -45,6 +47,24 @@ namespace Level
         {
             yield return new WaitForSeconds(0.5f);
             _collider.excludeLayers = new LayerMask();
+        }
+
+        public void StartTempDestroy(float seconds)
+        {
+            StartCoroutine(TempDestroy(seconds));
+        }
+
+        private IEnumerator TempDestroy(float seconds)
+        {
+            var colliders = GetComponentsInChildren<Collider2D>();
+            var renderers = GetComponentsInChildren<SpriteRenderer>();
+            foreach (var comp in colliders) comp.enabled = false;
+            foreach (var comp in renderers) comp.enabled = false;
+            isEnabled = false;
+            yield return new WaitForSeconds(seconds);
+            foreach (var comp in colliders) comp.enabled = true;
+            foreach (var comp in renderers) comp.enabled = true;
+            isEnabled = true;
         }
     }
 }

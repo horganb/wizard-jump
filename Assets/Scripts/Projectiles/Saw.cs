@@ -22,7 +22,7 @@ namespace Projectiles
             if (platform != null && !platform.isReward)
             {
                 Instantiate(destroyedEffect, platform.transform.position, Quaternion.identity);
-                Destroy(platform.gameObject);
+                platform.StartTempDestroy(1f);
                 Destroy(gameObject);
             }
         }

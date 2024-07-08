@@ -7,6 +7,7 @@ using Level;
 using Save;
 using Scrolls;
 using Singletons;
+using Special;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -89,6 +90,7 @@ public class Player : SingletonMonoBehaviour<Player>
         _mainCamera = Camera.main;
         wandObject.SetActive(false);
         health = MaxHealth();
+        Special = new Saw();
     }
 
     private void Update()
@@ -213,7 +215,7 @@ public class Player : SingletonMonoBehaviour<Player>
 
     public float LootChanceIncrease()
     {
-        return timesBetterLootBought * 0.1f;
+        return timesBetterLootBought * 0.1f + dropModifier;
     }
 
     public void OnGainHealth(float gainedHealth)

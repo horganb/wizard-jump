@@ -67,29 +67,29 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: Boots
       m_Hash: 109054728
-      m_Sprite: {fileID: 21300000, guid: 8a4ae447bbbaed7459e5271fcf7c5719, type: 3}
+      m_Sprite: {fileID: 629181871, guid: 8adbd295d62cee9439f2d88ad86e141a, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 8a4ae447bbbaed7459e5271fcf7c5719, type: 3}
+      m_SpriteOverride: {fileID: 629181871, guid: 8adbd295d62cee9439f2d88ad86e141a, type: 3}
     - m_Name: Armor
       m_Hash: 1055314424
-      m_Sprite: {fileID: 21300000, guid: 33a8c0150172fee4aaaf6b3a650dae50, type: 3}
+      m_Sprite: {fileID: 314593977, guid: 6f3f0ccc4f4facc4cb401bc6f079c396, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 33a8c0150172fee4aaaf6b3a650dae50, type: 3}
+      m_SpriteOverride: {fileID: 314593977, guid: 6f3f0ccc4f4facc4cb401bc6f079c396, type: 3}
     - m_Name: Goggles
       m_Hash: 952811713
-      m_Sprite: {fileID: 21300000, guid: ffc4d2776f77e6a459aad8be06c9ce5a, type: 3}
+      m_Sprite: {fileID: 1556091859, guid: df3bfa1088d341f4abc9bc99d82d70fc, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: ffc4d2776f77e6a459aad8be06c9ce5a, type: 3}
+      m_SpriteOverride: {fileID: 1556091859, guid: df3bfa1088d341f4abc9bc99d82d70fc, type: 3}
     - m_Name: Greaves
       m_Hash: 161020830
-      m_Sprite: {fileID: 21300000, guid: d60de67271f58be40aea7f2649b8d652, type: 3}
+      m_Sprite: {fileID: 2070668908, guid: 3412db215a305ce4ebbf6d15d154e1a4, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: d60de67271f58be40aea7f2649b8d652, type: 3}
+      m_SpriteOverride: {fileID: 2070668908, guid: 3412db215a305ce4ebbf6d15d154e1a4, type: 3}
     - m_Name: Gloves
       m_Hash: 501370344
-      m_Sprite: {fileID: 21300000, guid: 5915d53e0f656b64aaa05cb39afdf292, type: 3}
+      m_Sprite: {fileID: 1176829024, guid: 284bfa7315b747b4189ef26cfc03c2a4, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 5915d53e0f656b64aaa05cb39afdf292, type: 3}
+      m_SpriteOverride: {fileID: 1176829024, guid: 284bfa7315b747b4189ef26cfc03c2a4, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
   - m_Name: Attack Upgrades
@@ -114,5 +114,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638555167731562457
+  m_ModificationHash: 638560221936689195
   m_Version: 1

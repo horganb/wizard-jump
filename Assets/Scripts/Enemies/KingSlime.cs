@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Level;
 using Levels;
+using Singletons;
 using UnityEngine;
 
 namespace Enemies
@@ -31,6 +32,7 @@ namespace Enemies
         private bool _shooting;
         private float _shootTimer;
         private float _shotsFiredInBurst;
+        private Vector2 _startPos;
         private State _state;
         private float _stateTimer;
         private Platform _target;
@@ -42,6 +44,23 @@ namespace Enemies
             base.Start();
             _animator = GetComponent<Animator>();
             _target = FindObjectOfType<SlimeKingLevel>().kingStartPlatform;
+            _startPos = transform.position;
+        }
+
+        protected override void OnCollisionEnter2D(Collision2D col)
+        {
+            var player = col.gameObject.GetComponent<Player>();
+            if (player != null) player.OnHit(Damage, gameObject);
+
+            var lava = col.gameObject.GetComponent<Lava>();
+            if (lava != null)
+            {
+                AudioSource.PlayClipAtPoint(lava.lavaDeathClip, transform.position);
+                transform.position = _startPos;
+                var platformChoices = FindObjectsOfType<Platform>().Where(p => p.isEnabled).ToArray();
+                _target = Utils.RandomFromArray(platformChoices);
+                health -= 5f;
+            }
         }
 
         protected override void AliveUpdate()
@@ -137,7 +156,7 @@ namespace Enemies
         {
             _stateTimer = 0f;
             _state = State.Jumping;
-            var platformChoices = FindObjectsOfType<Platform>().Where(p => p != _target).ToArray();
+            var platformChoices = FindObjectsOfType<Platform>().Where(p => p != _target && p.isEnabled).ToArray();
             _target = Utils.RandomFromArray(platformChoices);
             var verticalDistance = _target.transform.position.y - transform.position.y;
             var targetAdjustment = Vector2.up * (Math.Clamp(verticalDistance, 0f, 5f) * 3f);

@@ -113,6 +113,17 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: cdccb8ce5f18175428f4761bfd10e64f, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 3
+  - m_Name: Rewards
+    m_Hash: 647964587
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Sapphire
+      m_Hash: 956244211
+      m_Sprite: {fileID: 21300000, guid: 526ed582f32ce664d915bd53c6fb2411, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 526ed582f32ce664d915bd53c6fb2411, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638560221936689195
+  m_ModificationHash: 638562426103124314
   m_Version: 1

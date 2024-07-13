@@ -391,8 +391,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12000
   maxSpeed: 6
-  jump: 20
-  jumpAddition: 70
+  jump: 15
+  jumpAddition: 65
   jumpAdditionDuration: 0.3
   health: 3
   baseMaxHealth: 3

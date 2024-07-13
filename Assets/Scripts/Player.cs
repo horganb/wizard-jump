@@ -7,7 +7,6 @@ using Level;
 using Save;
 using Scrolls;
 using Singletons;
-using Special;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;

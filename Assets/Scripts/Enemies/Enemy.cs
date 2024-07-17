@@ -10,6 +10,7 @@ namespace Enemies
     {
         public float verticalTriggerDistance = 6f;
         public float horizontalTriggerDistance = 10f;
+        public AudioClip hitClip;
         public AudioClip deathClip;
         public float health;
         public GameObject onFireEffect;
@@ -17,6 +18,7 @@ namespace Enemies
         public bool isDead;
         private bool _frozen;
         private bool _onFire;
+        protected Animator Animator;
         protected AudioSource AudioSource;
         protected Collider2D Collider;
         protected float Damage = 0.5f;
@@ -31,6 +33,7 @@ namespace Enemies
             SpriteRenderer = GetComponent<SpriteRenderer>();
             AudioSource = GetComponent<AudioSource>();
             Collider = GetComponent<Collider2D>();
+            Animator = GetComponent<Animator>();
             health = MaxHealth;
         }
 
@@ -57,10 +60,15 @@ namespace Enemies
             StopCoroutine(HitColorEffect());
             StartCoroutine(HitColorEffect());
             if (health > 0f)
+            {
+                if (hitClip is not null) AudioSource.PlayOneShot(hitClip);
                 OnNonLethalHit(impactVector);
+            }
             else
+            {
+                if (deathClip is not null) AudioSource.PlayOneShot(deathClip);
                 OnDie(impactVector);
-            AudioSource.PlayOneShot(deathClip);
+            }
         }
 
         public override void SetOnFire()
@@ -91,6 +99,7 @@ namespace Enemies
         {
             _frozen = true;
             frozenEffect.SetActive(true);
+            if (Animator is not null) Animator.speed = 0f;
             StopCoroutine(UnfreezeAfterDelay());
             StartCoroutine(UnfreezeAfterDelay());
         }
@@ -100,6 +109,7 @@ namespace Enemies
             yield return new WaitForSeconds(2f);
             _frozen = false;
             frozenEffect.SetActive(false);
+            Animator.speed = 1f;
         }
 
         protected virtual void AliveUpdate()

@@ -94,11 +94,10 @@ public static class Utils
         return projectile.GetComponent<Rigidbody2D>();
     }
 
-    public static void ShootAt(Rigidbody2D obj, Transform target, float hSpeed)
+    public static void ShootAt(Rigidbody2D obj, Vector2 targetPosition, float hSpeed)
     {
         var gravity = Physics2D.gravity.y;
         var startPosition = obj.transform.position;
-        var targetPosition = target.position;
         var hVelocity = targetPosition.x < startPosition.x ? -hSpeed : hSpeed;
         var xDiff = targetPosition.x - startPosition.x;
         if (Math.Abs(xDiff) < 3f) hVelocity *= Math.Abs(xDiff) / 3f; // dampen horizontal velocity if target is close

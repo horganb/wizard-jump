@@ -25,7 +25,6 @@ namespace Enemies
         public GameObject slimePrefab;
         public GameObject bigSlimePrefab;
         public AudioClip throwSlimeClip;
-        private Animator _animator;
         private float _burstTimer;
         private bool _evolved;
         private float _shedTimer;
@@ -42,7 +41,6 @@ namespace Enemies
         protected override void Start()
         {
             base.Start();
-            _animator = GetComponent<Animator>();
             _target = FindObjectOfType<SlimeKingLevel>().kingStartPlatform;
             _startPos = transform.position;
         }
@@ -95,7 +93,7 @@ namespace Enemies
                     _burstTimer = 0f;
                     _shooting = false;
                     _state = State.PreparingJump;
-                    _animator.SetTrigger(PreJump);
+                    Animator.SetTrigger(PreJump);
                 }
                 else
                 {
@@ -146,9 +144,10 @@ namespace Enemies
         private void Shoot()
         {
             AudioSource.PlayOneShot(throwSlimeClip);
+            var playerPosition = Player.Instance.transform.position;
             var blobRigidBody = Utils.SpawnProjectile(slimeBlobPrefab, shootSource.gameObject,
-                Player.Instance.transform.position);
-            Utils.ShootAt(blobRigidBody, Player.Instance.transform, shootSpeed);
+                playerPosition);
+            Utils.ShootAt(blobRigidBody, playerPosition, shootSpeed);
             blobRigidBody.AddTorque(8f, ForceMode2D.Impulse);
         }
 
@@ -182,7 +181,7 @@ namespace Enemies
             RigidBody.velocity = Vector2.zero;
             _stateTimer = 0f;
             _state = State.OnPlatform;
-            _animator.SetTrigger(PostJump);
+            Animator.SetTrigger(PostJump);
         }
 
         private bool IsGrounded()

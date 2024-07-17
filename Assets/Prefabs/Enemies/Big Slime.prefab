@@ -697,6 +697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalTriggerDistance: 6
   horizontalTriggerDistance: 10
+  hitClip: {fileID: 8300000, guid: dd093e2a65aeb1d48a703a5251165d80, type: 3}
   deathClip: {fileID: 8300000, guid: dd093e2a65aeb1d48a703a5251165d80, type: 3}
   health: 0
   onFireEffect: {fileID: 6343106211126124986}

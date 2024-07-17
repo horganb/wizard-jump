@@ -9,9 +9,8 @@ namespace Projectiles
         public GameObject destroyedEffect;
         private Rigidbody2D _rigidBody;
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
             _rigidBody = GetComponent<Rigidbody2D>();
             _rigidBody.angularVelocity = spinSpeed;
         }

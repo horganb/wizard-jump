@@ -89,6 +89,7 @@ public class Player : SingletonMonoBehaviour<Player>
         _mainCamera = Camera.main;
         wandObject.SetActive(false);
         health = MaxHealth();
+        ActiveAttack = new FireballAttack();
     }
 
     private void Update()

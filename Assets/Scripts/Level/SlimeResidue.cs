@@ -15,9 +15,8 @@ namespace Level
             if (_aliveTimer >= lifespan) Destroy(gameObject);
         }
 
-        protected override void OnCollisionEnter2D(Collision2D col)
+        private void OnCollisionEnter2D(Collision2D col)
         {
-            base.OnCollisionEnter2D(col);
             var player = col.gameObject.GetComponent<Player>();
             if (player != null && !player.HasInvincibility())
             {

@@ -6,7 +6,7 @@ namespace Projectiles
 {
     public class SlimeBlob : Hittable
     {
-        public float damage = 0.5f;
+        public float damage = 0.25f;
         public GameObject residuePrefab;
         public GameObject destroyedPrefab;
         private Rigidbody2D _rigidbody;
@@ -21,8 +21,9 @@ namespace Projectiles
             Utils.DestroyIfBelowScreen(gameObject);
         }
 
-        protected void OnTriggerEnter2D(Collider2D col)
+        protected override void OnTriggerEnter2D(Collider2D col)
         {
+            base.OnTriggerEnter2D(col);
             var player = col.gameObject.GetComponent<Player>();
             if (player != null)
             {

@@ -45,11 +45,8 @@ namespace Enemies
             _startPos = transform.position;
         }
 
-        protected override void OnCollisionEnter2D(Collision2D col)
+        protected override void OnTriggerEnter2D(Collider2D col)
         {
-            var player = col.gameObject.GetComponent<Player>();
-            if (player != null) player.OnHit(Damage, gameObject);
-
             var lava = col.gameObject.GetComponent<Lava>();
             if (lava != null)
             {

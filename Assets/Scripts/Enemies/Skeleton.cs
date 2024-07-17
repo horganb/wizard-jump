@@ -17,12 +17,17 @@ namespace Enemies
 
         protected override void AliveUpdate()
         {
-            if (_throwing) return;
+            if (!WithinTriggerDistanceOfPlayer()) return;
+
+            // face player
             var transform1 = transform;
             var vectorToPlayer = Player.Instance.transform.position - transform1.position;
             var scale = transform1.localScale;
             scale.x = vectorToPlayer.x > 0 ? 1f : -1f;
             transform.localScale = scale;
+
+            if (_throwing) return;
+
             _stateTimer += Time.deltaTime;
             if (_stateTimer > 3f)
             {

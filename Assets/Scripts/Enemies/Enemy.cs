@@ -21,7 +21,7 @@ namespace Enemies
         protected Animator Animator;
         protected AudioSource AudioSource;
         protected Collider2D Collider;
-        protected float Damage = 0.5f;
+        protected float Damage = 0.25f;
         protected Rigidbody2D RigidBody;
         protected SpriteRenderer SpriteRenderer;
         public virtual float MaxHealth => 1f;
@@ -44,12 +44,10 @@ namespace Enemies
             else if (!_frozen) AliveUpdate();
         }
 
-        protected override void OnCollisionEnter2D(Collision2D col)
+        protected virtual void OnCollisionEnter2D(Collision2D col)
         {
             var player = col.gameObject.GetComponent<Player>();
             if (player != null && !_frozen) player.OnHit(Damage, gameObject);
-
-            base.OnCollisionEnter2D(col);
         }
 
         public override void OnHit(Vector2 impactVector, float damage, GameObject projectile = null)
@@ -136,8 +134,7 @@ namespace Enemies
         protected bool WithinTriggerDistanceOfPlayer()
         {
             var vectorToPlayer = Player.Instance.transform.position - gameObject.transform.position;
-            return Math.Abs(vectorToPlayer.x) < horizontalTriggerDistance &&
-                   Math.Abs(vectorToPlayer.y) < verticalTriggerDistance;
+            return Math.Abs(vectorToPlayer.y) < verticalTriggerDistance;
         }
     }
 }

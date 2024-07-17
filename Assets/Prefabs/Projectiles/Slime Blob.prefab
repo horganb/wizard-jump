@@ -161,6 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd57911bebb49efa5fc44727749a4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0.5
+  damage: 0.25
   residuePrefab: {fileID: 6196409021067724815, guid: b2d17bc8764f31a488bfcfb79bfcac7e, type: 3}
   destroyedPrefab: {fileID: 8709034577244601803, guid: e926b68e2de5a6a43b521f12fe646402, type: 3}

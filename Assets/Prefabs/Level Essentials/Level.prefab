@@ -53,6 +53,7 @@ MonoBehaviour:
   slimePrefab: {fileID: 4807991862043732585, guid: af0d28cde2467404aaccf76b7e76a9d8, type: 3}
   bigSlimePrefab: {fileID: 4807991862043732585, guid: f417dade8d616a043af202067546af44, type: 3}
   waspPrefab: {fileID: 3506131019999302718, guid: 5cc8b1e858220ec45a31e9ec958a1787, type: 3}
+  skeletonPrefab: {fileID: 48863334002201741, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
   flagPrefab: {fileID: 135369805284265778, guid: b4282490449355241b6bb029efb18301, type: 3}
   choiceChestPrefab: {fileID: 1040017653055953421, guid: 2a45bcc560203c84a9d258b2f3934649, type: 3}
   urnPrefab: {fileID: 2453861737996730057, guid: ed31756bf8f784f4ab429a19be433249, type: 3}

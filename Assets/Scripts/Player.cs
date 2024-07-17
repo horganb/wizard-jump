@@ -89,7 +89,6 @@ public class Player : SingletonMonoBehaviour<Player>
         _mainCamera = Camera.main;
         wandObject.SetActive(false);
         health = MaxHealth();
-        ActiveAttack = new FireballAttack();
     }
 
     private void Update()
@@ -185,7 +184,10 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         var platform = col.gameObject.GetComponent<Platform>();
         if (platform != null) lastPlatform = platform;
+    }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
         var lava = col.gameObject.GetComponent<Lava>();
         if (lava != null) OnLava(lava);
     }

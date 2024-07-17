@@ -5,7 +5,7 @@ namespace Enemies
 {
     public abstract class Hittable : MonoBehaviour
     {
-        protected virtual void OnCollisionEnter2D(Collision2D col)
+        protected virtual void OnTriggerEnter2D(Collider2D col)
         {
             var lava = col.gameObject.GetComponent<Lava>();
             if (lava != null)

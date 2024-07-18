@@ -64,7 +64,9 @@ namespace Enemies
             else
             {
                 projectile.transform.Rotate(Vector3.forward, 180f);
-                projectile.GetComponent<Projectile>().SetCanDamagePlayer();
+                var projectileComponent = projectile.GetComponent<Projectile>();
+                projectileComponent.SetCanDamagePlayer();
+                projectileComponent.direction = projectile.transform.right;
                 AudioSource.PlayOneShot(shieldClip);
             }
         }

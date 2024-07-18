@@ -7,7 +7,6 @@ using Level;
 using Save;
 using Scrolls;
 using Singletons;
-using Special;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -94,8 +93,6 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Update()
     {
-        Special = new Saw();
-        orbs = 1;
         if (ControlsDisabled()) return;
 
         // moving

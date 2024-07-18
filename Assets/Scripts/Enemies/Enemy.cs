@@ -105,9 +105,12 @@ namespace Enemies
         private IEnumerator UnfreezeAfterDelay()
         {
             yield return new WaitForSeconds(2f);
-            _frozen = false;
-            frozenEffect.SetActive(false);
-            Animator.speed = 1f;
+            if (!isDead)
+            {
+                _frozen = false;
+                frozenEffect.SetActive(false);
+                Animator.speed = 1f;
+            }
         }
 
         protected virtual void AliveUpdate()
@@ -122,11 +125,12 @@ namespace Enemies
         public virtual void OnDie(Vector2 impactVector, bool endOfLevel = false)
         {
             isDead = true;
+            if (Animator is not null) Animator.speed = 0f;
             var color = SpriteRenderer.color;
             color.a = 0.5f;
             SpriteRenderer.color = color;
             RigidBody.AddForce(impactVector * 3f, ForceMode2D.Impulse);
-            Collider.enabled = false;
+            Collider.excludeLayers = LayerMask.GetMask("Platform", "Player");
             if (Random.value <= 0.2f)
                 Instantiate(PrefabLibrary.Instance.orbDrop, transform.position, Quaternion.identity);
         }

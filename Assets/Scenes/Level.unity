@@ -223,9 +223,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.060546875
+    x: 0.14453125
     y: 0
-    width: 0.87890625
+    width: 0.71118164
     height: 1.000206
   near clip plane: 0.3
   far clip plane: 1000
@@ -311,8 +311,8 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_AssetsPPU: 20
   m_RefResolutionX: 360
-  m_RefResolutionY: 180
-  m_CropFrame: 1
+  m_RefResolutionY: 240
+  m_CropFrame: 4
   m_GridSnapping: 0
   m_FilterMode: 0
   m_UpscaleRT: 0
@@ -1088,7 +1088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3798626857269786413, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 25.518372
+      value: 25.518433
       objectReference: {fileID: 0}
     - target: {fileID: 4061080167718624149, guid: e5ad69e51d07cd9438f48bd4fc23c075, type: 3}
       propertyPath: m_AnchorMax.y

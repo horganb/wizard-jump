@@ -8,11 +8,17 @@ namespace Projectiles
         public GameObject alertPrefab;
         public float speed = 2f;
         private GameObject _alert;
+        private Vector3 _direction;
+
+        protected virtual void Start()
+        {
+            _direction = transform.right; // in case the direction changes (e.g. saw)
+        }
 
         protected virtual void Update()
         {
             Utils.DestroyIfOffscreen(gameObject);
-            transform.Translate(transform.right * (Time.deltaTime * speed), Space.World);
+            transform.Translate(_direction * (Time.deltaTime * speed), Space.World);
             if (_alert is not null) _alert.transform.position = transform.position + Vector3.up * 0.5f;
         }
 

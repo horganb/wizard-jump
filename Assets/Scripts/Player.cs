@@ -7,6 +7,7 @@ using Level;
 using Save;
 using Scrolls;
 using Singletons;
+using Special;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -93,6 +94,8 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void Update()
     {
+        Special = new Saw();
+        orbs = 1;
         if (ControlsDisabled()) return;
 
         // moving
@@ -171,7 +174,7 @@ public class Player : SingletonMonoBehaviour<Player>
         wandLight.intensity = orbs >= 1 ? 1f : 0f;
 
         // passing to other side of screen
-        if (Math.Abs(transform.position.x) > CameraUtil.Instance.worldWidth / 2)
+        if (Math.Abs(transform.position.x) > CameraUtil.Instance.GetWorldWidth() / 2)
         {
             var transform1 = transform;
             var pos = transform1.position;

@@ -94,19 +94,24 @@ public static class Utils
         return projectile.GetComponent<Rigidbody2D>();
     }
 
-    public static void ShootAt(Rigidbody2D obj, Vector2 targetPosition, float hSpeed)
+    public static void ShootAt(Rigidbody2D obj, Vector2 targetPosition, float hSpeed, float dampenDistance = 3f)
     {
         var gravity = Physics2D.gravity.y;
         var startPosition = obj.transform.position;
         var hVelocity = targetPosition.x < startPosition.x ? -hSpeed : hSpeed;
         var xDiff = targetPosition.x - startPosition.x;
-        if (Math.Abs(xDiff) < 3f) hVelocity *= Math.Abs(xDiff) / 3f; // dampen horizontal velocity if target is close
+        if (Math.Abs(xDiff) < dampenDistance)
+            hVelocity *= Math.Abs(xDiff) / dampenDistance; // dampen horizontal velocity if target is close
+        var yDiff = targetPosition.y - startPosition.y;
         var vVelocity = 0f;
         if (hVelocity != 0f)
         {
             var exp1 = xDiff / hVelocity;
-            var yDiff = targetPosition.y - startPosition.y;
             vVelocity = (yDiff - 0.5f * gravity * (float)Math.Pow(exp1, 2)) / exp1;
+        }
+        else if (yDiff > 0)
+        {
+            vVelocity = (float)Math.Sqrt(-2f * gravity * yDiff);
         }
 
         obj.AddForce(new Vector2(hVelocity, vVelocity) * obj.mass, ForceMode2D.Impulse);
@@ -117,5 +122,14 @@ public static class Utils
         List<float> offsets = new();
         for (var i = 0; i < numItems; i++) offsets.Add((i - (numItems - 1) / 2f) * gap);
         return offsets;
+    }
+
+    public static bool IsBetween(GameObject target, GameObject obj1, GameObject obj2)
+    {
+        var boundaries = new List<float>
+            { obj1.transform.position.y, obj2.transform.position.y };
+        boundaries.Sort();
+        var targetY = target.transform.position.y;
+        return targetY > boundaries[0] && targetY < boundaries[1];
     }
 }

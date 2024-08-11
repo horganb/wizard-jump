@@ -10,11 +10,11 @@ namespace Level
         public GameObject rightPlatform;
         public bool isReward;
         public bool isEnabled = true;
-        private Collider2D _collider;
+        public Collider2D theCollider;
 
         private void Start()
         {
-            _collider = GetComponent<Collider2D>();
+            theCollider = GetComponent<Collider2D>();
             isEnabled = true;
         }
 
@@ -39,14 +39,14 @@ namespace Level
 
         public void PlayerPassThrough()
         {
-            _collider.excludeLayers = LayerMask.GetMask("Player");
+            theCollider.excludeLayers = LayerMask.GetMask("Player");
             StartCoroutine(EndPassThroughAfterDelay());
         }
 
         private IEnumerator EndPassThroughAfterDelay()
         {
             yield return new WaitForSeconds(0.5f);
-            _collider.excludeLayers = new LayerMask();
+            theCollider.excludeLayers = new LayerMask();
         }
 
         public void StartTempDestroy(float seconds)

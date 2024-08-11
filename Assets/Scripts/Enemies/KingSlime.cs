@@ -48,7 +48,7 @@ namespace Enemies
         protected override void OnTriggerEnter2D(Collider2D col)
         {
             var lava = col.gameObject.GetComponent<Lava>();
-            if (lava != null)
+            if (lava != null && !isDead)
             {
                 AudioSource.PlayClipAtPoint(lava.lavaDeathClip, transform.position);
                 transform.position = _startPos;
@@ -179,11 +179,6 @@ namespace Enemies
             _stateTimer = 0f;
             _state = State.OnPlatform;
             Animator.SetTrigger(PostJump);
-        }
-
-        private bool IsGrounded()
-        {
-            return RigidBody.velocity.y == 0;
         }
 
         protected override void OnNonLethalHit(Vector2 impactVector)

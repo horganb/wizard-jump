@@ -200,8 +200,9 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             GameObject lowestPlatform = null;
             foreach (var platform in FindObjectsOfType<Platform>())
-                if (platform.transform.position.y >= lava.transform.position.y + 1f && (lowestPlatform == null ||
-                        platform.transform.position.y < lowestPlatform.transform.position.y))
+                if (platform.isEnabled && platform.transform.position.y >= lava.transform.position.y + 1f &&
+                    (lowestPlatform == null ||
+                     platform.transform.position.y < lowestPlatform.transform.position.y))
                     lowestPlatform = platform.gameObject;
 
             if (lowestPlatform != null)

@@ -140,5 +140,10 @@ namespace Enemies
             var vectorToPlayer = Player.Instance.transform.position - gameObject.transform.position;
             return Math.Abs(vectorToPlayer.y) < verticalTriggerDistance;
         }
+
+        protected bool IsGrounded()
+        {
+            return RigidBody.velocity.y == 0;
+        }
     }
 }

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f991509117a845939282fb7751e5e73e, type: 3}
+  m_Name: Game Stages
+  m_EditorClassIdentifier: 
+  stages:
+  - bossLevel: {fileID: 7324301179104382929, guid: cdac628d826dcee42a0a49623bb33e9f, type: 3}
+    enemies:
+    - prefab: {fileID: 4807991862043732585, guid: af0d28cde2467404aaccf76b7e76a9d8, type: 3}
+      power: 1
+      maxPerPlatform: 2
+    - prefab: {fileID: 3506131019999302718, guid: 5cc8b1e858220ec45a31e9ec958a1787, type: 3}
+      power: 2
+      maxPerPlatform: 2
+    - prefab: {fileID: 4807991862043732585, guid: f417dade8d616a043af202067546af44, type: 3}
+      power: 3
+      maxPerPlatform: 0
+    levels:
+    - enemyPower: 0
+      size: 12
+    - enemyPower: 0.5
+      size: 0
+    - enemyPower: 0.6
+      size: 0
+    - enemyPower: 0.7
+      size: 0
+    - enemyPower: 0.8
+      size: 0
+    - enemyPower: 1
+      size: 0
+  - bossLevel: {fileID: 0}
+    enemies:
+    - prefab: {fileID: 1905891116655892170, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
+      power: 3
+      maxPerPlatform: 0
+    - prefab: {fileID: 48863334002201741, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
+      power: 4
+      maxPerPlatform: 0
+    levels:
+    - enemyPower: 0.8
+      size: 0
+    - enemyPower: 0.9
+      size: 0
+    - enemyPower: 1
+      size: 0
+    - enemyPower: 1.1
+      size: 0
+    - enemyPower: 1.2
+      size: 0

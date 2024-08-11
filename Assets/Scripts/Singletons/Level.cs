@@ -1,14 +1,11 @@
-﻿namespace Singletons
+﻿using System;
+
+namespace Singletons
 {
+    [Serializable]
     public class Level
     {
-        public float EnemyPower;
-        public int Size;
-
-        public Level(float power, int size = 30)
-        {
-            Size = size;
-            EnemyPower = power;
-        }
+        public float enemyPower;
+        public int size;
     }
 }

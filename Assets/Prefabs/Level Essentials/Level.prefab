@@ -59,6 +59,7 @@ MonoBehaviour:
   choiceChestPrefab: {fileID: 1040017653055953421, guid: 2a45bcc560203c84a9d258b2f3934649, type: 3}
   urnPrefab: {fileID: 2453861737996730057, guid: ed31756bf8f784f4ab429a19be433249, type: 3}
   slimeKingLevelPrefab: {fileID: 7324301179104382929, guid: cdac628d826dcee42a0a49623bb33e9f, type: 3}
+  stages: {fileID: 11400000, guid: 7c7baa6a702789743a2a5e3bafde815d, type: 2}
 --- !u!114 &6898643807544266624
 MonoBehaviour:
   m_ObjectHideFlags: 0

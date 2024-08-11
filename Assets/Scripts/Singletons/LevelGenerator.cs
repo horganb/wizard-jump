@@ -12,13 +12,10 @@ namespace Singletons
     public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
     {
         public GameObject platformPrefab;
-        public GameObject slimePrefab;
-        public GameObject bigSlimePrefab;
-        public GameObject waspPrefab;
         public GameObject flagPrefab;
         public GameObject choiceChestPrefab;
         public GameObject urnPrefab;
-        public GameObject slimeKingLevelPrefab;
+        public GameStages stages;
 
         private Vector2 _lastLocation;
 
@@ -31,7 +28,7 @@ namespace Singletons
         {
             _lastLocation = Vector2.zero;
             PlacePlatform(Vector2.zero, 4f);
-            GenerateLevel(1);
+            GenerateLevel(1, 1);
         }
 
         private void GeneratePlatformLayer()
@@ -117,14 +114,8 @@ namespace Singletons
         }
 
 
-        private void SpawnEnemies(float totalPower)
+        private void SpawnEnemies(float totalPower, Stage.EnemyType[] types)
         {
-            EnemyType[] types =
-            {
-                new() { Prefab = slimePrefab, Power = 1f, MaxPerPlatform = 2 },
-                new() { Prefab = waspPrefab, Power = 2f, MaxPerPlatform = 2 },
-                new() { Prefab = bigSlimePrefab, Power = 3f }
-            };
             var chosenEnemyTypes = Utils.RandomFromArray(types, Random.Range(1, 4));
             var platforms = FindObjectsOfType<Platform>().Where(
                 p => !IsTooNearRewardPlatform(p.transform.position)
@@ -133,8 +124,9 @@ namespace Singletons
             foreach (var platform in platforms) capacity[platform] = 1f;
             foreach (var enemyType in chosenEnemyTypes)
             {
-                var capacityToConsume = 1f / enemyType.MaxPerPlatform;
-                var enemiesPerPlatform = totalPower / chosenEnemyTypes.Length / enemyType.Power;
+                var maxPerPlatform = enemyType.maxPerPlatform == 0 ? 1 : enemyType.maxPerPlatform;
+                var capacityToConsume = 1f / maxPerPlatform;
+                var enemiesPerPlatform = totalPower / chosenEnemyTypes.Length / enemyType.power;
                 var enemiesToSpawn = (int)Math.Floor(platforms.Count * enemiesPerPlatform);
                 for (var i = 0; i < enemiesToSpawn; i++)
                 {
@@ -144,7 +136,7 @@ namespace Singletons
                     capacity[platform] -= capacityToConsume;
                     var startingPosition = (Vector2)platform.transform.position + Vector2.up * 1f +
                                            Vector2.right * Random.Range(-1f, 1f);
-                    Instantiate(enemyType.Prefab, startingPosition, Quaternion.identity, transform);
+                    Instantiate(enemyType.prefab, startingPosition, Quaternion.identity, transform);
                 }
             }
         }
@@ -175,43 +167,29 @@ namespace Singletons
             }
         }
 
-        public void GenerateLevel(int levelNum)
+        public void GenerateLevel(int levelNum, int stageNum)
         {
-            Level[] levels =
-            {
-                new(0f, 12),
-                new(0.5f),
-                new(0.6f),
-                new(0.7f),
-                new(0.8f),
-                new(1f)
-            };
-            if (levelNum - 1 == levels.Length)
+            var stage = stages.stages[stageNum - 1];
+            if (levelNum - 1 == stage.levels.Length)
             {
                 Lava.Instance.SetTarget(_lastLocation.y);
-                Instantiate(slimeKingLevelPrefab, _lastLocation + Vector2.up * 6f, Quaternion.identity, transform);
+                Instantiate(stage.bossLevel, _lastLocation + Vector2.up * 6f, Quaternion.identity, transform);
                 LevelManager.Instance.StopMusic();
             }
             else
             {
                 Lava.Instance.ClearTarget();
-                var level = levels[levelNum - 1];
-                for (var i = 0; i < level.Size; i++)
+                var level = stage.levels[levelNum - 1];
+                var size = level.size == 0 ? 30 : level.size;
+                for (var i = 0; i < size; i++)
                     GeneratePlatformLayer();
                 GenerateRewardPlatform(levelNum);
                 if (levelNum > 1)
                 {
                     SpawnUrns();
-                    SpawnEnemies(level.EnemyPower);
+                    SpawnEnemies(level.enemyPower, stage.enemies);
                 }
             }
-        }
-
-        private class EnemyType
-        {
-            public int MaxPerPlatform = 1;
-            public float Power;
-            public GameObject Prefab;
         }
     }
 }

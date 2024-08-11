@@ -11,6 +11,7 @@ namespace Singletons
         public Enemy currentBoss;
         private Animator _animator;
         private int _currentLevel = 1;
+        private readonly int _currentStage = 1;
 
         private void Start()
         {
@@ -39,7 +40,7 @@ namespace Singletons
         {
             _currentLevel++;
             Lava.Instance.growRate += 0.1f;
-            LevelGenerator.Instance.GenerateLevel(_currentLevel);
+            LevelGenerator.Instance.GenerateLevel(_currentLevel, _currentStage);
         }
 
         public void SkipToNextLevel()

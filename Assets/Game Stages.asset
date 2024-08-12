@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Game Stages
   m_EditorClassIdentifier: 
   stages:
-  - bossLevel: {fileID: 7324301179104382929, guid: cdac628d826dcee42a0a49623bb33e9f, type: 3}
+  - bossLevel: {fileID: 2359994474590604597, guid: cdac628d826dcee42a0a49623bb33e9f, type: 3}
     enemies:
     - prefab: {fileID: 4807991862043732585, guid: af0d28cde2467404aaccf76b7e76a9d8, type: 3}
       power: 1

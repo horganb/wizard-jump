@@ -1,4 +1,5 @@
 ﻿using System;
+using Levels;
 using UnityEngine;
 
 namespace Singletons
@@ -6,7 +7,7 @@ namespace Singletons
     [Serializable]
     public class Stage
     {
-        public GameObject bossLevel;
+        public BossLevel bossLevel;
         public EnemyType[] enemies;
         public Level[] levels;
 

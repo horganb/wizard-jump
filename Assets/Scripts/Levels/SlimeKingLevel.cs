@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Levels
 {
-    public class SlimeKingLevel : MonoBehaviour
+    public class SlimeKingLevel : BossLevel
     {
         private static readonly int FightOver = Animator.StringToHash("FightOver");
         public KingSlime slimeKing;
@@ -37,7 +37,11 @@ namespace Levels
                 loopSource.PlayDelayed(introSource.clip.length);
             }
 
-            if (_spawnedBoss && LevelManager.Instance.currentBoss.isDead) _animator.SetTrigger(FightOver);
+            if (_spawnedBoss && LevelManager.Instance.currentBoss.isDead)
+            {
+                _animator.SetTrigger(FightOver);
+                OnBeaten();
+            }
         }
     }
 }

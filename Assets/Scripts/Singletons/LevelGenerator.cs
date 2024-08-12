@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Interactable;
 using Level;
+using Levels;
 using RewardType;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -58,19 +59,19 @@ namespace Singletons
             platformComponent.isReward = isReward;
         }
 
-        private void GenerateRewardPlatform(int levelNum)
+        private void GenerateRewardPlatform(bool isFirstLevel)
         {
             _lastLocation = new Vector2(0f, _lastLocation.y + 1.5f);
             PlacePlatform(_lastLocation, 10f, true);
-            var chests = GenerateRewardChests(levelNum);
-            AssignRewardsToChests(levelNum, chests);
+            var chests = GenerateRewardChests(isFirstLevel);
+            AssignRewardsToChests(isFirstLevel, chests);
             Instantiate(flagPrefab, _lastLocation + Vector2.left * 5f, Quaternion.identity, transform);
         }
 
-        private List<ChoiceChest> GenerateRewardChests(int levelNum)
+        private List<ChoiceChest> GenerateRewardChests(bool isFirstLevel)
         {
             List<ChoiceChest> chests = new();
-            var numChests = levelNum == 1 ? 1 : Random.Range(2, 4);
+            var numChests = isFirstLevel ? 1 : Random.Range(2, 4);
             foreach (var offset in Utils.GetIntervalsAroundZero(numChests, 2.5f))
             {
                 var chestPosition = _lastLocation + Vector2.up + Vector2.right * offset;
@@ -81,13 +82,13 @@ namespace Singletons
             return chests;
         }
 
-        private void AssignRewardsToChests(int levelNum, List<ChoiceChest> chests)
+        private void AssignRewardsToChests(bool isFirstLevel, List<ChoiceChest> chests)
         {
             List<Type> rewardTypesUsed = new();
             foreach (var chest in chests)
             {
                 RewardType.RewardType rewardType;
-                if (levelNum == 1)
+                if (isFirstLevel)
                 {
                     rewardType = chest.GetComponentInChildren<LearnSpell>(true);
                 }
@@ -173,7 +174,10 @@ namespace Singletons
             if (levelNum - 1 == stage.levels.Length)
             {
                 Lava.Instance.SetTarget(_lastLocation.y);
-                Instantiate(stage.bossLevel, _lastLocation + Vector2.up * 6f, Quaternion.identity, transform);
+                var bossLevel = Instantiate(stage.bossLevel.gameObject, _lastLocation + Vector2.up * 6f,
+                    Quaternion.identity,
+                    transform);
+                _lastLocation = bossLevel.GetComponent<BossLevel>().rewardPlatform.transform.position;
                 LevelManager.Instance.StopMusic();
             }
             else
@@ -183,8 +187,9 @@ namespace Singletons
                 var size = level.size == 0 ? 30 : level.size;
                 for (var i = 0; i < size; i++)
                     GeneratePlatformLayer();
-                GenerateRewardPlatform(levelNum);
-                if (levelNum > 1)
+                var isFirstLevel = levelNum == 1 && stageNum == 1;
+                GenerateRewardPlatform(isFirstLevel);
+                if (!isFirstLevel)
                 {
                     SpawnUrns();
                     SpawnEnemies(level.enemyPower, stage.enemies);

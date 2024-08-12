@@ -48,7 +48,7 @@ namespace Enemies
                         if (vectorToPlayer.magnitude < distanceToStartFollowing && _attackCooldown <= 0f)
                         {
                             var playerPos = Player.Instance.transform.position;
-                            Face(playerPos);
+                            Utils.FlipXToFace(transform, playerPos);
                             Utils.ShootAt(RigidBody, playerPos, 5f);
                             _attackCooldown = attackInterval;
                         }
@@ -86,7 +86,7 @@ namespace Enemies
                             {
                                 PlatformPassThrough();
                                 RigidBody.velocity = Vector2.zero;
-                                Face(GetTargetPlatformLandingLocation());
+                                Utils.FlipXToFace(transform, GetTargetPlatformLandingLocation());
                                 Utils.ShootAt(RigidBody, GetTargetPlatformLandingLocation(), 8f, 1f);
                             }
                         }
@@ -108,7 +108,7 @@ namespace Enemies
         private void RunTowards(GameObject obj)
         {
             var position = obj.transform.position;
-            Face(position);
+            Utils.FlipXToFace(transform, position);
 
             var targetToLeft = position.x < transform.position.x;
             Animator.SetBool(Running, true);
@@ -119,15 +119,6 @@ namespace Enemies
 
             var clampedHVelocity = Math.Clamp(RigidBody.velocity.x, -maxSpeed, maxSpeed);
             RigidBody.velocity = new Vector2(clampedHVelocity, RigidBody.velocity.y);
-        }
-
-        private void Face(Vector2 position)
-        {
-            var transform1 = transform;
-            var targetToLeft = position.x < transform1.position.x;
-            var scale = transform1.localScale;
-            scale.x = targetToLeft ? -1f : 1f;
-            transform.localScale = scale;
         }
 
         public void PlatformPassThrough()

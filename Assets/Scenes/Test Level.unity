@@ -747,9 +747,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.10878113
     y: 0
-    width: 1
+    width: 0.7824378
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -15935,67 +15935,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &1084677515
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 48863334002201741, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_Name
-      value: Skeleton
-      objectReference: {fileID: 0}
-    - target: {fileID: 48863334002201741, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.3756537
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.0171468
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885828361045958754, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 659e192bcdaccaa4f88d452d47af271b, type: 3}
 --- !u!1001 &1168331214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37071,6 +37010,63 @@ SortingGroup:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!1001 &1892791762354457709
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038582719615222238, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7619689303703151980, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
+      propertyPath: m_Name
+      value: Skelly Bat
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 75737b1acc4cfca4db94e957af1366af, type: 3}
 --- !u!251 &2203636827550689986
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -42249,63 +42245,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8639854168131417433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7018932344365138044
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1905891116655892170, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_Name
-      value: Skelly Dog
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700929235673029840, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
 --- !u!50 &7104384621799648039
 Rigidbody2D:
   serializedVersion: 4
@@ -42493,5 +42432,4 @@ SceneRoots:
   - {fileID: 2027160471}
   - {fileID: 2064446339}
   - {fileID: 1168331214}
-  - {fileID: 1084677515}
-  - {fileID: 7018932344365138044}
+  - {fileID: 1892791762354457709}

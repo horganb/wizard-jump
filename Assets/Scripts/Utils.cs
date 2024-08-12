@@ -132,4 +132,16 @@ public static class Utils
         var targetY = target.transform.position.y;
         return targetY > boundaries[0] && targetY < boundaries[1];
     }
+
+    public static bool FlipXToFace(Transform transform, Vector2 target, bool leftIsForward = false)
+    {
+        var transform1 = transform;
+        var targetToLeft = target.x < transform1.position.x;
+        var scale = transform1.localScale;
+        var oldXScale = scale.x;
+        scale.x = targetToLeft ? -1f : 1f;
+        if (leftIsForward) scale.x *= -1;
+        transform.localScale = scale;
+        return Math.Abs(oldXScale - scale.x) > 0.01f;
+    }
 }

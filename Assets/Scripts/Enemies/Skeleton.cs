@@ -19,12 +19,7 @@ namespace Enemies
         {
             if (!WithinTriggerDistanceOfPlayer()) return;
 
-            // face player
-            var transform1 = transform;
-            var vectorToPlayer = Player.Instance.transform.position - transform1.position;
-            var scale = transform1.localScale;
-            scale.x = vectorToPlayer.x > 0 ? 1f : -1f;
-            transform.localScale = scale;
+            Utils.FlipXToFace(transform, Player.Instance.transform.position);
 
             if (_throwing) return;
 

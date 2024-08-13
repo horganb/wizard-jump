@@ -10,6 +10,8 @@ namespace Enemies
 
         protected override void AliveUpdate()
         {
+            if (!WithinTriggerDistanceOfPlayer()) return;
+
             var playerPosition = Player.Instance.transform.position;
 
             // flip to face player

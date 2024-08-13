@@ -294,14 +294,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalTriggerDistance: 6
   horizontalTriggerDistance: 10
-  hitClip: {fileID: 8300000, guid: 5c8adf0fb7c3f8844891c1210ee52ac4, type: 3}
-  deathClip: {fileID: 8300000, guid: 5c8adf0fb7c3f8844891c1210ee52ac4, type: 3}
+  hitClip: {fileID: 8300000, guid: 7d669522e0c64374790b1a47871d5e95, type: 3}
+  deathClip: {fileID: 8300000, guid: 7d669522e0c64374790b1a47871d5e95, type: 3}
   health: 2
   onFireEffect: {fileID: 7044887986423318337}
   frozenEffect: {fileID: 6993259267471238090}
   isDead: 0
   lookSpeed: 5
-  speed: 7
+  speed: 8
 --- !u!1001 &3127240047784535950
 PrefabInstance:
   m_ObjectHideFlags: 0

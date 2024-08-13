@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Game Stages
   m_EditorClassIdentifier: 
   stages:
-  - bossLevel: {fileID: 2359994474590604597, guid: cdac628d826dcee42a0a49623bb33e9f, type: 3}
+  - background: {fileID: 21300000, guid: 1aa7d12be66563446882f5e0f7528d93, type: 3}
+    platformLeft: {fileID: 137366997, guid: 49e7e5219e0fb054e9d103e47a482827, type: 3}
+    platformRight: {fileID: 921866494, guid: 59b0f7af233100f4f9c5b7e7b30a6de7, type: 3}
+    platformMiddle: {fileID: 1345221401, guid: d03fe03b44123b447beec2200db8ef2a, type: 3}
+    bossLevel: {fileID: 2359994474590604597, guid: cdac628d826dcee42a0a49623bb33e9f, type: 3}
     enemies:
     - prefab: {fileID: 4807991862043732585, guid: af0d28cde2467404aaccf76b7e76a9d8, type: 3}
       power: 1
@@ -37,7 +41,11 @@ MonoBehaviour:
       size: 0
     - enemyPower: 1
       size: 0
-  - bossLevel: {fileID: 0}
+  - background: {fileID: 21300000, guid: 30f6fdba822fa534d9232e802660792b, type: 3}
+    platformLeft: {fileID: -2023546924, guid: b825b539332b6b541bc1a1df0d027a2e, type: 3}
+    platformRight: {fileID: -1177524171, guid: b825b539332b6b541bc1a1df0d027a2e, type: 3}
+    platformMiddle: {fileID: -334494442, guid: b825b539332b6b541bc1a1df0d027a2e, type: 3}
+    bossLevel: {fileID: 0}
     enemies:
     - prefab: {fileID: 1905891116655892170, guid: 4af3bbcaa382ee5489576893118c57d6, type: 3}
       power: 3

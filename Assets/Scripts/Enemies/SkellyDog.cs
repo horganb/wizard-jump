@@ -11,12 +11,14 @@ namespace Enemies
         public float maxSpeed = 5f;
         public float speed = 10000f;
         public float attackInterval = 3f;
+        public float jumpInterval = 1f;
         public float distanceToRunTo = 1.5f;
         public float distanceToStartFollowing = 3f;
-        public Platform _targetPlatform;
         private float _attackCooldown;
+        private float _jumpCooldown;
         private Platform _lastPlatform;
         private bool _runningTowardsPlayer;
+        private Platform _targetPlatform;
 
         public override float MaxHealth => 3f;
 
@@ -25,7 +27,12 @@ namespace Enemies
         {
             base.OnCollisionEnter2D(col);
             var platform = col.gameObject.GetComponent<Platform>();
-            if (platform != null) _lastPlatform = platform;
+            if (platform != null)
+            {
+                if (_lastPlatform != platform) _jumpCooldown = jumpInterval;
+                _lastPlatform = platform;
+            }
+
             if (!isDead) EndPlatformPassThrough();
         }
 
@@ -38,6 +45,7 @@ namespace Enemies
         protected override void AliveUpdate()
         {
             if (_attackCooldown > 0f) _attackCooldown -= Time.deltaTime;
+            if (_jumpCooldown > 0f) _jumpCooldown -= Time.deltaTime;
             var vectorToPlayer = Player.Instance.transform.position - transform.position;
             if (IsGrounded())
                 if (WithinTriggerDistanceOfPlayer())
@@ -80,14 +88,24 @@ namespace Enemies
                         CalculateTargetPlatform();
                         if (_targetPlatform)
                         {
-                            RunTowards(_targetPlatform.gameObject);
                             var vectorToTarget = _targetPlatform.transform.position - transform.position;
                             if (Math.Abs(vectorToTarget.x) < 3f || AtEdgeOfPlatform())
                             {
-                                PlatformPassThrough();
                                 RigidBody.velocity = Vector2.zero;
-                                Utils.FlipXToFace(transform, GetTargetPlatformLandingLocation());
-                                Utils.ShootAt(RigidBody, GetTargetPlatformLandingLocation(), 8f, 1f);
+                                if (_jumpCooldown <= 0f)
+                                {
+                                    PlatformPassThrough();
+                                    Utils.FlipXToFace(transform, GetTargetPlatformLandingLocation());
+                                    Utils.ShootAt(RigidBody, GetTargetPlatformLandingLocation(), 8f, 1f);
+                                }
+                                else
+                                {
+                                    Animator.SetBool(Running, false);
+                                }
+                            }
+                            else
+                            {
+                                RunTowards(_targetPlatform.gameObject);
                             }
                         }
                     }

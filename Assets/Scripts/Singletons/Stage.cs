@@ -7,6 +7,10 @@ namespace Singletons
     [Serializable]
     public class Stage
     {
+        public Sprite background;
+        public Sprite platformLeft;
+        public Sprite platformRight;
+        public Sprite platformMiddle;
         public BossLevel bossLevel;
         public EnemyType[] enemies;
         public Level[] levels;

@@ -32,7 +32,7 @@ namespace Singletons
             GenerateLevel(1, 1);
         }
 
-        private void GeneratePlatformLayer()
+        private void GeneratePlatformLayer(Stage stage)
         {
             var centerX = Utils.RandomRangeAndSign(3f, 6f, 1);
             var centerY = _lastLocation.y + Random.Range(2f, 3f);
@@ -41,22 +41,28 @@ namespace Singletons
             {
                 var leftPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(-6f, -2f, 1), centerY);
                 var rightPlatformLocation = new Vector2(Utils.RandomRangeWithPrecision(2f, 6f, 1), centerY);
-                PlacePlatform(leftPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
-                PlacePlatform(rightPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1));
+                PlacePlatform(leftPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1), stage: stage);
+                PlacePlatform(rightPlatformLocation, Utils.RandomRangeWithPrecision(1f, 3f, 1), stage: stage);
             }
             else
             {
-                PlacePlatform(_lastLocation, Utils.RandomRangeWithPrecision(3f, 5f, 1));
+                PlacePlatform(_lastLocation, Utils.RandomRangeWithPrecision(3f, 5f, 1), stage: stage);
             }
         }
 
 
-        public void PlacePlatform(Vector2 location, float platformWidth, bool isReward = false)
+        public void PlacePlatform(Vector2 location, float platformWidth, bool isReward = false, Stage stage = null)
         {
             var platform = Instantiate(platformPrefab, location, Quaternion.identity, transform);
             var platformComponent = platform.GetComponent<Platform>();
             platformComponent.SetWidth(platformWidth);
             platformComponent.isReward = isReward;
+            if (stage is not null)
+            {
+                platformComponent.leftPlatform.GetComponent<SpriteRenderer>().sprite = stage.platformLeft;
+                platformComponent.rightPlatform.GetComponent<SpriteRenderer>().sprite = stage.platformRight;
+                platformComponent.middlePlatform.GetComponent<SpriteRenderer>().sprite = stage.platformMiddle;
+            }
         }
 
         private void GenerateRewardPlatform(bool isFirstLevel)
@@ -171,6 +177,7 @@ namespace Singletons
         public void GenerateLevel(int levelNum, int stageNum)
         {
             var stage = stages.stages[stageNum - 1];
+            Background.Instance.backgroundImage.sprite = stage.background;
             if (levelNum - 1 == stage.levels.Length)
             {
                 Lava.Instance.SetTarget(_lastLocation.y);
@@ -186,13 +193,14 @@ namespace Singletons
                 var level = stage.levels[levelNum - 1];
                 var size = level.size == 0 ? 30 : level.size;
                 for (var i = 0; i < size; i++)
-                    GeneratePlatformLayer();
+                    GeneratePlatformLayer(stage);
                 var isFirstLevel = levelNum == 1 && stageNum == 1;
                 GenerateRewardPlatform(isFirstLevel);
                 if (!isFirstLevel)
                 {
                     SpawnUrns();
                     SpawnEnemies(level.enemyPower, stage.enemies);
+                    if (levelNum == 1) LevelManager.Instance.StartMusic();
                 }
             }
         }

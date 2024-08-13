@@ -198,8 +198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalTriggerDistance: 6
   horizontalTriggerDistance: 10
-  hitClip: {fileID: 8300000, guid: 5c8adf0fb7c3f8844891c1210ee52ac4, type: 3}
-  deathClip: {fileID: 8300000, guid: 5c8adf0fb7c3f8844891c1210ee52ac4, type: 3}
+  hitClip: {fileID: 8300000, guid: 7d669522e0c64374790b1a47871d5e95, type: 3}
+  deathClip: {fileID: 8300000, guid: 7d669522e0c64374790b1a47871d5e95, type: 3}
   health: 4
   onFireEffect: {fileID: 4793972229674458035}
   frozenEffect: {fileID: 4408399417203366310}
@@ -207,9 +207,9 @@ MonoBehaviour:
   maxSpeed: 4
   speed: 5000
   attackInterval: 3
+  jumpInterval: 0.5
   distanceToRunTo: 1.5
   distanceToStartFollowing: 3
-  _targetPlatform: {fileID: 0}
 --- !u!82 &3569398293493008181
 AudioSource:
   m_ObjectHideFlags: 0

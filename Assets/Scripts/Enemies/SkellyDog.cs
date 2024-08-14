@@ -179,8 +179,8 @@ namespace Enemies
         {
             _targetPlatform = Player.Instance.lastStandingPlatform;
             if (!_targetPlatform) return;
-            foreach (var platform in FindObjectsOfType<Platform>())
-                if (platform.isEnabled && _lastPlatform is not null && platform != _lastPlatform &&
+            foreach (var platform in Platform.GetAllEnabledPlatforms())
+                if (_lastPlatform is not null && platform != _lastPlatform &&
                     Utils.IsBetween(
                         platform.gameObject,
                         _lastPlatform.gameObject, _targetPlatform.gameObject))

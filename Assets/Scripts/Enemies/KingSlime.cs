@@ -4,6 +4,7 @@ using Level;
 using Levels;
 using Singletons;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -52,8 +53,7 @@ namespace Enemies
             {
                 AudioSource.PlayClipAtPoint(lava.lavaDeathClip, transform.position);
                 transform.position = _startPos;
-                var platformChoices = FindObjectsOfType<Platform>().Where(p => p.isEnabled).ToArray();
-                _target = Utils.RandomFromArray(platformChoices);
+                _target = Utils.RandomFromArray(Platform.GetAllEnabledPlatforms());
                 health -= 5f;
             }
         }
@@ -72,12 +72,10 @@ namespace Enemies
             if (_shedTimer >= shedInterval)
             {
                 _shedTimer = 0f;
-                var slimeObject = Instantiate(slimePrefab, position, Quaternion.identity);
-                var direction = Player.Instance.transform.position.x < position.x
-                    ? Vector2.left
-                    : Vector2.right;
-                var forceVector = Vector2.up * 8f + direction * 6f;
-                slimeObject.GetComponent<Rigidbody2D>().AddForce(forceVector, ForceMode2D.Impulse);
+                var prefabToSpawn = Random.value > 0.8f ? bigSlimePrefab : slimePrefab;
+                var slimeObject = Instantiate(prefabToSpawn, position, Quaternion.identity);
+                Utils.ShootAt(slimeObject.GetComponent<Rigidbody2D>(),
+                    ChooseOtherPlatform().transform.position + Vector3.up, 8f);
             }
 
             _stateTimer += Time.deltaTime;
@@ -130,7 +128,7 @@ namespace Enemies
                 var justAboveTarget = RigidBody.velocity.y < 0f && yDiff <= -1f;
                 gameObject.layer = justAboveTarget
                     ? LayerMask.NameToLayer("TransparentFX")
-                    : LayerMask.NameToLayer("Platform Objects");
+                    : LayerMask.NameToLayer("Default");
                 if (_stateTimer >= 0.2f && IsGrounded())
                     EndJump();
                 else
@@ -152,8 +150,7 @@ namespace Enemies
         {
             _stateTimer = 0f;
             _state = State.Jumping;
-            var platformChoices = FindObjectsOfType<Platform>().Where(p => p != _target && p.isEnabled).ToArray();
-            _target = Utils.RandomFromArray(platformChoices);
+            _target = ChooseOtherPlatform();
             var verticalDistance = _target.transform.position.y - transform.position.y;
             var targetAdjustment = Vector2.up * (Math.Clamp(verticalDistance, 0f, 5f) * 3f);
             RigidBody.AddForce(Vector2.up * jumpHeight + targetAdjustment, ForceMode2D.Impulse);
@@ -179,6 +176,12 @@ namespace Enemies
             _stateTimer = 0f;
             _state = State.OnPlatform;
             Animator.SetTrigger(PostJump);
+        }
+
+        private Platform ChooseOtherPlatform()
+        {
+            var platformChoices = Platform.GetAllEnabledPlatforms().Where(p => p != _target).ToArray();
+            return Utils.RandomFromArray(platformChoices);
         }
 
         protected override void OnNonLethalHit(Vector2 impactVector)

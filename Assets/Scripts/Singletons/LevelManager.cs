@@ -57,7 +57,7 @@ namespace Singletons
         {
             var player = Player.Instance.gameObject;
             GameObject lowestPlatform = null;
-            foreach (var platform in FindObjectsOfType<Platform>())
+            foreach (var platform in Platform.GetAllEnabledPlatforms())
                 if (platform.isReward && platform.transform.position.y >= player.transform.position.y + 1f &&
                     (lowestPlatform == null ||
                      platform.transform.position.y < lowestPlatform.transform.position.y))

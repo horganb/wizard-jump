@@ -158,10 +158,10 @@ BoxCollider2D:
   m_LayerOverridePriority: 5
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7927
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7927
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295

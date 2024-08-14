@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Level
@@ -65,6 +66,11 @@ namespace Level
             foreach (var comp in colliders) comp.enabled = true;
             foreach (var comp in renderers) comp.enabled = true;
             isEnabled = true;
+        }
+
+        public static Platform[] GetAllEnabledPlatforms()
+        {
+            return FindObjectsOfType<Platform>().Where(p => p.isEnabled).ToArray();
         }
     }
 }

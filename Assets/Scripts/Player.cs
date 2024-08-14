@@ -199,8 +199,8 @@ public class Player : SingletonMonoBehaviour<Player>
         if (!isDead)
         {
             GameObject lowestPlatform = null;
-            foreach (var platform in FindObjectsOfType<Platform>())
-                if (platform.isEnabled && platform.transform.position.y >= lava.transform.position.y + 1f &&
+            foreach (var platform in Platform.GetAllEnabledPlatforms())
+                if (platform.transform.position.y >= lava.transform.position.y + 1f &&
                     (lowestPlatform == null ||
                      platform.transform.position.y < lowestPlatform.transform.position.y))
                     lowestPlatform = platform.gameObject;

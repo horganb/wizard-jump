@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1407563485360624734}
   - component: {fileID: 6977193009012978773}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 938973302739138640}
   - component: {fileID: 3701764727012352394}
   - component: {fileID: 4118623048900621146}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Fire Spot 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4420476986391919941}
   - component: {fileID: 4986567326965796503}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7711602502242798663}
   - component: {fileID: 5431953287054833835}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 4675861017611640357}
   - component: {fileID: 1108834851040541856}
   - component: {fileID: 5589606261522750822}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Fire Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2741292616430973538}
   - component: {fileID: 2546833336515072697}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 8440931271349267367}
   - component: {fileID: 3379810700870872385}
   - component: {fileID: 4447990986530106239}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Fire Spot 3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4477031419218054429}
   - component: {fileID: 5986945975273037573}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 657664957890081603}
   - component: {fileID: 8373260195241127254}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +861,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2586777340173280798}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Shoot Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 3957096155383590879}
   - component: {fileID: 155230313717966177}
   - component: {fileID: 4496904022378281828}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Fire Spot 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1015,7 +1015,7 @@ GameObject:
   - component: {fileID: 5808485210439690475}
   - component: {fileID: 7543651514920671058}
   - component: {fileID: 3976499267584143997}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Fire Spot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1138,7 +1138,7 @@ GameObject:
   - component: {fileID: 7002544114683763707}
   - component: {fileID: 8397548923231557746}
   - component: {fileID: 2888419675662404243}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Slime King
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,17 +1227,17 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7926
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7926
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 6807160638514273158}
   - component: {fileID: 4790172962201069762}
   - component: {fileID: 6998066035401383541}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Fire Spot 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1581,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2067515481230748648, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2067515481230748648, guid: 9f6653d155be7be45962bf63dc1708a8, type: 3}
       propertyPath: m_IsActive
@@ -1660,7 +1660,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 349960037622266048, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 882214429120620268, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1672,15 +1672,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1907508628292090645, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2453488150567660493, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2589860246584760861, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5377940127697821903, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Name
@@ -1688,7 +1688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5377940127697821903, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5377940127697821903, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_IsActive
@@ -1696,7 +1696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654887775541987737, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5923962910557389207, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1716,7 +1716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7500966374046197240, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8046543630541921541, guid: 0071910d0becc40408f5d6881465b308, type: 3}
       propertyPath: m_LocalScale.x

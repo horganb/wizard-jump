@@ -130,7 +130,7 @@ namespace Enemies
             color.a = 0.5f;
             SpriteRenderer.color = color;
             RigidBody.AddForce(impactVector * 3f, ForceMode2D.Impulse);
-            Collider.excludeLayers = LayerMask.GetMask("Platform", "Player");
+            Collider.excludeLayers = LayerMask.GetMask("Platform", "Player", "Player Projectiles");
             if (Random.value <= 0.2f)
                 Instantiate(PrefabLibrary.Instance.orbDrop, transform.position, Quaternion.identity);
         }

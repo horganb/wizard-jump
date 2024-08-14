@@ -1,4 +1,5 @@
 ﻿using Enemies;
+using UnityEngine;
 
 namespace Projectiles
 {
@@ -7,7 +8,7 @@ namespace Projectiles
         protected override void OnHitTarget(Hittable target)
         {
             base.OnHitTarget(target);
-            target.Freeze();
+            if (Random.value > 0.7f) target.Freeze();
         }
     }
 }
